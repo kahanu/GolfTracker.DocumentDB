@@ -1,0 +1,27 @@
+﻿{
+  "Name": "Joe Golfer",
+  "Handicap": 15,
+  "IsPlus": false,
+  "Rounds": [
+    {
+      "Score": 87,
+      "NetScore": 70,
+      "DatePlayed": "2015-05-15T19:05:07.026Z",
+      "DateEpoch": 1431716707,
+      "GolfCourse": {
+        "GolfClubName": "Desert Willow",
+        "GolfCourseName": "Mountain View",
+        "TeePlayed": {
+          "TeeName": "Blue",
+          "Gender": "Mens",
+          "Length": 6470,
+          "Slope": 128,
+          "Rating": 71.5,
+          "Par": 72
+        }
+      }
+    }
+  ],
+  "id": "4df3342e-4312-4f87-b5a8-8c182bd5ca60",
+  "type": "golfer"
+}

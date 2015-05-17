@@ -1,0 +1,23 @@
+﻿{
+    "Name": "Desert Willow",
+    "Location": "Palm Desert, CA",
+    "GolfCourses": [
+        {
+            "Name": "Firecliff",
+            "Tees": [
+                { "TeeName": "Silver", "Gender": "Mens", "Length": 7578, "Slope": 139, "Rating": 76.3, "Par": 72 },
+                { "TeeName": "Gold", "Gender": "Mens", "Length": 7146, "Slope": 135, "Rating": 74.2, "Par": 72 }
+            ]
+        },
+        {
+            "Name": "Mountain View",
+            "Tees": [
+                { "TeeName": "Black", "Gender": "Mens", "Length": 6913, "Slope": 130, "Rating": 73.4, "Par": 72 },
+                { "TeeName": "Blue", "Gender": "Mens", "Length": 6470, "Slope": 128, "Rating": 71.5, "Par": 72 }
+            ]
+        }
+    ],
+    "id": "f7cfc42e-9523-4070-8616-ad562003ff78",
+    "type": "golfclub"
+
+}

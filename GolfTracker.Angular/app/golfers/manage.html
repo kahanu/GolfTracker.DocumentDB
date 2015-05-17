@@ -1,0 +1,134 @@
+﻿<h1>Manage Golfers</h1>
+<p>You can manage golfers from this page.</p>
+<p>
+    <b>IMPORTANT!</b> Make sure you have golf clubs created first before adding golfers.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <button class="btn btn-success" type="button" ng-click="vm.showAddGolferForm()">
+            <span class="glyphicon glyphicon-plus"></span> Add Golfer
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Handicap Index</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="g in vm.golfers">
+                    <td>{{ g.Name }}</td>
+                    <td><span class="glyphicon glyphicon-plus xs" ng-if="g.IsPlus"></span>{{ g.Handicap }}</td>
+                    <td><button class="glyphicon glyphicon-edit" ng-click="vm.update($index)"></button></td>
+                    <td><button class="glyphicon glyphicon-trash" ng-click="vm.delete($index)"></button></td>
+                    <td><button ng-click="vm.showRoundForm($index)">Add Round</button></td>
+                    <td><button ng-click="vm.viewRounds($index)" ng-if="g.Rounds != null">Rounds <span class="badge">{{ g.Rounds.length }}</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <!-- Show the form to add a golfer. -->
+        <div class="panel panel-primary" ng-show="vm.golferFormIsVisible">
+            <div class="panel-heading">
+                {{ vm.dialogTitle }} Golfer
+            </div>
+            <div class="panel-body">
+                <form name="golferform" novalidate ng-submit="vm.submitGolferForm(golferform.$valid, vm.golfer)">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" required ng-model="vm.golfer.Name" />
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-9">
+                            <label>Handicap</label>
+                            <input type="number" class="form-control" required ng-model="vm.golfer.Handicap" />
+                        </div>
+                        <div class="checkbox col-md-3 is-plus">
+                            <label>
+                                <input type="checkbox" ng-model="vm.golfer.IsPlus" /> Is plus?
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-disabled="golferform.$invalid">Save</button>
+                    <button class="btn btn-default" ng-click="vm.cancelGolferForm()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Show the form to add rounds of golf for the selected golfer. -->
+        <div class="panel panel-primary" ng-show="vm.roundFormIsVisible">
+            <div class="panel-heading">
+                Add Round for {{ vm.golfer.Name }}
+            </div>
+            <div class="panel-body">
+                <form name="roundForm" novalidate ng-submit="vm.submitRoundForm(roundForm.$valid, vm.round)">
+                    <div class="form-group">
+                        <label>Score</label>
+                        <input type="number" class="form-control" ng-model="vm.round.Score" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Played</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{ vm.format }}" ng-model="vm.round.DatePlayed" is-open="vm.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" ui-date/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Golf Club</label>
+                        <select id="golfclub" class="form-control" required ng-model="vm.round.GolfCourse.GolfClubName" ng-change="vm.getGolfCourses()" ng-options="club.Name as club.Name for club in vm.golfclubs">
+                            <option value="">Select Golf Club</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Golf Course</label>
+                        <select id="golfcourse" class="form-control" required ng-model="vm.round.GolfCourse.GolfCourseName" ng-change="vm.getTees()" ng-disabled="!vm.round.GolfCourse.GolfClubName" ng-options="course.Name as course.Name for course in vm.golfcourses">
+                            <option value="">Select Golf Course</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tee</label>
+                        <select id="tee" class="form-control" required ng-model="vm.round.GolfCourse.TeePlayed" ng-disabled="!vm.round.GolfCourse.GolfCourseName" ng-options="tee as tee.TeeName for tee in vm.tees">
+                            <option value="">Select Tee</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button class="btn btn-default" ng-click="vm.cancelRoundForm()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- View the rounds of golf for the selected golfer. -->
+        <div class="panel panel-primary" ng-show="vm.viewRoundsIsVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">View Rounds for {{ vm.golfer.Name }}</h3>
+                <span class="glyphicon glyphicon-remove-sign panel-close-button" ng-click="vm.closeRoundsPanel()"></span>
+            </div>
+            <div class="panel-body">
+                <div class="round-block" ng-repeat="g in vm.rounds">
+                    <p>{{ g.DatePlayed | date }}</p>
+                    <h3>{{ g.GolfCourse.GolfClubName }} - {{ g.GolfCourse.GolfCourseName }}</h3>
+                    <span class="glyphicon glyphicon-remove" ng-click="vm.deleteRound($index)" title="Delete Round"></span>
+                    <div>
+                        {{ g.GolfCourse.TeePlayed.Gender }} {{ g.GolfCourse.TeePlayed.TeeName }} Tee - 
+                        Par: {{ g.GolfCourse.TeePlayed.Par }} - {{ g.GolfCourse.TeePlayed.Length }} yards - 
+                        Slope/Rating: {{ g.GolfCourse.TeePlayed.Slope }}/{{ g.GolfCourse.TeePlayed.Rating }}
+                    </div>
+                    <div class="score-block">
+                        Score: {{ g.Score }} - Net: {{ g.NetScore }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

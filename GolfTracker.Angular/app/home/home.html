@@ -1,0 +1,56 @@
+﻿<h1>Welcome to Golf Tracker (Azure DocumentDB)</h1>
+<p>
+    This is an AngularJS client that interacts with an ASP.NET WebApi 2 service that 
+    uses Windows Azure DocumentDB as the data store.  It's a reference application 
+    that shows some more "real-world" implementations of using DocumentDB with clients
+    in a flexible way.
+</p>
+
+<div class="row home-block">
+    <div class="col-md-6">
+        <h2>Overview</h2>
+        <p>This is a list of some of the technologies used in this application.</p>
+        <ul>
+            <li>Windows Azure DocumentDB</li>
+            <li>ASP.NET WebApi 2</li>
+            <li>Angular JS</li>
+        </ul>
+        <p>I built this application as a proof-of-concept to test whether I could use DocumentDB in a certain fashion 
+        that is needed for an upcoming project.
+        </p>
+        <h3>Single Collection Concept</h3>
+        <p>
+            Since DocumentDB is a new NoSql offering from Azure, and since I'm new to NoSql I wanted to "test the waters",
+            with some concepts I needed to use with DocumentDB.
+        </p>
+        <p>
+            The <b>single-collection concept</b> (which I'm coining), means that due to certain pricing policies, I need to initially
+            store all of my data in a single collection.  So I needed an easy-to-replicate way of handling this when I wanted
+            to create a new "schema".  This application demonstrates this. 
+        </p>
+        <p>
+            You can find out more about this at <a href="http://www.nosqlcentral.net">http://www.nosqlcentral.net</a>.
+        </p>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Golfers</h3>
+            </div>
+            <div class="panel-body">
+                <p>Click either button to view golfers or manage golfers.</p>
+                <a href="#/golfers" class="btn btn-primary btn-lg">Golfers</a>
+                <a href="#/managegolfers" class="btn btn-info btn-lg">Manage Golfers</a>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Golf Clubs</h3>
+            </div>
+            <div class="panel-body">
+                <p>Click the button to manage golf clubs.</p>
+                <a href="#/golfclubs" class="btn btn-warning btn-lg">Golf Clubs</a>
+            </div>
+        </div>
+    </div>
+</div>

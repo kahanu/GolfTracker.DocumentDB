@@ -1,0 +1,172 @@
+﻿<h1>Golf Clubs</h1>
+<p>Enter golf club information here.</p>
+
+<div class="row">
+    <div class="col-md-7">
+        <button class="btn btn-success" type="button" ng-click="vm.showGolfClubForm()">
+            <span class="glyphicon glyphicon-plus"></span> Add Golf Club
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Golf Club</th>
+                    <th>Location</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="gc in vm.golfclubs">
+                    <td>{{ gc.Name }}</td>
+                    <td>{{ gc.Location }}</td>
+                    <td><button class="glyphicon glyphicon-edit" ng-click="vm.update($index)" title="Edit {{ gc.Name }}"></button></td>
+                    <td><button class="glyphicon glyphicon-trash" ng-click="vm.delete($index)" title="Delete {{ gc.Name }}"></button></td>
+                    <td><button ng-click="vm.showCourseForm($index)">Add Course</button></td>
+                    <td><button ng-click="vm.showGolfCoursesTable($index)" ng-if="gc.GolfCourses.length > 0">Courses <span class="badge">{{ gc.GolfCourses.length }}</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-5">
+        <!-- Form for managing Golf Clubs -->
+        <div class="panel panel-primary" ng-show="vm.golfClubFormIsVisible">
+            <div class="panel-heading">
+                {{ vm.dialogTitle }} Golf Club
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>Golf Club</label>
+                        <input type="text" class="form-control" id="golfClubName" required ng-model="vm.golfclub.Name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" ng-model="vm.golfclub.Location" />
+                    </div>
+                    <button class="btn btn-primary" ng-click="vm.insertOrUpdate(vm.golfclub)">Save</button>
+                    <button class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!--  Form for managing Golf Courses for the selected golf club.  -->
+        <div class="panel panel-primary" ng-show="vm.golfCourseFormIsVisible">
+            <div class="panel-heading">
+                {{ vm.courseFormTitle }} Course - {{ vm.golfclub.Name }}
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" class="form-control" id="golfCourseName" required ng-model="vm.golfcourse.Name" />
+                    </div>
+                    <button class="btn btn-primary" ng-click="vm.addOrUpdateCourse(vm.golfclub.id, vm.golfcourse)">{{ vm.courseFormTitle }} Course</button>
+                    <button class="btn btn-default" ng-click="vm.cancelAddCourse()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- The Table showing the golf courses for the selected golf club, to add tees. -->
+        <div class="panel panel-primary" ng-show="vm.golfCoursesTableIsVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">Golf Courses for {{ vm.golfclub.Name }}</h3>
+                <span class="glyphicon glyphicon-remove-sign panel-close-button" ng-click="vm.closeCoursesPanel()"></span>
+            </div>
+            <div class="panel-body">
+                <div ng-repeat="gc in vm.golfclub.GolfCourses">
+                    <div class="row tee-row">
+                        <div class="col-md-9">
+                            <h3>{{ gc.Name }} <span class="glyphicon glyphicon-pencil small" title="Edit Course" ng-click="vm.editCourse(vm.golfclub, gc, $index)"></span> <span class="glyphicon glyphicon-remove small" title="Delete Course" ng-click="vm.deleteCourse(vm.golfclub, gc, $index)"></span></h3>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Par</th>
+                                        <th>Length</th>
+                                        <th>Slope</th>
+                                        <th>Rating</th>
+                                        <th></th>
+                                        <th><span class="glyphicon glyphicon-plus text-success" title="Add a new tee" ng-click="vm.showTeeForm(vm.golfclub.id, $index)"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="tee in gc.Tees">
+                                        <td>{{ tee.TeeName }}</td>
+                                        <td>{{ tee.Gender }}</td>
+                                        <td>{{ tee.Par }}</td>
+                                        <td>{{ tee.Length }}</td>
+                                        <td>{{ tee.Slope }}</td>
+                                        <td>{{ tee.Rating }}</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-edit" title="Edit Tee" ng-click="vm.editTee(gc, $index)"></span>
+                                        </td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" title="Delete Tee" ng-click="vm.deleteTee(vm.golfclub, gc, $index)"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The form for adding a Tee to the selected golf course. -->
+        <div class="panel panel-danger" ng-show="vm.teeFormIsVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ vm.teeFormTitle }} Tee for {{ vm.golfclub.Name }} - {{ vm.golfcourse.Name }}</h3>
+            </div>
+            <div class="panel-body">
+                <form class="tee-form" name="teeform" novalidate ng-submit="vm.submitTeeForm(teeform.$valid, vm.golfclub.id, vm.golfcourse, vm.tee)">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Name</label>
+                            <input type="text" name="Name" class="form-control" required ng-model="vm.tee.TeeName" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Gender</label>
+                            <select class="form-control" name="Gender" ng-model="vm.tee.Gender">
+                                <option value="Mens">Men's</option>
+                                <option value="Ladies">Ladies</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Length</label>
+                            <input type="number" name="Length" class="form-control" required ng-model="vm.tee.Length" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Par</label>
+                            <input type="number" name="Par" class="form-control" required ng-model="vm.tee.Par" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Slope</label>
+                            <input type="number" name="Slope" class="form-control" required ng-model="vm.tee.Slope" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Rating</label>
+                            <input type="text" name="Rating" class="form-control" ng-model="vm.tee.Rating" />
+                        </div>
+                    </div>
+                    <button type="submit" ng-disabled="teeform.$invalid" class="btn btn-primary">{{ vm.teeFormTitle }} Tee</button>
+                    <button type="button" class="btn btn-default" ng-click="vm.cancelTeeForm()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

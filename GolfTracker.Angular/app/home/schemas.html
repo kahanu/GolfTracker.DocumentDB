@@ -1,0 +1,199 @@
+﻿<h1>Schemas</h1>
+<p>
+    This page shows the two types of &quot;schemas&quot; used in this application and some of the 
+    .Net classes used in the WebApi 2 service.
+    
+</p>
+<p>
+    <b>Important!</b> Notice the "type" field on each document, this is how you can store various
+    different shapes of documents in the same collection, and then easily retrieve them. 
+</p>
+<button class="btn btn-primary btn-lg" ng-click="vm.showGolferJSON()">Golfer Schema</button>
+<button class="btn btn-info btn-lg" ng-click="vm.showGolfClubJSON()">Golf Club Schema</button>
+<button class="btn btn-info btn-lg" ng-click="vm.showEntityBaseClass()">EntityBase Class</button>
+<button class="btn btn-info btn-lg" ng-click="vm.showGolferClass()">Golfer Class</button>
+<button class="btn btn-info btn-lg" ng-click="vm.showGolfClubClass()">Golf Club Class</button>
+
+<p>&nbsp;</p>
+
+<div class="panel panel-primary" ng-show="vm.GolferJSONIsVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">Golfer JSON document</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            This is what the golfer JSON document will look like.  <b>NOTE: </b> - notice the use
+            of the "type" field in the root of the document.  This will be included with every query.
+            This feature is already built into the repository. See the WebApi/Repositories/RepositoryBase
+            class for how it's used.
+        </p>
+        <pre class="brush: js;">{
+    "Name": "Joe Golfer",
+    "Handicap": 15,
+    "IsPlus": false,
+    "Rounds": [
+    {
+        "Score": 87,
+        "NetScore": 70,
+        "DatePlayed": "2015-05-15T19:05:07.026Z",
+        "DateEpoch": 1431716707,
+        "GolfCourse": {
+        "GolfClubName": "Desert Willow",
+        "GolfCourseName": "Mountain View",
+        "TeePlayed": {
+            "TeeName": "Blue",
+            "Gender": "Mens",
+            "Length": 6470,
+            "Slope": 128,
+            "Rating": 71.5,
+            "Par": 72
+        }
+        }
+    }
+    ],
+    "id": "4df3342e-4312-4f87-b5a8-8c182bd5ca60",
+    "type": "golfer"
+}
+        </pre>
+
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="vm.GolfClubJSONIsVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">Golf Club JSON document</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            This is the golf club JSON document.  You can see here the "type" field and how it can easily organize
+            all golf club documents together.  So even though both the golfer and golf club documents are completely
+            different shapes, it's easy to store them in the same DocumentDB Collection but still have complete
+            control over document access.
+        </p>
+        <pre class="brush: js">{
+    "Name": "Desert Willow",
+    "Location": "Palm Desert, CA",
+    "GolfCourses": [
+        {
+            "Name": "Firecliff",
+            "Tees": [
+                { "TeeName": "Silver", "Gender": "Mens", "Length": 7578, "Slope": 139, "Rating": 76.3, "Par": 72 },
+                { "TeeName": "Gold", "Gender": "Mens", "Length": 7146, "Slope": 135, "Rating": 74.2, "Par": 72 }
+            ]
+        },
+        {
+            "Name": "Mountain View",
+            "Tees": [
+                { "TeeName": "Black", "Gender": "Mens", "Length": 6913, "Slope": 130, "Rating": 73.4, "Par": 72 },
+                { "TeeName": "Blue", "Gender": "Mens", "Length": 6470, "Slope": 128, "Rating": 71.5, "Par": 72 }
+            ]
+        }
+    ],
+    "id": "f7cfc42e-9523-4070-8616-ad562003ff78",
+    "type": "golfclub"
+}
+        </pre>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="vm.EntityBaseClassIsVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">EntityBase class</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            This is the base class that all "root" entity classes must inherit.  This enables an
+            easy way to organze entities into groups for storage in DocumentDB.
+        </p>
+        <p>
+            As you can see the base class passes a "type" string from the derived class that will
+            be the name of that entity, such as "golfer", or "golfclub".  This will organize the
+            JSON documents in the database for easy storage and querying.
+        </p>
+        <pre class="brush: csharp">
+    /// &lt;summary&gt;
+    /// This is the base class that all root entity classes inherit.  This will 
+    /// allow the type of entity to be passed in which is used for the 
+    /// Where predicate in the RepositoryBase class.
+    /// &lt;/summary&gt;
+    public class EntityBase
+    {
+        private readonly string _type;
+        /// &lt;summary&gt;
+        /// All root entities inherit this base class.
+        /// &lt;/summary&gt;
+        /// &lt;param name="type"&gt;The name of the type of entity (lowercase).&lt;/param&gt;
+        public EntityBase(string type)
+        {
+            this._type = type;
+        }
+        /// &lt;summary&gt;
+        /// This is need for querying in the RepositoryBase. Used by DocumentDB.
+        /// &lt;/summary&gt;
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
+        
+        /// &lt;summary&gt;
+        /// This type field will be used to organize the documents by &quot;type&quot; in 
+        /// DocumentDB in a single-collection scenario.  The type is just the lowercase
+        /// name of the derived class.
+        /// &lt;/summary&gt;
+        public string type { get { return _type; } }
+    }
+</pre>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="vm.GolferClassIsVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">Golfer Entity</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            This is the root class for the Golfer "tree", so it's the only class that needs
+            to inherit from EntityBase.  Then you just need to pass the lowercase name of the
+            class itself, which is just "golfer", to the base class in the constructor.
+        </p>
+        <p>
+            This will be generated as a "type" field in the JSON object for this type which
+            will be used for organizing the documents into groups in the DocumentDB collection.
+        </p>
+        <pre class="brush: csharp">    public class Golfer : EntityBase
+    {
+        public Golfer():base(&quot;golfer&quot;)  &lt;-- lower case string of the class name.
+        {
+        }
+        [Required]
+        public string Name { get; set; }
+        public decimal Handicap { get; set; }
+        public bool IsPlus { get; set; }
+        public List&lt;round&gt; Rounds { get; set; }
+    }</pre>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="vm.GolfClubClassIsVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">Golf Club Entity</h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            This is the root class for the Golf Club "tree" of classes, so it's the only one that needs
+            to inherit from EntityBase. When it does, you need to include the lowercase name of the entity
+            which is simply "golfclub".
+        </p>
+        <pre class="brush: csharp">    
+    public class GolfClub : EntityBase
+    {
+        public GolfClub():base(&quot;golfclub&quot;) &lt;-- lower case string of the class name.
+        {
+        }
+        [Required]
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public List&lt;GolfCourse&gt; GolfCourses { get; set; }
+    }</pre>
+    </div>
+</div>
+
+
