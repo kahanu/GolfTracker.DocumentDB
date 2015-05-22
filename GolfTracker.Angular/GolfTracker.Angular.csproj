@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\bower_components\angular-event-aggregator\angular-event-aggregator.js" />
+    <Content Include="app\bower_components\angular-event-aggregator\angular-event-aggregator.min.js" />
     <Content Include="app\bower_components\angular-local-storage\.bower.json" />
     <Content Include="app\bower_components\angular-local-storage\.bowerrc" />
     <Content Include="app\bower_components\angular-local-storage\.travis.yml" />
@@ -65,12 +67,27 @@
     <Content Include="app\bower_components\angular-local-storage\LICENSE" />
     <Content Include="app\bower_components\angular-local-storage\package.json" />
     <Content Include="app\bower_components\angular-local-storage\README.md" />
+    <Content Include="app\home\confirmemail.html" />
+    <Content Include="app\home\login.html" />
     <Content Include="app\home\schemas.html" />
     <Content Include="app\home\schemasController.js" />
+    <Content Include="app\home\signup.html" />
+    <Content Include="app\home\signupController.js" />
+    <Content Include="app\home\loginController.js" />
+    <Content Include="app\home\indexController.js" />
+    <Content Include="app\home\confirmEmailController.js" />
+    <Content Include="app\services\authInterceptorService.js" />
+    <Content Include="app\services\authService.js" />
+    <Content Include="Content\syntaxhighlighter\shCore.css" />
     <Content Include="Content\syntaxhighlighter\shCoreDefault.css" />
+    <Content Include="Content\syntaxhighlighter\shThemeDefault.css" />
     <Content Include="favicon.ico" />
     <Content Include="schemas\golfclub.json" />
     <Content Include="schemas\golfer.json" />
+    <Content Include="app\bower_components\angular-event-aggregator\.bower.json" />
+    <Content Include="app\bower_components\angular-event-aggregator\bower.json" />
+    <Content Include="app\bower_components\angular-event-aggregator\LICENSE" />
+    <Content Include="app\bower_components\angular-event-aggregator\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

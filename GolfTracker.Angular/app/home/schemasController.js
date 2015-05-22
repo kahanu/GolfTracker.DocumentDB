@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('golftracker')
-        .controller('schemasController', ["$http", "golferService", "golfClubService", function ($http, golferService, golfClubService) {
+        .controller('schemasController', [function () {
             var vm = this;
 
             vm.json = {};

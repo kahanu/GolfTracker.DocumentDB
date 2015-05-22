@@ -2,15 +2,16 @@
 <html ng-app="golftracker">
 <head>
     <title>Golf Tracker (Azure DocumentDB)</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/font-awesome.min.css" rel="stylesheet" />
     <link href="Content/app.css" rel="stylesheet" />
     <link href="Content/datetimepicker.css" rel="stylesheet" />
-    <link href="Content/syntaxhighlighter/shCoreDefault.css" rel="stylesheet" />
-    <script src="Scripts/syntaxhighlighter/shCore.js"></script>
-    <script src="Scripts/syntaxhighlighter/shBrushJScript.js"></script>
-    <script src="Scripts/syntaxhighlighter/shBrushCSharp.js"></script>
+    <link href="Content/syntaxhighlighter/shCore.css" rel="stylesheet" />
+    <link href="Content/syntaxhighlighter/shThemeDefault.css" rel="stylesheet" />
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     <meta name="author" content="King Wilder" />
@@ -30,11 +31,28 @@
                 </button>
                 <a class="navbar-brand" href="#/home">Golf Tracker</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse" ng-controller="indexController as vm">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#/home">Home</a></li>
                     <li><a href="#/schemas">Schemas</a></li>
                 </ul>
+
+
+                <div ng-switch on="vm.isAuthenticated">
+                    <div ng-switch-when="true">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a>Welcome User!</a></li>
+                            <li><a href="" ng-click="vm.logOut()">Log out</a></li>
+                        </ul>
+                    </div>
+                    <div ng-switch-when="false">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#/login">Sign In</a></li>
+                            <li><a href="#/signup">Sign Up</a></li>
+                        </ul>
+                    </div>
+                </div>
+
 
             </div><!--/.nav-collapse -->
         </div>
@@ -48,6 +66,7 @@
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-route.min.js"></script>
     <script src="app/bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="app/bower_components/angular-event-aggregator/angular-event-aggregator.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
     <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
@@ -58,13 +77,24 @@
     <script src="app/services/golferService.js"></script>
     <script src="app/services/golfClubService.js"></script>
     <script src="app/services/handicapCalculatorService.js"></script>
+    <script src="app/services/authInterceptorService.js"></script>
+    <script src="app/services/authService.js"></script>
 
+    <!--Controllers-->
+    <script src="app/home/indexController.js"></script>
     <script src="app/home/homeController.js"></script>
     <script src="app/home/schemasController.js"></script>
     <script src="app/golfers/golferController.js"></script>
     <script src="app/golfclubs/golfClubController.js"></script>
+    <script src="app/home/signupController.js"></script>
+    <script src="app/home/loginController.js"></script>
+    <script src="app/home/confirmEmailController.js"></script>
 
-
-    <script type="text/javascript">SyntaxHighlighter.all();</script>
+    <script>
+        $(".nav a").on("click", function () {
+            $(".nav").find(".active").removeClass("active");
+            $(this).parent().addClass("active");
+        });
+    </script>
 </body>
 </html>

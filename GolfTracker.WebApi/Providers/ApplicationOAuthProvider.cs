@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using GolfTracker.WebApi.Helpers;
+using GolfTracker.WebApi.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using GolfTracker.WebApi.Models;
 
 namespace GolfTracker.WebApi.Providers
 {
@@ -29,6 +28,12 @@ namespace GolfTracker.WebApi.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            // http://www.codeproject.com/Articles/742532/Using-Web-API-Individual-User-Account-plus-CORS-En
+            // This article helped me track down the issue that even though CORS is enabled application-wide, 
+            // it still doesn't affect this OWIN component, so we have to enable it here also.
+            string origins = AppSettingsConfig.CorsPolicyOrigins;
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[] { origins });
+
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
@@ -36,6 +41,12 @@ namespace GolfTracker.WebApi.Providers
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "User did not confirm email.");
                 return;
             }
 

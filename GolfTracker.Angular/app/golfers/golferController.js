@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('golftracker')
-        .controller('golferController', ["golferService", "golfClubService", "handicapCalculatorService",
-            function (golferService, golfClubService, handicapCalculatorService) {
+        .controller('golferController', ["golferService", "golfClubService", "handicapCalculatorService","authService",
+            function (golferService, golfClubService, handicapCalculatorService, authService) {
                 var vm = this;
 
                 vm.golfcoursename = "";
@@ -21,6 +21,8 @@
                 vm.roundFormIsVisible = false;
                 vm.viewRoundsIsVisible = false;
                 vm.dialogTitle = "";
+
+                vm.isAuthenticated = authService.authentication.isAuth;
 
                 // Load the list of golfers.
                 golferService.getGolfers()

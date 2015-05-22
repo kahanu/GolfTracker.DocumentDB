@@ -1,11 +1,20 @@
-﻿<h1>Schemas</h1>
+﻿
+
+<script src="Scripts/syntaxhighlighter/shCore.js"></script>
+<script src="Scripts/syntaxhighlighter/shBrushJScript.js"></script>
+<script src="Scripts/syntaxhighlighter/shBrushCSharp.js"></script>
+
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+
+<h1>Schemas for DocumentDB</h1>
 <p>
-    This page shows the two types of &quot;schemas&quot; used in this application and some of the 
+    This page shows the two types of &quot;schema&quot; used in this application and some of the 
     .Net classes used in the WebApi 2 service.
     
 </p>
 <p>
-    <b>Important!</b> Notice the "type" field on each document, this is how you can store various
+    <b>Important!</b> Notice the <b>"type"</b> field on each document, this is how you can store various
     different shapes of documents in the same collection, and then easily retrieve them. 
 </p>
 <button class="btn btn-primary btn-lg" ng-click="vm.showGolferJSON()">Golfer Schema</button>
@@ -27,7 +36,8 @@
             This feature is already built into the repository. See the WebApi/Repositories/RepositoryBase
             class for how it's used.
         </p>
-        <pre class="brush: js;">{
+        <pre class="brush: js; highlight: [21]">
+{
     "Name": "Joe Golfer",
     "Handicap": 15,
     "IsPlus": false,
@@ -38,25 +48,25 @@
         "DatePlayed": "2015-05-15T19:05:07.026Z",
         "DateEpoch": 1431716707,
         "GolfCourse": {
-        "GolfClubName": "Desert Willow",
-        "GolfCourseName": "Mountain View",
-        "TeePlayed": {
-            "TeeName": "Blue",
-            "Gender": "Mens",
-            "Length": 6470,
-            "Slope": 128,
-            "Rating": 71.5,
-            "Par": 72
-        }
+            "GolfClubName": "Desert Willow",
+            "GolfCourseName": "Mountain View",
+            "TeePlayed": {
+                "TeeName": "Blue",
+                "Gender": "Mens",
+                "Length": 6470,
+                "Slope": 128,
+                "Rating": 71.5,
+                "Par": 72
+            }
         }
     }
     ],
     "id": "4df3342e-4312-4f87-b5a8-8c182bd5ca60",
     "type": "golfer"
 }
-        </pre>
+            </pre>
 
-    </div>
+</div>
 </div>
 
 <div class="panel panel-primary" ng-show="vm.GolfClubJSONIsVisible">
@@ -195,5 +205,4 @@
     }</pre>
     </div>
 </div>
-
 

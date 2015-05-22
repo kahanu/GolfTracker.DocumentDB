@@ -8,6 +8,7 @@ using GolfTracker.WebApi.Repositories;
 
 namespace GolfTracker.WebApi.Controllers.api
 {
+    [Authorize]
     [RoutePrefix("api/golfclub")]
     public class GolfClubController : ApiController
     {
@@ -24,6 +25,7 @@ namespace GolfTracker.WebApi.Controllers.api
 
         #region Standard CRUD
 
+        [AllowAnonymous]
         public IEnumerable<GolfClub> Get()
         {
             var result = _repo.Get();

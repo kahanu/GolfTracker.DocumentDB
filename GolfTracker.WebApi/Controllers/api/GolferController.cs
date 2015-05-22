@@ -24,6 +24,7 @@ namespace GolfTracker.WebApi.Controllers.api
 
         #region Standard CRUD
 
+        [AllowAnonymous]
         public IEnumerable<Golfer> Get()
         {
             var result = _repo.Get();
@@ -36,6 +37,7 @@ namespace GolfTracker.WebApi.Controllers.api
             return _repo.GetById(id);
         }
 
+        [Authorize]
         public async Task<IHttpActionResult> Post([FromBody]Golfer entity)
         {
             var result = await _repo.CreateDocumentAsync(entity);
@@ -45,6 +47,7 @@ namespace GolfTracker.WebApi.Controllers.api
             return Ok(model);
         }
 
+        [Authorize]
         public async Task<IHttpActionResult> Put(string id, [FromBody]Golfer entity)
         {
             await _repo.UpdateDocumentAsync(entity);
@@ -53,6 +56,7 @@ namespace GolfTracker.WebApi.Controllers.api
             return Ok(model);
         }
 
+        [Authorize]
         public async Task<IHttpActionResult> Delete(string id)
         {
             await _repo.DeleteDocumentAsync(id);

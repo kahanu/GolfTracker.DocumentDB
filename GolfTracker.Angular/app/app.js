@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module("golftracker", ["ngRoute","ui.bootstrap"]);
+    var app = angular.module("golftracker", ["ngRoute","ui.bootstrap","LocalStorageModule","ngEventAggregator"]);
 
     app.constant('mySettings', {
         apiUriBase: 'http://localhost:55715/',
@@ -11,7 +11,14 @@
 
         $routeProvider.when("/home", {
             controller: "homeController",
+            controllerAs: "vm",
             templateUrl: "/app/home/home.html"
+        });
+
+        $routeProvider.when("/confirmemail", {
+            controller: "confirmEmailController",
+            controllerAs: "vm",
+            templateUrl: "/app/home/confirmemail.html"
         });
 
         $routeProvider.when("/golfclubs", {
@@ -38,8 +45,30 @@
             templateUrl: "/app/home/schemas.html"
         });
 
+        $routeProvider.when("/signup", {
+            controller: "signupController",
+            controllerAs: "vm",
+            templateUrl: "/app/home/signup.html"
+        });
+
+        $routeProvider.when("/login", {
+            controller: "indexController",
+            controllerAs: "vm",
+            templateUrl: "/app/home/login.html"
+        });
+
+
 
         $routeProvider.otherwise({ redirectTo: '/home' });
     }]);
+
+    app.config(function ($httpProvider) {
+        $httpProvider.interceptors.push('authInterceptorService');
+    });
+
+    app.run(['authService', function (authService) {
+        authService.fillAuthData();
+    }]);
+
 
 })();

@@ -6,17 +6,16 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
+using DocumentDB.AspNet.Identity;
+using GolfTracker.WebApi.Helpers;
+using GolfTracker.WebApi.Models;
+using GolfTracker.WebApi.Providers;
+using GolfTracker.WebApi.Results;
 using Microsoft.AspNet.Identity;
-//using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using GolfTracker.WebApi.Models;
-using GolfTracker.WebApi.Providers;
-using GolfTracker.WebApi.Results;
-using DocumentDB.AspNet.Identity;
 
 namespace GolfTracker.WebApi.Controllers
 {
@@ -337,6 +336,13 @@ namespace GolfTracker.WebApi.Controllers
             {
                 return GetErrorResult(result);
             }
+            else
+            {
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                string clientSite = AppSettingsConfig.ClientSite;
+                var callbackUrl = clientSite + "/#/confirmemail?userId=" + user.Id + "&code=" + code;
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            }
 
             return Ok();
         }
@@ -383,6 +389,42 @@ namespace GolfTracker.WebApi.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+
+        /// <summary>
+        /// This confirms the registration code for the new user.
+        /// </summary>
+        /// <param name="userId">The UserId for the registering user.</param>
+        /// <param name="code">The code used to validate the registration.</param>
+        /// <returns></returns>
+        [Route("confirmemail")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return BadRequest("UserId and/or Code is missing.");
+            }
+            try
+            {
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return GetErrorResult(result);
+                }
+
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
 
         #region Helpers
