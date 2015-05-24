@@ -44,9 +44,10 @@ namespace GolfTracker.WebApi.Providers
                 return;
             }
 
+            // I needed to add this in order to check if the email was confirmed when a user log on.
             if (!user.EmailConfirmed)
             {
-                context.SetError("invalid_grant", "User did not confirm email.");
+                context.SetError("email_not_confirmed", "User did not confirm email.");
                 return;
             }
 

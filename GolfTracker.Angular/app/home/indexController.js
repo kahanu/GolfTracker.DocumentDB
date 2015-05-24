@@ -9,7 +9,8 @@
             vm.login = {};
             vm.success = false;
             vm.message = "";
-            //vm.isAuthenticated = false;
+            vm.resendEmailConfirmationLinkIsVisible = false;
+            vm.resend = {};
 
             vm.logOut = function () {
                 authService.logOut();
@@ -25,9 +26,23 @@
                     vm.success = true;
                     //eventAggregator.trigger("isAuthenticated", true);
                     vm.isAuthenticated = true;
-                    //$scope.$apply();
                     console.log("index/vm.submitLoginForm().vm.isAuthenticated: " + vm.isAuthenticated);
                     $location.path("/home");
+                }, function (err) {
+                    if (err.error === "email_not_confirmed") {
+                        vm.resendEmailConfirmationLinkIsVisible = true;
+                    }
+                    vm.message = err.error_description;
+                });
+            };
+
+            vm.resendConfirmEmail = function (userName) {
+                vm.resend.Email = userName;
+                
+                authService.resendConfirmEmail(vm.resend).then(function (response) {
+                    vm.success = true;
+                    vm.message = "Check your email to confirm your email address.";
+                    vm.resendEmailConfirmationLinkIsVisible = false;
                 }, function (err) {
                     vm.message = err.error_description;
                 });

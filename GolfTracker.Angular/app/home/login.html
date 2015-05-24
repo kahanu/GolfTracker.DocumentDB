@@ -12,7 +12,7 @@
             </div>
             <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
             <div data-ng-hide="vm.message == ''" data-ng-class="(vm.success) ? 'alert alert-success' : 'alert alert-danger'">
-                {{vm.message}}
+                {{vm.message}} <div ng-show="vm.resendEmailConfirmationLinkIsVisible"><a href="" ng-click="vm.resendConfirmEmail(vm.login.userName)">Re-send confirmation email</a></div>
             </div>
         </form>
     </div>

@@ -5,7 +5,7 @@
         .controller('confirmEmailController', ["$routeParams","authService", function ($routeParams, authService) {
             var vm = this;
 
-            //vm.title = "Congratulations!";
+            vm.title = "Processing request... please wait.";
             vm.message = "";
 
             var userId = $routeParams.userId;

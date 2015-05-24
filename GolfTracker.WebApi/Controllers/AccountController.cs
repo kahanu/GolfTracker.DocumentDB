@@ -338,10 +338,23 @@ namespace GolfTracker.WebApi.Controllers
             }
             else
             {
+                // Generate the Email Confirmation Token
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                // UrlEncode the token
+                code = HttpUtility.UrlEncode(code);
+
+                // Get the Host from the appSettings.  http://www.myclientsite.com
                 string clientSite = AppSettingsConfig.ClientSite;
+
+                // Build the Url that will be used for the link in the email message.
                 var callbackUrl = clientSite + "/#/confirmemail?userId=" + user.Id + "&code=" + code;
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                // Build the callback message for the email.
+                var callbackMessage = "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>";
+
+                // Send the email. Remember to set the system.net/mailSettings/smtp/network configuration in the web.config.
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", callbackMessage);
             }
 
             return Ok();
@@ -399,7 +412,7 @@ namespace GolfTracker.WebApi.Controllers
         /// <param name="code">The code used to validate the registration.</param>
         /// <returns></returns>
         [Route("confirmemail")]
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ConfirmEmail(string userId, string code)
         {
@@ -409,6 +422,15 @@ namespace GolfTracker.WebApi.Controllers
             }
             try
             {
+                // UrlDecode the token
+                code = HttpUtility.UrlDecode(code);
+
+                // IMPORTANT STEP!!! The UrlDecode removes all '+' from the 
+                // originally generated token and replaces it with spaces ' '.
+                // We have to put the + signs back.
+                code = code.Replace(' ', '+');
+
+                // Now confirm the email and it should work!
                 var result = await UserManager.ConfirmEmailAsync(userId, code);
                 if (result.Succeeded)
                 {
@@ -425,6 +447,91 @@ namespace GolfTracker.WebApi.Controllers
                 
                 throw;
             }
+        }
+
+
+        /// <summary>
+        /// Takes the email address which will send an email to the user 
+        /// with a link to the ResetPassword form.
+        /// </summary>
+        /// <param name="model">With email address.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("forgotpassword")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    //return View("ForgotPasswordConfirmation");
+                    ModelState.AddModelError("", "Email is not confirmed.");
+                    return BadRequest(ModelState);
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+                string clientSite = AppSettingsConfig.ClientSite;
+
+                var callbackUrl = clientSite + "/#/resetpassword?userId=" + user.Id + "&code=" + code;
+                await _userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Take the ResetPassword form data to reset the password.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>An HTTP Status code - 200 (OK) or 400 (Bad Request)</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("resetpassword")]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _userManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return BadRequest(ModelState);
+            }
+            var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
+        [AllowAnonymous]
+        [Route("resendconfirmemail")]
+        public async Task<IHttpActionResult> ResendConfirmEmail(ResendConfirmEmailBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByNameAsync(model.Email);
+
+            await UserManager.UpdateSecurityStampAsync(user.Id);
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            code = HttpUtility.UrlEncode(code);
+            string clientSite = AppSettingsConfig.ClientSite;
+            var callbackUrl = clientSite + "/#/confirmemail?userId=" + user.Id + "&code=" + code;
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return Ok();
         }
 
         #region Helpers

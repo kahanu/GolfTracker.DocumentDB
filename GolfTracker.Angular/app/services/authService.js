@@ -109,7 +109,21 @@
         var _confirmEmail = function (userId, code) {
             var deferred = $q.defer();
 
-            $http.post(serviceBase + "api/account/confirmemail?userId=" + userId + "&code=" + code)
+            $http.get(serviceBase + "api/account/confirmemail?userId=" + userId + "&code=" + code)
+                .success(function (response) {
+                    deferred.resolve(response);
+                })
+                .error(function (err, status) {
+                    deferred.reject(err);
+                });
+
+            return deferred.promise;
+        };
+
+        var _resendConfirmEmail = function (email) {
+            var deferred = $q.defer();
+
+            $http.post(serviceBase + "api/account/resendconfirmemail", email)
                 .success(function (response) {
                     deferred.resolve(response);
                 })
@@ -127,6 +141,7 @@
         authServiceFactory.authentication = _authentication;
         authServiceFactory.refreshToken = _refreshToken;
         authServiceFactory.confirmEmail = _confirmEmail;
+        authServiceFactory.resendConfirmEmail = _resendConfirmEmail;
 
         return authServiceFactory;
     }]);
