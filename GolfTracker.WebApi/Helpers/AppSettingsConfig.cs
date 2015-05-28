@@ -11,6 +11,9 @@ namespace GolfTracker.WebApi.Helpers
         /// </summary>
         public static string Db { get { return ConfigurationManager.AppSettings["db"]; } }
 
+
+        public static string UserCollection { get { return ConfigurationManager.AppSettings["userCollection"]; } }
+
         /// <summary>
         /// The DocumentDB endpoint Uri.
         /// </summary>

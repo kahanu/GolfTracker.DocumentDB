@@ -61,7 +61,6 @@ C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Htt
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.pdb
-C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\DocumentDB.AspNet.Identity.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Azure.Documents.Client.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Ninject.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Ninject.Web.Common.dll
@@ -74,3 +73,4 @@ C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Ninject.Web.Co
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Cors.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Http.Cors.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Http.Cors.xml
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Azure.Documents.Client.xml

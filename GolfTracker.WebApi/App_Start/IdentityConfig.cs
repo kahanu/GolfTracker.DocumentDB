@@ -60,8 +60,9 @@ namespace GolfTracker.WebApi
             string endpoint = AppSettingsConfig.EndPoint;
             string authkey = AppSettingsConfig.AuthKey;
             string db = AppSettingsConfig.Db;
+            string collection = AppSettingsConfig.UserCollection;
 
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new Uri(endpoint), authkey, db));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new Uri(endpoint), authkey, db, collection));
             // Configure validation logic for usernames
             
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)

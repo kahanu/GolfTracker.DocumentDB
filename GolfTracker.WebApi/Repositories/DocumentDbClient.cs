@@ -7,13 +7,14 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 
+
 namespace GolfTracker.WebApi.Repositories
 {
     /// <summary>
     /// This is the DocumentDB client class that the RepositoryBase class
     /// will inherit to consume the properties.
     /// </summary>
-    public class DocumentDbClient
+    public class DocumentDbClient : Disposable
     {
         #region ctors
 
@@ -106,6 +107,18 @@ namespace GolfTracker.WebApi.Repositories
                     SetupCollection(Database.SelfLink).Wait();
                 }
                 return _collection;
+            }
+        }
+
+        #endregion
+
+        #region Overrides
+
+        protected override void DisposeCore()
+        {
+            if (_client != null)
+            {
+                _client.Dispose();
             }
         }
 
