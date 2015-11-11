@@ -38,14 +38,14 @@
                 </ul>
 
 
-                <div ng-switch on="vm.isAuthenticated">
-                    <div ng-switch-when="true">
+                <div>
+                    <div ng-show="vm.isAuthenticated">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a>Welcome User!</a></li>
                             <li><a href="" ng-click="vm.logOut()">Log out</a></li>
                         </ul>
                     </div>
-                    <div ng-switch-when="false">
+                    <div ng-hide="vm.isAuthenticated">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#/login">Sign In</a></li>
                             <li><a href="#/signup">Sign Up</a></li>
