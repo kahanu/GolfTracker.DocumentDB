@@ -31,21 +31,21 @@
                 </button>
                 <a class="navbar-brand" href="#/home">Golf Tracker</a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse" ng-controller="indexController as vm">
+            <div id="navbar" class="navbar-collapse collapse" ng-controller="homeController as vm">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#/home">Home</a></li>
                     <li><a href="#/schemas">Schemas</a></li>
                 </ul>
 
 
-                <div>
-                    <div ng-show="vm.isAuthenticated">
+                <div ng-switch="vm.isAuthenticated">
+                    <div ng-switch-when="true">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a>Welcome User!</a></li>
+                            <li><a>Welcome {{vm.userName}}!</a></li>
                             <li><a href="" ng-click="vm.logOut()">Log out</a></li>
                         </ul>
                     </div>
-                    <div ng-hide="vm.isAuthenticated">
+                    <div ng-switch-when="false">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#/login">Sign In</a></li>
                             <li><a href="#/signup">Sign Up</a></li>
