@@ -1,9 +1,9 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular.module('golftracker')
-        .controller('indexController', ["$location", "authService", "eventAggregator", "$scope",
-            function ($location, authService, eventAggregator, $scope) {
+        .controller('indexController', ["$location", "authService", "eventAggregator", "$scope", "$rootScope",
+            function ($location, authService, eventAggregator, $scope, $rootScope) {
             var vm = this;
             
             vm.login = {};
@@ -11,6 +11,8 @@
             vm.message = "";
             vm.resendEmailConfirmationLinkIsVisible = false;
             vm.resend = {};
+
+            vm.isAuthenticated = authService.authentication.isAuth;
 
             vm.logOut = function () {
                 authService.logOut();
@@ -26,6 +28,7 @@
                     vm.success = true;
                     //eventAggregator.trigger("isAuthenticated", true);
                     vm.isAuthenticated = true;
+                    broadcastAuthenticationStatus();
                     console.log("index/vm.submitLoginForm().vm.isAuthenticated: " + vm.isAuthenticated);
                     $location.path("/home");
                 }, function (err) {
@@ -48,7 +51,15 @@
                 });
             };
 
-            vm.isAuthenticated = authService.authentication.isAuth;
+            var broadcastAuthenticationStatus = function () {
+                $rootScope.$broadcast('user-authenticated',
+                    {
+                        isAuthenticated: vm.isAuthenticated,
+                        userName: authService.authentication.userName
+                    });
+            };
+
+            //vm.isAuthenticated = authService.authentication.isAuth;
             
         }]);
 })();
