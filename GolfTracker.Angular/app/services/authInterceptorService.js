@@ -6,7 +6,7 @@
 
         var authInterceptorServiceFactory = {};
 
-        //inject beaer token into headers while we are auth'd
+        //inject bearer token into headers while we are auth'd
         var _request = function (config) {
 
             config.headers = config.headers || {};
