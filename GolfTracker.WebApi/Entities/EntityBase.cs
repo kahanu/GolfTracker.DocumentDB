@@ -11,15 +11,15 @@ namespace GolfTracker.WebApi.Entities
     /// </summary>
     public class EntityBase
     {
-        private readonly string _type;
+        private readonly string _docType;
 
         /// <summary>
         /// All root entities inherit this base class.
         /// </summary>
-        /// <param name="type">The name of the type of entity (lowercase).</param>
-        public EntityBase(string type)
+        /// <param name="docType">The name of the type of entity (lowercase).</param>
+        public EntityBase(string docType)
         {
-            this._type = type;
+            this._docType = docType;
         }
 
         /// <summary>
@@ -29,10 +29,11 @@ namespace GolfTracker.WebApi.Entities
         public string Id { get; set; }
 
         /// <summary>
-        /// This type field will be used to organize the documents by "type" in 
-        /// DocumentDB in a single-collection scenario.  The type is just the lowercase
+        /// This docType field will be used to organize the documents by "docType" in 
+        /// DocumentDB in a single-collection scenario.  The docType is just the lowercase
         /// name of the derived class.
         /// </summary>
-        public string type { get { return _type; } }
+        [JsonProperty(PropertyName = "docType")]
+        public string docType { get { return _docType; } }
     }
 }
