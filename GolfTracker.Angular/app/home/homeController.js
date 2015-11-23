@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('golftracker')
-        .controller('homeController', ["authService", "eventAggregator", "$scope", "$rootScope", function (authService, eventAggregator, $scope, $rootScope) {
+        .controller('homeController', ["authService", "eventAggregator", "$scope", "$rootScope","$location", function (authService, eventAggregator, $scope, $rootScope, $location) {
             var vm = this;
             vm.login = {};
 
