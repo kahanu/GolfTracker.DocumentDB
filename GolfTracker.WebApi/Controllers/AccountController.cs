@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -329,6 +330,7 @@ namespace GolfTracker.WebApi.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+           
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

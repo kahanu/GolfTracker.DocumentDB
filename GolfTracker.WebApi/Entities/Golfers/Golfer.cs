@@ -27,5 +27,7 @@ namespace GolfTracker.WebApi.Entities.Golfers
         public bool IsPlus { get; set; }
 
         public List<Round> Rounds { get; set; }
+
+        public string UserName { get; set; }
     }
 }

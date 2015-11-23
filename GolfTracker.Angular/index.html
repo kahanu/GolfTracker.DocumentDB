@@ -37,11 +37,24 @@
                     <li><a href="#/schemas">Schemas</a></li>
                 </ul>
 
+            <div ng-if="vm.isAuthenticated">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Welcome <span>{{vm.login.userName}}</span>!</a></li>
+                    <li><a href="" ng-click="vm.logOut()">Log out</a></li>
+                </ul>
+            </div>
 
-                <div ng-switch on="vm.isAuthenticated">
+            <div ng-if="!vm.isAuthenticated">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#/login">Sign In</a></li>
+                    <li><a href="#/signup">Sign Up</a></li>
+                </ul>
+            </div>
+
+                <!--<div ng-switch on="vm.isAuthenticated">
                     <div ng-switch-when="true">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a>Welcome User!</a></li>
+                            <li><a>Welcome <span>{{vm.login.userName}}</span>!</a></li>
                             <li><a href="" ng-click="vm.logOut()">Log out</a></li>
                         </ul>
                     </div>
@@ -51,7 +64,7 @@
                             <li><a href="#/signup">Sign Up</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>-->
 
 
             </div><!--/.nav-collapse -->

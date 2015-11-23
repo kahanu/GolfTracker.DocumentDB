@@ -42,18 +42,19 @@ namespace GolfTracker.WebApi.Repositories
         /// </summary>
         /// <param name="predicate">The linq expression Where clause.</param>
         /// <returns>An IEnumerable of T.</returns>
-        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate = null)
+        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate = null)
         {
             var query = Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
                 .Where(_typePredicate)
                 .AsQueryable();
-
+            
             if (predicate != null)
             {
                 query = query.Where(predicate);
             }
-
-            return query;
+            
+            //return query;
+            return await Task<IEnumerable<T>>.Run(() => query.AsEnumerable().ToList());
         }
 
         public Task<T> GetById(string id)
