@@ -58,7 +58,6 @@ C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Owin
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Http.Owin.xml
-C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.pdb
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Azure.Documents.Client.dll

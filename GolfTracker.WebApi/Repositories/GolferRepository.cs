@@ -7,7 +7,7 @@ namespace GolfTracker.WebApi.Repositories
 {
     public class GolferRepository : RepositoryBase<Golfer>, IGolferRepository
     {
-        public GolferRepository():base("golfer", AppSettingsConfig.Db, "GolfCollection")
+        public GolferRepository():base("golfer", AppSettingsConfig.Db, AppSettingsConfig.MainCollection)
         {
 
         }

@@ -9,13 +9,13 @@
 
 <h1>Schemas for DocumentDB</h1>
 <p>
-    This page shows the two types of &quot;schema&quot; used in this application and some of the 
+    This page shows the two types of &quot;schema&quot; used in this application and some of the
     .Net classes used in the WebApi 2 service.
-    
+
 </p>
 <p>
-    <b>Important!</b> Notice the <b>"type"</b> field on each document, this is how you can store various
-    different shapes of documents in the same collection, and then easily retrieve them. 
+    <b>Important!</b> Notice the <b>"docType"</b> field on each document, this is how you can store various
+    different shapes of documents in the same collection, and then easily retrieve them.
 </p>
 <button class="btn btn-primary btn-lg" ng-click="vm.showGolferJSON()">Golfer Schema</button>
 <button class="btn btn-info btn-lg" ng-click="vm.showGolfClubJSON()">Golf Club Schema</button>
@@ -62,11 +62,11 @@
     }
     ],
     "id": "4df3342e-4312-4f87-b5a8-8c182bd5ca60",
-    "type": "golfer"
+    "docType": "golfer"
 }
             </pre>
 
-</div>
+    </div>
 </div>
 
 <div class="panel panel-primary" ng-show="vm.GolfClubJSONIsVisible">
@@ -100,7 +100,7 @@
         }
     ],
     "id": "f7cfc42e-9523-4070-8616-ad562003ff78",
-    "type": "golfclub"
+    "docType": "golfclub"
 }
         </pre>
     </div>
@@ -128,14 +128,14 @@
     /// &lt;/summary&gt;
     public class EntityBase
     {
-        private readonly string _type;
+        private readonly string _docType;
         /// &lt;summary&gt;
         /// All root entities inherit this base class.
         /// &lt;/summary&gt;
         /// &lt;param name="type"&gt;The name of the type of entity (lowercase).&lt;/param&gt;
-        public EntityBase(string type)
+        public EntityBase(string docType)
         {
-            this._type = type;
+            this._docType = docType;
         }
         /// &lt;summary&gt;
         /// This is need for querying in the RepositoryBase. Used by DocumentDB.
@@ -144,11 +144,11 @@
         public string Id { get; set; }
         
         /// &lt;summary&gt;
-        /// This type field will be used to organize the documents by &quot;type&quot; in 
+        /// This type field will be used to organize the documents by &quot;docType&quot; in 
         /// DocumentDB in a single-collection scenario.  The type is just the lowercase
         /// name of the derived class.
         /// &lt;/summary&gt;
-        public string type { get { return _type; } }
+        public string docType { get { return _docType; } }
     }
 </pre>
     </div>
@@ -165,7 +165,7 @@
             class itself, which is just "golfer", to the base class in the constructor.
         </p>
         <p>
-            This will be generated as a "type" field in the JSON object for this type which
+            This will be generated as a "docType" field in the JSON object for this type which
             will be used for organizing the documents into groups in the DocumentDB collection.
         </p>
         <pre class="brush: csharp">    public class Golfer : EntityBase

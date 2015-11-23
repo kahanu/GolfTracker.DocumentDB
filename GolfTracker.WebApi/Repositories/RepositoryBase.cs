@@ -30,7 +30,7 @@ namespace GolfTracker.WebApi.Repositories
         public RepositoryBase(string type, string dbName, string collectionName)
             : base(dbName, collectionName)
         {
-            _typePredicate = v => v.type == type;
+            _typePredicate = v => v.docType == type;
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace GolfTracker.WebApi.Repositories
         /// </summary>
         /// <param name="predicate">The linq expression Where clause.</param>
         /// <returns>An IEnumerable of T.</returns>
-        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate = null)
+        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate = null)
         {
             var query = Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
                 .Where(_typePredicate)
@@ -52,9 +52,9 @@ namespace GolfTracker.WebApi.Repositories
             {
                 query = query.Where(predicate);
             }
-            
-            //return query;
-            return await Task<IEnumerable<T>>.Run(() => query.AsEnumerable().ToList());
+
+            return query;
+            //return await Task<IEnumerable<T>>.Run(() => query.AsEnumerable().ToList());
         }
 
         public Task<T> GetById(string id)

@@ -1,14 +1,30 @@
-﻿(function () {
+(function () {
     'use strict';
 
     angular.module('golftracker')
-        .controller('homeController', ["authService", "eventAggregator", function (authService, eventAggregator) {
+        .controller('homeController', ["authService", "eventAggregator", "$scope", "$rootScope", function (authService, eventAggregator, $scope, $rootScope) {
             var vm = this;
             vm.login = {};
 
+            vm.userName = authService.authentication.userName;
             vm.isAuthenticated = authService.authentication.isAuth;
-            vm.login.userName = authService.authentication.userName;
+
             console.log("home/vm.isAuthenticated: " + vm.isAuthenticated);
-            console.log("userName: " + vm.login.userName);
+
+            $scope.$on('user-authenticated', function (evt, data) {
+                console.log("user authenticated called")
+                vm.isAuthenticated = data.isAuthenticated;
+                vm.userName = data.userName;
+            });
+
+            vm.logOut = function () {
+                authService.logOut();
+                //eventAggregator.trigger("isAuthenticated", false);
+                vm.isAuthenticated = false;
+                console.log("home/vm.logOut()/vm.isAuthenticated: " + vm.isAuthenticated);
+
+                $location.path('/home');
+            };
+
         }]);
 })();

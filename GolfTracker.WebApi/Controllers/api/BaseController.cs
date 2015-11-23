@@ -30,9 +30,9 @@ namespace GolfTracker.WebApi.Controllers.api
         #region Standard CRUD
 
         [AllowAnonymous]
-        public async Task<IEnumerable<T>> Get()
+        public IEnumerable<T> Get()
         {
-            var result = await _repo.Get();
+            var result = _repo.Get();
 
             return result;
         }
@@ -52,7 +52,7 @@ namespace GolfTracker.WebApi.Controllers.api
             if (ModelState.IsValid)
             {
                 var result = await _repo.CreateDocumentAsync(entity);
-                var id = result.Id;
+                var id = result.Resource.Id;
                 var model = _repo.GetById(id);
 
                 return Ok(model);
