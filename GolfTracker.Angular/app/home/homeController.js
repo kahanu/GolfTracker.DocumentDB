@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('golftracker')
-        .controller('homeController', ["authService", "eventAggregator", "$scope", "$rootScope","$location", function (authService, eventAggregator, $scope, $rootScope, $location) {
+        .controller('homeController', ["authService", "$scope", "$rootScope","$location", function (authService, $scope, $rootScope, $location) {
             var vm = this;
             vm.login = {};
 
@@ -19,7 +19,6 @@
 
             vm.logOut = function () {
                 authService.logOut();
-                //eventAggregator.trigger("isAuthenticated", false);
                 vm.isAuthenticated = false;
                 console.log("home/vm.logOut()/vm.isAuthenticated: " + vm.isAuthenticated);
 
