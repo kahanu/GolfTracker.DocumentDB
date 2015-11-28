@@ -17,14 +17,19 @@ namespace GolfTracker.WebApi.Cors
             {
                 AllowAnyHeader = true,
                 AllowAnyMethod = true
+                // Optionally ::
+                //,AllowAnyOrigin = true
             };
+            
+            // Get Allowed Origins from Config and split by comma. Can be changed to any character that you chose.
+            string[] origins = AppSettingsConfig.CorsPolicyOrigins.Split(',');
+            
+            // To split by multiple types use the following example as a template:
+            // string[] origins = AppSettingsCOnfig.CorsPolicyOrigins.Split(',','+');
 
-            string origins = AppSettingsConfig.CorsPolicyOrigins;
-            string[] originsList = origins.Split(',');
-
-            foreach (var item in originsList)
+            foreach (var origin in origins)
             {
-                corsPolicy.Origins.Add(item);
+                corsPolicy.Origins.Add(origin);
             }
 
             return Task.FromResult(corsPolicy);
