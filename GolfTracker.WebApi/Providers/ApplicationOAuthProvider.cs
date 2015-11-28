@@ -28,11 +28,30 @@ namespace GolfTracker.WebApi.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            // http://www.codeproject.com/Articles/742532/Using-Web-API-Individual-User-Account-plus-CORS-En
-            // This article helped me track down the issue that even though CORS is enabled application-wide, 
-            // it still doesn't affect this OWIN component, so we have to enable it here also.
+            // For best practices, you should use always use a dynamic access-control-allow-origin response.
+            
+            // Get the Allowed Origins from Helper
             string origins = AppSettingsConfig.CorsPolicyOrigins;
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[] { origins });
+            
+            // Get the Origin of the Request
+            string requestOrigin = context.OwinContext.Request.Headers.Get("origin");
+
+            // If the Origin of the Request is contained in the Allowed Origins Set Access-Control-Allow-Origin for that Origin only.
+            if (origins.Contains(requestOrigin))
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[] { requestOrigin });
+            }
+
+            // http://www.codeproject.com/Articles/742532/Using-Web-API-Individual-User-Account-plus-CORS-En
+            // "This article helped me track down the issue that even though CORS is enabled application-wide, 
+            // it still doesn't affect this OWIN component, so we have to enable it here also."
+            
+            // NOTE :: Only works when Allowed Origins is a single URI (not a comma separated list).
+            //string origins = AppSettingsConfig.CorsPolicyOrigins;
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[] { origins });
+
+            // Allow All Sample - Not recommended unless you are intentionally accepting requests from unknown origins.
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new string[] { "*" });
 
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
