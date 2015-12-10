@@ -2,7 +2,7 @@
 <p>Enter golf club information here.</p>
 
 <div class="row">
-    <div class="col-md-7">
+    <div ng-class="{'col-md-7': vm.teeFormIsVisible || vm.golfClubFormIsVisible || vm.golfCoursesFormFormIsVisible || vm.golfCoursesTableIsVisible, 'col-md-12': !vm.teeFormIsVisible && !vm.golfClubFormIsVisible && !vm.golfCoursesFormFormIsVisible && !vm.golfCoursesTableIsVisible}">
         <button class="btn btn-success" type="button" ng-click="vm.showGolfClubForm()">
             <span class="glyphicon glyphicon-plus"></span> Add Golf Club
         </button>
@@ -29,7 +29,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-5">
+    <div ng-class="{'col-md-5': vm.teeFormIsVisible || vm.golfClubFormIsVisible || vm.golfCoursesFormFormIsVisible || vm.golfCoursesTableIsVisible, 'hidden': !vm.teeFormIsVisible && !vm.golfClubFormIsVisible && !vm.golfCoursesFormFormIsVisible && !vm.golfCoursesTableIsVisible}">
         <!-- Form for managing Golf Clubs -->
         <div class="panel panel-primary" ng-show="vm.golfClubFormIsVisible">
             <div class="panel-heading">
