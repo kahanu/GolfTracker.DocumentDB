@@ -5,7 +5,7 @@
 </p>
 
 <div class="row">
-    <div class="col-md-6">
+    <div ng-class="{'col-md-6': vm.golferFormIsVisible || vm.roundFormIsVisible || vm.viewRoundsIsVisible, 'col-md-12': !vm.golferFormIsVisible && !vm.roundFormIsVisible && !vm.viewRoundsIsVisible}">
         <button class="btn btn-success" type="button" ng-click="vm.showAddGolferForm()">
             <span class="glyphicon glyphicon-plus"></span> Add Golfer
         </button>
@@ -32,7 +32,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-6">
+    <div ng-class="{'col-md-6': vm.golferFormIsVisible || vm.roundFormIsVisible || vm.viewRoundsIsVisible, 'hidden': !vm.golferFormIsVisible && !vm.roundFormIsVisible && !vm.viewRoundsIsVisible}">
         <!-- Show the form to add a golfer. -->
         <div class="panel panel-primary" ng-show="vm.golferFormIsVisible">
             <div class="panel-heading">
