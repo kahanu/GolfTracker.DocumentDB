@@ -73,3 +73,4 @@ C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Cor
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Http.Cors.dll
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\System.Web.Http.Cors.xml
 C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\bin\Microsoft.Azure.Documents.Client.xml
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.WebApi\obj\Debug\GolfTracker.WebApi.csprojResolveAssemblyReference.cache

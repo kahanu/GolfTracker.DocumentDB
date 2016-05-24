@@ -18,7 +18,7 @@
             vm.logOut = function () {
                 authService.logOut();
                 vm.isAuthenticated = false;
-                console.log("index/vm.logOut()/vm.isAuthenticated: " + vm.isAuthenticated);
+                //console.log("index/vm.logOut()/vm.isAuthenticated: " + vm.isAuthenticated);
 
                 $location.path('/home');
             };
@@ -28,7 +28,7 @@
                     vm.success = true;
                     vm.isAuthenticated = true;
                     broadcastAuthenticationStatus();
-                    console.log("index/vm.submitLoginForm().vm.isAuthenticated: " + vm.isAuthenticated);
+                    //console.log("index/vm.submitLoginForm().vm.isAuthenticated: " + vm.isAuthenticated);
                     $location.path("/home");
                 }, function (err) {
                     if (err.error === "email_not_confirmed") {

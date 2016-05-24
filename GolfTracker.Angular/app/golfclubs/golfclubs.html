@@ -29,7 +29,7 @@
             </tbody>
         </table>
     </div>
-    <div ng-class="{'col-md-5': vm.teeFormIsVisible || vm.golfClubFormIsVisible || vm.golfCoursesFormFormIsVisible || vm.golfCoursesTableIsVisible, 'hidden': !vm.teeFormIsVisible && !vm.golfClubFormIsVisible && !vm.golfCoursesFormFormIsVisible && !vm.golfCoursesTableIsVisible}">
+    <div ng-class="{'col-md-5': vm.teeFormIsVisible || vm.golfClubFormIsVisible || vm.golfCourseFormIsVisible || vm.golfCoursesTableIsVisible, 'hidden': !vm.teeFormIsVisible && !vm.golfClubFormIsVisible && !vm.golfCourseFormIsVisible && !vm.golfCoursesTableIsVisible}">
         <!-- Form for managing Golf Clubs -->
         <div class="panel panel-primary" ng-show="vm.golfClubFormIsVisible">
             <div class="panel-heading">
@@ -81,7 +81,7 @@
                             <h3>{{ gc.Name }} <span class="glyphicon glyphicon-pencil small" title="Edit Course" ng-click="vm.editCourse(vm.golfclub, gc, $index)"></span> <span class="glyphicon glyphicon-remove small" title="Delete Course" ng-click="vm.deleteCourse(vm.golfclub, gc, $index)"></span></h3>
                         </div>
                         <div class="col-md-3 text-right">
-                            
+
                         </div>
                     </div>
                     <div class="row">
