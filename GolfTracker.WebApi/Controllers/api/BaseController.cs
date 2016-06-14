@@ -46,7 +46,7 @@ namespace GolfTracker.WebApi.Controllers.api
             return model;
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IHttpActionResult> Post([FromBody]T entity)
         {
             if (ModelState.IsValid)
@@ -63,7 +63,7 @@ namespace GolfTracker.WebApi.Controllers.api
             }
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IHttpActionResult> Put(string id, [FromBody]T entity)
         {
             if (ModelState.IsValid)

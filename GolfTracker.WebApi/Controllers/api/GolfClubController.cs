@@ -8,7 +8,7 @@ using GolfTracker.WebApi.Repositories;
 
 namespace GolfTracker.WebApi.Controllers.api
 {
-    [Authorize]
+    //[Authorize]
     [RoutePrefix("api/golfclub")]
     public class GolfClubController : BaseController<GolfClub>
     {

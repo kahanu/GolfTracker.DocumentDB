@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace GolfTracker.WebApi.Entities.Golfers
 {
+    [DataContract]
     public class Golfer : EntityBase
     {
         /// <summary>
@@ -18,16 +20,20 @@ namespace GolfTracker.WebApi.Entities.Golfers
 
         }
 
-
+        [DataMember]
         [Required]
         public string Name { get; set; }
 
+        [DataMember]
         public decimal Handicap { get; set; }
 
+        [DataMember]
         public bool IsPlus { get; set; }
 
+        [DataMember]
         public List<Round> Rounds { get; set; }
 
+        [DataMember]
         public string UserName { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace GolfTracker.WebApi.Entities
@@ -9,6 +10,8 @@ namespace GolfTracker.WebApi.Entities
     /// allow the type of entity to be passed in which is used for the 
     /// Where predicate in the RepositoryBase class.
     /// </summary>
+    /// 
+    [DataContract]
     public class EntityBase
     {
         private readonly string _docType;
