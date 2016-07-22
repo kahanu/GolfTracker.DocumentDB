@@ -1,7 +1,7 @@
 ﻿# GolfTracker.Angular2
 This is the port from the Angular 1 project currently written in Angular 2 (2.0.0-rc.1).  This is to be used as a reference application on how to get started using Angular 2 in your projects.  I don't think much will change before the full version, but when it happens I'll update the code.
 
-## Installation Instructions:
+## Installation and Setup Instructions:
 1.  **Install packages** - open the Angular 2 project in a command prompt or shell and enter: npm install
 2.  **Data store connection** - You need to have either an Azure DocumentDB app running, or MongoDB (either locally or on MongoLabs).  
   1. **DocumentDB** - in the GolfTracker.WebApi project, open the web.config and add your endpoint information there.
