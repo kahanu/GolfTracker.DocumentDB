@@ -25,7 +25,7 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
     }
     ```
 	
-4. **Set the WEBAPI constant** - finally set the WEBAPI constand to the data store you are using.
+4. **Set the WEBAPI constant** - finally set the WEBAPI constant to the data store you are using.
 
     ```javascript
 	export let WEBAPI = CONFIG.baseUrl.MongoDB;
