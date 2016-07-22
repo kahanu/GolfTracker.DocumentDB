@@ -14,7 +14,36 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
     };
     ```
 
-  3. **Set the API** - now set the API constant to use the selected data store you are using.
+3. **Set the target API** - now in the GolfTracker.Angular2 project, open the /app/config.ts file and modify the constants with the Urls to your endpoints.
 
+    ```javascript
+	export let CONFIG = {
+        baseUrl: {
+            DocumentDB: "http://localhost/golftracker.webapi/",
+            MongoDB: "http://localhost:15264/"
+        }
+    }
+    ```
+	
+4.  ** Set the WEBAPI constant ** - finally set the WEBAPI constand to the data store you are using.
+
+    ```javascript
+	export let WEBAPI = CONFIG.baseUrl.MongoDB;
+	```
+	
+## To Run it
+1. ** Start the server ** - open a command prompt in the GolfTracker.MongoDBAPI folder and type:
+
+    ```
+	node server
+	```
+	
+2. ** Open the Angular 2 project ** - open a command prompt in the GolfTracker.Angular2 project and type:	
+
+    ```
+	npm start
+	```
+
+3. ** That's it! ** - your application should open in a browser and be pointing to the data store you've selected.
 
 I also recommend opening the Angular 2 and MongoDB projects in Visual Studio Code or some other equally lightweight application.  The Full Visual Studio seems to have some issues with some files.
