@@ -46,7 +46,7 @@ var Tee = (function () {
 }());
 exports.Tee = Tee;
 // Construct the full api url for this service.
-var url = config_1.CONFIG.baseUrl.MongoDB + 'api/golfclub';
+var url = config_1.WEBAPI + 'api/golfclub';
 var usingDocDb = false;
 // @Injectable allows this class to be injected into other classes as
 // Dependency Injection.  So this can be injected into the GolfClubComponent class.
@@ -97,10 +97,9 @@ var GolfClubService = (function () {
     };
     GolfClubService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object, exception_service_1.ExceptionService])
+        __metadata('design:paramtypes', [http_1.Http, exception_service_1.ExceptionService])
     ], GolfClubService);
     return GolfClubService;
-    var _a;
 }());
 exports.GolfClubService = GolfClubService;
 //# sourceMappingURL=golfclub.service.js.map

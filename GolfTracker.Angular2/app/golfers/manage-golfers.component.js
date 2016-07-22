@@ -197,10 +197,9 @@ var ManageGolfersComponent = (function () {
             directives: [common_1.NgClass],
             pipes: [date_pipe_1.DatePipe]
         }), 
-        __metadata('design:paramtypes', [golfer_service_1.GolferService, golfclub_service_1.GolfClubService, handicap_calculator_service_1.HandicapCalculatorService, (typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [golfer_service_1.GolferService, golfclub_service_1.GolfClubService, handicap_calculator_service_1.HandicapCalculatorService, platform_browser_1.Title])
     ], ManageGolfersComponent);
     return ManageGolfersComponent;
-    var _a;
 }());
 exports.ManageGolfersComponent = ManageGolfersComponent;
 //# sourceMappingURL=manage-golfers.component.js.map

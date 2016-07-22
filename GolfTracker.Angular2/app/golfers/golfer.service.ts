@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { CONFIG } from "../config";
+import { WEBAPI } from "../config";
 
 import { ExceptionService } from '../services/exception.service';
 
 // Construct the full api url for this service.
-let url = CONFIG.baseUrl.MongoDB + 'api/golfer';
+let url = WEBAPI + 'api/golfer';
 let usingDocDb = false;
 
 /**********************************************************************************************

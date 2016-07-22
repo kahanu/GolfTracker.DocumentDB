@@ -13,7 +13,7 @@ var http_1 = require('@angular/http');
 var config_1 = require("../config");
 var exception_service_1 = require('../services/exception.service');
 // Construct the full api url for this service.
-var url = config_1.CONFIG.baseUrl.MongoDB + 'api/golfer';
+var url = config_1.WEBAPI + 'api/golfer';
 var usingDocDb = false;
 var GolferService = (function () {
     function GolferService(_http, _exceptionService) {
@@ -59,10 +59,9 @@ var GolferService = (function () {
     };
     GolferService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object, exception_service_1.ExceptionService])
+        __metadata('design:paramtypes', [http_1.Http, exception_service_1.ExceptionService])
     ], GolferService);
     return GolferService;
-    var _a;
 }());
 exports.GolferService = GolferService;
 //# sourceMappingURL=golfer.service.js.map
