@@ -3,9 +3,9 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
 
 ## Installation and Setup Instructions:
 1.  **Install packages** - open the Angular 2 project in a command prompt or shell and enter: npm install
-2.  **Data store connection** - You need to have either an Azure DocumentDB app running, or MongoDB (either locally or on MongoLabs).  
-  1. **DocumentDB** - in the GolfTracker.WebApi project, open the web.config and add your endpoint information there.
-  2. **MongoDB** - in the GolfTracker.MongoDBApi project, open the server.js file and add the endpoint urls there.  
+2.  **Data store connection** - You need to have either an Azure DocumentDB instance running, or MongoDB (either locally or on MongoLabs).  
+  1. **DocumentDB** - in the **GolfTracker.WebApi** project, open the web.config and add your endpoint information there.
+  2. **MongoDB** - in the **GolfTracker.MongoDBApi** project, open the `server.js` file and add the endpoint urls there.  
 
     ```javascript
     var mongoConnection = {
@@ -14,7 +14,7 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
     };
     ```
 
-3. **Set the target API** - now in the GolfTracker.Angular2 project, open the /app/config.ts file and modify the constants with the Urls to your endpoints.
+3. **Set the target API** - now in the **GolfTracker.Angular2** project, open the `/app/config.ts` file and modify the constants with the Urls to your endpoints.
 
     ```javascript
 	export let CONFIG = {
@@ -32,13 +32,13 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
 	```
 	
 ## To Run it
-1. **Start the server** - open a command prompt in the GolfTracker.MongoDBAPI folder and type:
+1. **Start the server** - open a command prompt in the **GolfTracker.MongoDBApi** folder and type:
 
     ```
 	node server
 	```
 	
-2. **Open the Angular 2 project** - open a command prompt in the GolfTracker.Angular2 project and type:	
+2. **Open the Angular 2 project** - open a command prompt in the **GolfTracker.Angular2** project and type:	
 
     ```
 	npm start
