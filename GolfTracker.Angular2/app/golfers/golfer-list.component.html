@@ -1,0 +1,32 @@
+<h1>Golfers</h1>
+<p>
+    This is a list of golfers.  <a [routerLink]="['ManageGolfers']" ng-if="visAuthenticated">Manage Golfers</a>
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <ul>
+            <li *ngFor="let g of golfers; let idx = index">
+                {{ g.Name }} - Handicap: <span class="glyphicon glyphicon-plus xs" *ngIf="g.IsPlus"></span>{{ g.Handicap }} - <a (click)="clickShowRounds(idx)">Show Rounds</a>
+
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-primary" *ngIf="showRounds">
+            <div class="panel-heading">
+                <h3 class="panel-title">Rounds for {{ golfer.Name }}</h3>
+            </div>
+            <div class="panel-body">
+                <div *ngFor="let round of rounds">
+                    {{ round.DatePlayed | date }}
+                    <h3>{{ round.GolfCourse.GolfClubName }} {{ round.GolfCourse.GolfCourseName }}</h3>
+                    <h5>{{ round.GolfCourse.TeePlayed.Gender }} {{ round.GolfCourse.TeePlayed.TeeName }} Tee - {{ round.GolfCourse.TeePlayed.Length }} yds. - Slope/Rating: {{ round.GolfCourse.TeePlayed.Slope }}/{{ round.GolfCourse.TeePlayed.Rating }} - Par: {{ round.GolfCourse.TeePlayed.Par }}</h5>
+                    <b>Score</b>: {{ round.Score }} - <b>Net</b>: {{ round.NetScore }}
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

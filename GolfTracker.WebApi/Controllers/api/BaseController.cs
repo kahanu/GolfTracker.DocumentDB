@@ -86,7 +86,7 @@ namespace GolfTracker.WebApi.Controllers.api
             }
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IHttpActionResult> Delete(string id)
         {
             try

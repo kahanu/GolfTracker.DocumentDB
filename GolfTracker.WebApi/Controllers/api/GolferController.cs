@@ -22,7 +22,7 @@ namespace GolfTracker.WebApi.Controllers.api
 
         #endregion
 
-        //#region Standard CRUD
+        //#region Standard CRUD - these aren't needed here since the CRUD operations are in the BaseController
 
         //[AllowAnonymous]
         //public IEnumerable<Golfer> Get()

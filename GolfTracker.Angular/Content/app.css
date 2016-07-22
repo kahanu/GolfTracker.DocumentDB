@@ -31,6 +31,7 @@
     position: relative;
     padding-bottom: 10px;
     width: 100%;
+    float: left;
 }
 
 .round-block h3{

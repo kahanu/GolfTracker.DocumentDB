@@ -9,14 +9,14 @@
             vm.success = false;
             vm.message = "";
 
-            //vm.submitLoginForm = function (isValid) {
-            //    authService.login(vm.login).then(function (response) {
-            //        vm.success = true;
-            //        $location.path("/home");
-            //    }, function (err) {
-            //        vm.message = err.error_description;
-            //    });
-            //};
+            vm.submitLoginForm = function (isValid) {
+                authService.login(vm.login).then(function (response) {
+                    vm.success = true;
+                    $location.path("/home");
+                }, function (err) {
+                    vm.message = err.error_description;
+                });
+            };
 
         }]);
 })();

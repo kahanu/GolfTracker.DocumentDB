@@ -19,7 +19,7 @@
             </div>
             <div class="panel-body">
                 <div ng-repeat="round in vm.rounds">
-                    {{ round.DatePlayed | date }}
+                    {{ round.DatePlayed }}
                     <h3>{{ round.GolfCourse.GolfClubName }} {{ round.GolfCourse.GolfCourseName }}</h3>
                     <h5>{{ round.GolfCourse.TeePlayed.Gender }} {{ round.GolfCourse.TeePlayed.TeeName }} Tee - {{ round.GolfCourse.TeePlayed.Length }} yds. - Slope/Rating: {{ round.GolfCourse.TeePlayed.Slope }}/{{ round.GolfCourse.TeePlayed.Rating }} - Par: {{ round.GolfCourse.TeePlayed.Par }}</h5>
                     <b>Score</b>: {{ round.Score }} - <b>Net</b>: {{ round.NetScore }}

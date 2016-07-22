@@ -1,0 +1,176 @@
+<h1>{{ pageTitle }}</h1>
+<p>Manage the golf clubs here.</p>
+<div class="row">
+    <div [ngClass]="{'col-md-7':shortTable, 'col-md-12':!shortTable}">
+        <button class="btn btn-success" type="button" (click)="addGolfClub()">
+            <span class="glyphicon glyphicon-plus"></span> Add Golf Club
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Golf Club</th>
+                    <th>Location</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let golfclub of golfclubs; let idx = index">
+                    <td>{{ golfclub.Name }}</td>
+                    <td>{{ golfclub.Location }}</td>
+                    <td><button class="glyphicon glyphicon-edit" (click)="editGolfClub(golfclub)" title="Edit {{ golfclub.Name }}"></button></td>
+                    <td><button class="glyphicon glyphicon-trash" (click)="deleteGolfClub(golfclub, idx)" title="Delete {{ golfclub.Name }}"></button></td>
+                    <td><button (click)="showCourseForm(golfclub)">Add Course</button></td>
+                    <td><button (click)="showGolfCoursesTable(golfclub)" *ngIf="golfclub.GolfCourses">Courses <span class="badge">{{ golfclub.GolfCourses.length }}</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [ngClass]="{'col-md-5':shortTable}">
+        <!-- Form for managing Golf Clubs -->
+        <div class="panel panel-primary" *ngIf="golfClubFormIsVisible">
+            <div class="panel-heading">
+                {{ dialogTitle }} Golf Club
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>Golf Club</label>
+                        <input type="text" class="form-control" id="golfClubName" required [(ngModel)]="golfclub.Name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" [(ngModel)]="golfclub.Location" />
+                    </div>
+                    <a class="btn btn-primary" (click)="saveGolfClub(golfclub)">Save</a>
+                    <a class="btn btn-default" (click)="closeGolfClubForm()">Cancel</a>
+                </form>
+                <div *ngIf="errorMessage">
+                    <div class="alert alert-danger">{{ errorMessage }}</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- The Table showing the golf courses for the selected golf club, to add tees. -->
+        <div class="panel panel-primary" *ngIf="golfCoursesTableIsVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">Golf Courses for {{ golfclub.Name }}</h3>
+                <span class="glyphicon glyphicon-remove-sign panel-close-button" (click)="closeCoursesPanel()"></span>
+            </div>
+            <div class="panel-body">
+                <div *ngFor="let gc of golfclub.GolfCourses; let idx = index">
+                    <div class="row tee-row">
+                        <div class="col-md-9">
+                            <h3>{{ gc.Name }} <span class="glyphicon glyphicon-pencil small" title="Edit Course" (click)="editCourse(golfclub, gc, idx)"></span> <span class="glyphicon glyphicon-remove small" title="Delete Course" (click)="deleteCourse(golfclub, gc, idx)"></span></h3>
+                        </div>
+                        <div class="col-md-3 text-right">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Par</th>
+                                        <th>Length</th>
+                                        <th>Slope</th>
+                                        <th>Rating</th>
+                                        <th></th>
+                                        <th><span class="glyphicon glyphicon-plus text-success" title="Add a new tee" (click)="showTeeForm(golfclub, idx)"></span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tee of gc.Tees; let i = index">
+                                        <td>{{ tee.TeeName }}</td>
+                                        <td>{{ tee.Gender }}</td>
+                                        <td>{{ tee.Par }}</td>
+                                        <td>{{ tee.Length }}</td>
+                                        <td>{{ tee.Slope }}</td>
+                                        <td>{{ tee.Rating }}</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-edit" title="Edit Tee" (click)="editTee(golfclub, gc, i)"></span>
+                                        </td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" title="Delete Tee" (click)="deleteTee(golfclub, gc, i)"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The form for managing the golf courses. -->
+        <div class="panel panel-primary" *ngIf="golfCourseFormIsVisible">
+            <div class="panel-heading">
+                {{ dialogTitle }} Course - {{ golfclub.Name }}
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" class="form-control" id="golfCourseName" required [(ngModel)]="golfcourse.Name" />
+                    </div>
+                    <button class="btn btn-primary" (click)="saveCourse(golfclub, golfcourse)">{{ dialogTitle }} Course</button>
+                    <a class="btn btn-default" (click)="cancelAddCourse()">Cancel</a>
+                </form>
+            </div>
+        </div>
+
+        
+        <!-- The form for managing Tee for the selected golf course. -->
+        <div class="panel panel-info" *ngIf="teeFormIsVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ dialogTitle }} Tee for {{ golfclub.Name }} - {{ golfcourse.Name }}</h3>
+            </div>
+            <div class="panel-body">
+                <form class="tee-form" name="teeform" #teeform="ngForm" novalidate (ngSubmit)="saveTee(teeform.valid, golfclub, golfcourse, tee)">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Name</label>
+                            <input type="text" name="Name" class="form-control" required [(ngModel)]="tee.TeeName" ngControl="TeeName" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Gender</label>
+                            <select class="form-control" name="Gender" [(ngModel)]="tee.Gender">
+                                <option value="Mens">Men's</option>
+                                <option value="Ladies">Ladies</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Length</label>
+                            <input type="number" name="Length" class="form-control" required [(ngModel)]="tee.Length" ngControl="Length" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Par</label>
+                            <input type="number" name="Par" class="form-control" required [(ngModel)]="tee.Par" ngControl="Par" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Slope</label>
+                            <input type="number" name="Slope" class="form-control" required [(ngModel)]="tee.Slope" ngControl="Slope" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Rating</label>
+                            <input type="text" name="Rating" class="form-control" [(ngModel)]="tee.Rating" ngControl="Rating" />
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="!teeform.valid" class="btn btn-primary">{{ dialogTitle }} Tee</button>
+                    <a type="button" class="btn btn-default" (click)="cancelTeeForm()">Cancel</a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

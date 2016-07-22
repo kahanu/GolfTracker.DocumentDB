@@ -1,0 +1,6 @@
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\bin\GolfTracker.Angular2.dll.config
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\bin\GolfTracker.Angular2.dll
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\bin\GolfTracker.Angular2.pdb
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\obj\Debug\GolfTracker.Angular2.csprojResolveAssemblyReference.cache
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\obj\Debug\GolfTracker.Angular2.dll
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.Angular2\obj\Debug\GolfTracker.Angular2.pdb
