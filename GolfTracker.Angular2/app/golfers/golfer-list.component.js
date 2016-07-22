@@ -56,9 +56,10 @@ var GolferListComponent = (function () {
             pipes: [date_pipe_1.DatePipe],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [golfer_service_1.GolferService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [golfer_service_1.GolferService, (typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])
     ], GolferListComponent);
     return GolferListComponent;
+    var _a;
 }());
 exports.GolferListComponent = GolferListComponent;
 //# sourceMappingURL=golfer-list.component.js.map

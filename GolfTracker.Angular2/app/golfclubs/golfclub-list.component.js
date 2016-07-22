@@ -382,9 +382,10 @@ var GolfClubListComponent = (function () {
             templateUrl: "app/golfclubs/golfclub-list.component.html",
             directives: [common_1.NgClass]
         }), 
-        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, (typeof (_a = typeof platform_browser_1.Title !== 'undefined' && platform_browser_1.Title) === 'function' && _a) || Object])
     ], GolfClubListComponent);
     return GolfClubListComponent;
+    var _a;
 }());
 exports.GolfClubListComponent = GolfClubListComponent;
 //# sourceMappingURL=golfclub-list.component.js.map
