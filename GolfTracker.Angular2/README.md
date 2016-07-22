@@ -47,3 +47,5 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
 3. **That's it!** - your application should open in a browser and be pointing to the data store you've selected.
 
 I also recommend opening the Angular 2 and MongoDB projects in Visual Studio Code or some other equally lightweight application.  The Full Visual Studio seems to have some issues with some files.
+
+![alt text](https://github.com/kahanu/GolfTracker.DocumentDB/blob/master/GolfTracker.Angular2/golfclubs-page-small.png "Golf Tracker Angular 2")
