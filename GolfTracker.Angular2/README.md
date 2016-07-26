@@ -19,13 +19,13 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
     ```javascript
 	export let CONFIG = {
         baseUrl: {
-            DocumentDB: "http://localhost/golftracker.webapi/",
+            DocumentDB: "http://localhost/golftracker.webapi/", // this shouldn't have to change since it's pointing to the WebApi project in this solution.
             MongoDB: "http://localhost:15264/"
         }
     }
     ```
 	
-4. **Set the WEBAPI constant** - finally set the WEBAPI constant to the data store you are using.
+4. **Set the WEBAPI constant** - finally set the WEBAPI constant to the data store you are using in this application.
 
     ```javascript
 	export let WEBAPI = CONFIG.baseUrl.MongoDB;
@@ -45,6 +45,8 @@ This is the port from the Angular 1 project currently written in Angular 2 (2.0.
 	```
 
 3. **That's it!** - your application should open in a browser and be pointing to the data store you've selected.
+
+**NOTE!!!** - for item 3 above, the DocumentDB endpoint is the WebApi project in this solution, so that needs to stay as is, unless you've written your own DocumentDB web service.  You just need to update the `appSettings` section of the web.config to your DocumentDB credentials in order for it to work.
 
 I also recommend opening the Angular 2 and MongoDB projects in Visual Studio Code or some other equally lightweight application.  The Full Visual Studio seems to have some issues with some files.
 

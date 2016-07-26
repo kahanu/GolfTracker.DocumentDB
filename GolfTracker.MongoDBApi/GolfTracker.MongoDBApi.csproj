@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -65,6 +67,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="server.js" />
+    <Content Include="util.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

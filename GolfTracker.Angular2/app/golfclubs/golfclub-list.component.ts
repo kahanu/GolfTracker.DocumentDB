@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 
 // Import the components and services
 import { GolfClub, GolfCourse, Tee, GolfClubService } from './golfclub.service';
-import { GolfClubDetailComponent } from './golfclub-detail.component';
 import { ToastService }  from '../toast/toast.service';
 
 // Decorate the class and set the metadata.
