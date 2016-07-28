@@ -71,6 +71,8 @@ var GolfClubService = (function () {
             .map(function (res) {
             var golfclub = res.json();
             if (usingDocDb) {
+                // DocumentDB returns an async Task result, 
+                // so we need to get our data from the Result object.
                 golfclub = res.json().Result;
             }
             return golfclub;

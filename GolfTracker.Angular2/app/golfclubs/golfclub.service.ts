@@ -48,6 +48,8 @@ export class GolfClubService {
             .map((res: Response) => {
                 let golfclub = <GolfClub>res.json();
                 if (usingDocDb) {
+                    // DocumentDB returns an async Task result, 
+                    // so we need to get our data from the Result object.
                     golfclub = <GolfClub>res.json().Result;
                 }
                 return golfclub;
