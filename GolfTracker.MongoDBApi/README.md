@@ -8,3 +8,5 @@ Update one of these properties:
         localhost: 'mongodb://localhost:27017/GolfTracker',
         mongoLab: ''
     };
+
+Now open a command prompt (or shell) and enter: `npm install`
