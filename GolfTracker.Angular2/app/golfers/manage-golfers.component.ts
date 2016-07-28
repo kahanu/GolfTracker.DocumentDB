@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgClass } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { DatePipe } from '../shared/date.pipe';
+import { NgForm } from '@angular/forms';
 
 import { HandicapCalculatorService } from './handicap-calculator.service';
 

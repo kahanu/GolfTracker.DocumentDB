@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from 'rxjs/Rx';
 import { NgClass } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { NgForm } from '@angular/forms';
 
 // Import the components and services
 import { GolfClub, GolfCourse, Tee, GolfClubService } from './golfclub.service';
@@ -134,7 +135,7 @@ export class GolfClubListComponent implements OnInit {
             .subscribe(gc => {
                 this.golfCourseFormIsVisible = false;
                 this.shortTable = false;
-                this._toastService.activate("The golf club was saved successfully!", "Save Golf Club");
+                //this._toastService.activate("The golf club was saved successfully!", "Save Golf Club");
             });
     }
 

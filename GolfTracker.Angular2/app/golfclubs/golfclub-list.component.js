@@ -116,7 +116,7 @@ var GolfClubListComponent = (function () {
             .subscribe(function (gc) {
             _this.golfCourseFormIsVisible = false;
             _this.shortTable = false;
-            _this._toastService.activate("The golf club was saved successfully!", "Save Golf Club");
+            //this._toastService.activate("The golf club was saved successfully!", "Save Golf Club");
         });
     };
     ///<author>

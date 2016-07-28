@@ -13,7 +13,6 @@ var Rx_1 = require('rxjs/Rx');
 var toast_service_1 = require('../toast/toast.service');
 var ExceptionService = (function () {
     function ExceptionService(_toastService) {
-        var _this = this;
         this._toastService = _toastService;
         this.catchBadResponse = function (errorResponse) {
             var res = errorResponse;
@@ -21,7 +20,7 @@ var ExceptionService = (function () {
             var emsg = err ?
                 (err.error ? err.error : JSON.stringify(err)) :
                 (res.statusText || 'unknown error');
-            _this._toastService.activate("Error - Bad Response - " + emsg);
+            //this._toastService.activate(`Error - Bad Response - ${emsg}`);
             //return Observable.throw(emsg); // TODO: We should NOT swallow error here.
             return Rx_1.Observable.of();
         };

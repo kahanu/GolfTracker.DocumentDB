@@ -42,17 +42,17 @@
                 <form #golferform="ngForm" novalidate (ngSubmit)="saveGolfer(golferform.valid, golfer)">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" id="golferName" required [(ngModel)]="golfer.Name" ngControl="Name" />
+                        <input type="text" class="form-control" id="golferName" required [(ngModel)]="golfer.Name" name="Name" />
                     </div>
 
                     <div class="row">
                         <div class="form-group col-md-9">
                             <label>Handicap</label>
-                            <input type="number" class="form-control" [(ngModel)]="golfer.Handicap" />
+                            <input type="number" class="form-control" [(ngModel)]="golfer.Handicap" name="handicap" />
                         </div>
                         <div class="checkbox col-md-3 is-plus">
                             <label>
-                                <input type="checkbox" [(ngModel)]="golfer.IsPlus" /> Is plus?
+                                <input type="checkbox" [(ngModel)]="golfer.IsPlus" name="isPlus"/> Is plus?
                             </label>
                         </div>
                     </div>
@@ -73,29 +73,29 @@
                 <form name="roundForm" #roundform="ngForm" novalidate (ngSubmit)="submitRoundForm(roundform.valid, round)">
                     <div class="form-group">
                         <label>Score</label>
-                        <input type="number" class="form-control" [(ngModel)]="round.Score" required ngControl="score" />
+                        <input type="number" class="form-control" [(ngModel)]="round.Score" required name="score" />
                     </div>
                     <div class="form-group">
                         <label>Date Played</label>
                         <p class="input-group">
-                            <input type="date" [(ngModel)]="round.DatePlayed" class="form-control">
+                            <input type="date" [(ngModel)]="round.DatePlayed" class="form-control" name="DatePlayed">
                         </p>
                     </div>
                     <div class="form-group">
                         <label>Golf Club</label>
-                        <select id="golfclub" class="form-control" required [(ngModel)]="round.GolfCourse.GolfClubName" (change)="getGolfCourses($event.target.value)" ngControl="golfclub" >
+                        <select id="golfclub" class="form-control" required [(ngModel)]="round.GolfCourse.GolfClubName" (change)="getGolfCourses($event.target.value)" name="golfclub" >
                             <option *ngFor="let gc of golfclubs" value="{{gc.Name}}">{{gc.Name}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Golf Course</label>
-                        <select id="golfcourse" class="form-control" required [(ngModel)]="round.GolfCourse.GolfCourseName" (change)="getTees($event.target.value)" [disabled]="!round.GolfCourse.GolfClubName" ngControl="golfcourse">
+                        <select id="golfcourse" class="form-control" required [(ngModel)]="round.GolfCourse.GolfCourseName" (change)="getTees($event.target.value)" [disabled]="!round.GolfCourse.GolfClubName" name="golfcourse">
                             <option *ngFor="let c of golfcourses" value="{{c.Name}}">{{ c.Name }}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Tee</label>
-                        <select id="tee" class="form-control" required [(ngModel)]="round.GolfCourse.TeePlayed.TeeName" [disabled]="!round.GolfCourse.GolfCourseName" ngControl="tee">
+                        <select id="tee" class="form-control" required [(ngModel)]="round.GolfCourse.TeePlayed.TeeName" [disabled]="!round.GolfCourse.GolfCourseName" name="tee">
                             <option *ngFor="let t of tees" value="{{t.TeeName}}">{{t.TeeName}}</option>
                         </select>
                     </div>
