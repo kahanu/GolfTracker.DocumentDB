@@ -1,4 +1,4 @@
-﻿# GolfTracker.Angular2
+# GolfTracker.Angular2
 This is the port from the Angular 1 project currently written in Angular 2 (~~2.0.0-rc.1~~ 2.0.0-rc.4).  This is to be used as a reference application on how to get started using Angular 2 in your projects.  I don't think much will change before the full version, but when it happens I'll update the code.
 
 The following assumes you have installed [**MongoDB**](https://www.mongodb.com/download-center?jmp=nav#community) and [**NodeJS**](https://nodejs.org/en/download/) on your system.
@@ -29,10 +29,10 @@ The following assumes you have installed [**MongoDB**](https://www.mongodb.com/d
     }
     ```
 	
-4. **Set the WEBAPI constant** - finally set the WEBAPI constant to the data store you are using in this application.
+4. **Set the ENDPOINT constant** - finally set the ENDPOINT constant to the data store you are using in this application.
 
     ```javascript
-	export let WEBAPI = CONFIG.baseUrl.MongoDB;
+	export let ENDPOINT = CONFIG.baseUrl.MongoDB;
 	```
 	
 ## To Run it
