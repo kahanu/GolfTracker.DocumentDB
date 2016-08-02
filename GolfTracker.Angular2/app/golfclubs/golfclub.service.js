@@ -46,7 +46,7 @@ var Tee = (function () {
 }());
 exports.Tee = Tee;
 // Construct the full api url for this service.
-var url = config_1.WEBAPI + 'api/golfclub';
+var url = config_1.ENDPOINT + 'api/golfclub';
 var usingDocDb = false;
 // @Injectable allows this class to be injected into other classes as
 // Dependency Injection.  So this can be injected into the GolfClubComponent class.

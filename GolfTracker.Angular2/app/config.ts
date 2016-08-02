@@ -7,4 +7,4 @@ export let CONFIG = {
 }
 
 // Set the default endpoint used by your application.
-export let WEBAPI = CONFIG.baseUrl.MongoDB;
+export let ENDPOINT = CONFIG.baseUrl.MongoDB;

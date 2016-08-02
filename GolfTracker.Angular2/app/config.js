@@ -7,5 +7,5 @@ exports.CONFIG = {
     }
 };
 // Set the default endpoint used by your application.
-exports.WEBAPI = exports.CONFIG.baseUrl.MongoDB;
+exports.ENDPOINT = exports.CONFIG.baseUrl.MongoDB;
 //# sourceMappingURL=config.js.map

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { WEBAPI } from "../config";
+import { ENDPOINT } from "../config";
 
 import { ExceptionService } from '../services/exception.service';
 
@@ -20,7 +20,7 @@ export class Tee {
 }
 
 // Construct the full api url for this service.
-let url = WEBAPI + 'api/golfclub';
+let url = ENDPOINT + 'api/golfclub';
 let usingDocDb = false;
 
 // @Injectable allows this class to be injected into other classes as

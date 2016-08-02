@@ -13,7 +13,7 @@ var http_1 = require('@angular/http');
 var config_1 = require("../config");
 var exception_service_1 = require('../services/exception.service');
 // Construct the full api url for this service.
-var url = config_1.WEBAPI + 'api/golfer';
+var url = config_1.ENDPOINT + 'api/golfer';
 var usingDocDb = false;
 var GolferService = (function () {
     function GolferService(_http, _exceptionService) {
