@@ -5,7 +5,7 @@ I will be creating an article and possibly some videos describing how it works a
 For videos and articles on this project visit: [NoSql Central](http://www.nosqlcentral.net/Story/Search/videos)
 
 ##Important!##
-It's important to open the project in Visual Studio 2013, Community (2015) or later **as Administrator!**.  The WebApi project is currently set to create an IIS 8.x website, not IIS Express.  In order for Visual Studio to do it for you, you must run VS as Administrator.
+It's important to open the project in Visual Studio 2013, Community (2015) or later **as Administrator!**  The WebApi project is currently set to create an IIS 8.x website, not IIS Express.  In order for Visual Studio to do it for you, you must run VS as Administrator.
 
 ## New GolfTracker - Angular 2 - 7/1/2016
 This application is a port of the Angular 1/Azure DocumentDB application.  It is written using Angular 2 (RC 4) and currently can point to Azure DocumentDB or MongoDB endpoints.  Just add the Urls to these data stores.
