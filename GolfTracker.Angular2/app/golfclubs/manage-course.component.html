@@ -1,0 +1,15 @@
+        <div class="panel panel-primary" *ngIf="isVisible">
+            <div class="panel-heading">
+                {{ dialogTitle }} Course - {{ golfclub.Name }}
+            </div>
+            <div class="panel-body">
+                <form #courseForm="ngForm">
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" class="form-control" id="golfCourseName" required [(ngModel)]="golfcourse.Name" name="coursename" />
+                    </div>
+                    <button class="btn btn-primary" (click)="saveCourse(golfclub, golfcourse)">{{ dialogTitle }} Course</button>
+                    <a class="btn btn-default" (click)="cancelAddCourse()">Cancel</a>
+                </form>
+            </div>
+        </div>

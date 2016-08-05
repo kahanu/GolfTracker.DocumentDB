@@ -1,0 +1,42 @@
+        <div class="panel panel-primary" *ngIf="isVisible">
+            <div class="panel-heading">
+                Add Round for {{ golfer.Name }}
+            </div>
+            <div class="panel-body">
+                <form name="roundForm" #roundform="ngForm" novalidate (ngSubmit)="submitRoundForm(roundform.valid, round)">
+                    <div class="form-group">
+                        <label>Score</label>
+                        <input type="number" class="form-control" [(ngModel)]="round.Score" required name="score" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Played</label>
+                        <p class="input-group">
+                            <input type="date" [(ngModel)]="round.DatePlayed" class="form-control" name="DatePlayed">
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Golf Club</label>
+                        <select id="golfclub" class="form-control" required [(ngModel)]="round.GolfCourse.GolfClubName" (change)="getGolfCourses($event.target.value)"
+                            name="golfclub">
+                            <option *ngFor="let gc of golfclubs" value="{{gc.Name}}">{{gc.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Golf Course</label>
+                        <select id="golfcourse" class="form-control" required [(ngModel)]="round.GolfCourse.GolfCourseName" (change)="getTees($event.target.value)"
+                            [disabled]="!round.GolfCourse.GolfClubName" name="golfcourse">
+                            <option *ngFor="let c of golfcourses" value="{{c.Name}}">{{ c.Name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tee</label>
+                        <select id="tee" class="form-control" required [(ngModel)]="round.GolfCourse.TeePlayed.TeeName" [disabled]="!round.GolfCourse.GolfCourseName"
+                            name="tee">
+                            <option *ngFor="let t of tees" value="{{t.TeeName}}">{{t.TeeName}}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!roundform.valid">Save</button>
+                    <a class="btn btn-default" (click)="cancelRoundForm()">Cancel</a>
+                </form>
+            </div>
+        </div>

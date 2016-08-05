@@ -1,0 +1,22 @@
+        <div class="panel panel-primary" *ngIf="isVisible">
+            <div class="panel-heading">
+                <h3 class="panel-title">View Rounds for {{ golfer.Name }}</h3>
+                <span class="glyphicon glyphicon-remove-sign panel-close-button" (click)="closeRoundsPanel()"></span>
+            </div>
+            <div class="panel-body">
+                <div class="round-block" *ngFor="let r of golfer.Rounds; let idx = index">
+                    <p>{{ r.DatePlayed | date }}</p>
+                    <h3>{{ r.GolfCourse.GolfClubName }} - {{ r.GolfCourse.GolfCourseName }}</h3>
+                    <span class="glyphicon glyphicon-remove" (click)="deleteRound(idx)" title="Delete Round"></span>
+                    <div>
+                        {{ r.GolfCourse.TeePlayed.Gender }} {{ r.GolfCourse.TeePlayed.TeeName }} Tee - 
+                        Par: {{ r.GolfCourse.TeePlayed.Par }} - {{ r.GolfCourse.TeePlayed.Length }} yards - 
+                        Slope/Rating: {{ r.GolfCourse.TeePlayed.Slope }}/{{ r.GolfCourse.TeePlayed.Rating }}
+                    </div>
+                    <div class="score-block">
+                        Score: {{ r.Score }} - Net: {{ r.NetScore }}
+                    </div>
+                </div>
+
+            </div>
+        </div>

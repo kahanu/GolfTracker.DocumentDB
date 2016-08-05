@@ -13,6 +13,7 @@ import { HandicapCalculatorService } from './golfers/handicap-calculator.service
 
 import { ExceptionService } from './services/exception.service';
 import { ToastComponent, ToastService } from './toast/toasts';
+import { PubSubService } from './pubsub/pubsub.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { ToastComponent, ToastService } from './toast/toasts';
     templateUrl: "app/app.component.html",
     directives: [ROUTER_DIRECTIVES, ToastComponent],
     providers: [ROUTER_PROVIDERS, HTTP_PROVIDERS, GolfClubService, ExceptionService,
-    ToastService, GolferService, HandicapCalculatorService]
+    ToastService, GolferService, HandicapCalculatorService, PubSubService]
 })
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent, useAsDefault: true },

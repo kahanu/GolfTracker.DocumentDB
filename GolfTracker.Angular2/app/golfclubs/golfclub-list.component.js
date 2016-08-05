@@ -14,22 +14,42 @@ var platform_browser_1 = require('@angular/platform-browser');
 // Import the components and services
 var golfclub_service_1 = require('./golfclub.service');
 var toast_service_1 = require('../toast/toast.service');
+var golfcourses_for_golfclub_component_1 = require('./golfcourses-for-golfclub.component');
+var manage_course_component_1 = require('./manage-course.component');
+var manage_golfclub_component_1 = require('./manage-golfclub.component');
+var pubsub_service_1 = require('../pubsub/pubsub.service');
 // Decorate the class and set the metadata.
 var GolfClubListComponent = (function () {
-    function GolfClubListComponent(_golfClubService, _toastService, _titleService) {
+    function GolfClubListComponent(_golfClubService, _toastService, _titleService, _pubsub) {
         this._golfClubService = _golfClubService;
         this._toastService = _toastService;
         this._titleService = _titleService;
+        this._pubsub = _pubsub;
         this.pageTitle = "Golf Clubs";
         this.shortTable = false;
         this.teeFormIsVisible = false;
         this.golfClubFormIsVisible = false;
         this.golfCourseFormIsVisible = false;
         this.golfCoursesTableIsVisible = false;
+        this.subscription = null;
         this._titleService.setTitle("Golf Clubs - Angular 2");
     }
     GolfClubListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getGolfClubs();
+        this.subscription = this._pubsub.GolfClub.subscribe(function (golfclub) {
+            _this.processGolfClubSubscription(golfclub);
+        });
+    };
+    ///<author>
+    /// KW - processGolfClubSubscription
+    ///</author>
+    ///<summary>
+    /// This handles the PubSub subscription from the manage-golfclub.component.ts, to add a new golf club to the array of golf clubs.
+    ///</summary>
+    GolfClubListComponent.prototype.processGolfClubSubscription = function (golfclub) {
+        this.golfclubs.push(golfclub);
+        this.shortTable = false;
     };
     ///<author>
     /// KW - Get Golf Clubs methods
@@ -59,13 +79,13 @@ var GolfClubListComponent = (function () {
         this.golfCoursesTableIsVisible = true;
     };
     ///<author>
-    /// KW - Close the Golf Courses Table
+    /// KW - onGolfCoursesPanelClose
     ///</author>
     ///<summary>
-    /// This will close the panel when the X is clicked.
+    /// This is the close event handler on the GolfCoursesForGolfClubComponent directive.
     ///</summary>
-    GolfClubListComponent.prototype.closeCoursesPanel = function () {
-        this.golfCoursesTableIsVisible = false;
+    GolfClubListComponent.prototype.onGolfCoursesPanelClose = function () {
+        this.hideAllForms();
         this.shortTable = false;
     };
     ///<author>
@@ -83,84 +103,13 @@ var GolfClubListComponent = (function () {
         this.shortTable = true;
     };
     ///<author>
-    /// KW - Save the golf course
+    /// KW - onCloseManageCourse
     ///</author>
     ///<summary>
-    /// This saves the golf course whether it's an insert or update.
+    /// This event handler is used to close the manage-course form directive.
     ///</summary>
-    GolfClubListComponent.prototype.saveCourse = function (golfclub, golfcourse) {
-        var _this = this;
-        if (golfcourse.Name === undefined) {
-            return;
-        }
-        // Make sure the GolfCourses collection is initialized
-        if (golfclub.GolfCourses === undefined) {
-            console.log("golfcourses is null");
-            golfclub.GolfCourses = [];
-        }
-        // Find the index for the selected golf course.
-        var idx = golfclub.GolfCourses.findIndex(function (obj) {
-            return obj.Name == golfcourse.Name;
-        });
-        if (idx === -1) {
-            // insert course
-            golfclub.GolfCourses.push(golfcourse);
-        }
-        else {
-            // update course
-            golfclub.GolfCourses.splice(idx, 1, golfcourse);
-        }
-        // Update the golf club via the service.  This does an entire
-        // document update.
-        this._golfClubService.updateGolfClub(golfclub)
-            .subscribe(function (gc) {
-            _this.golfCourseFormIsVisible = false;
-            _this.shortTable = false;
-            //this._toastService.activate("The golf club was saved successfully!", "Save Golf Club");
-        });
-    };
-    ///<author>
-    /// KW - Show the course form for editing.
-    ///</author>
-    ///<summary>
-    /// This command shows the form for editing a golf course and populates the 
-    /// form with the existing golf course.
-    ///</summary>
-    GolfClubListComponent.prototype.editCourse = function (golfClub, golfCourse, index) {
+    GolfClubListComponent.prototype.onCloseManageCourse = function () {
         this.hideAllForms();
-        this.dialogTitle = "Edit";
-        this.golfclub = golfClub;
-        this.golfcourse = golfCourse;
-        this.golfCourseFormIsVisible = true;
-        this.shortTable = true;
-    };
-    ///<author>
-    /// KW - Delete the selected golf course
-    ///</author>
-    ///<summary>
-    /// This method deletes the selected golf course.
-    ///</summary>
-    GolfClubListComponent.prototype.deleteCourse = function (golfClub, golfCourse, index) {
-        var _this = this;
-        if (confirm("Are you sure you want to delete this golf course?")) {
-            golfClub.GolfCourses.splice(index, 1);
-            this._golfClubService.updateGolfClub(golfClub)
-                .subscribe(function (gc) {
-                _this.hideAllForms();
-                _this.shortTable = false;
-            });
-        }
-    };
-    ///<author>
-    /// KW - Cancel the manage course form.
-    ///</author>
-    ///<summary>
-    /// This method closes the Course form when the Cancel button is clicked.
-    ///</summary>
-    GolfClubListComponent.prototype.cancelAddCourse = function () {
-        var el = document.getElementById("golfCourseName");
-        el.removeAttribute("required");
-        this.golfCourseFormIsVisible = false;
         this.shortTable = false;
     };
     /**********************************************************************************************
@@ -197,39 +146,6 @@ var GolfClubListComponent = (function () {
         this.golfClubFormIsVisible = true;
     };
     ///<author>
-    /// KW - Edit Golf Club
-    ///</author>
-    ///<summary>
-    /// This will handle either the Insert or Update function.
-    ///</summary>
-    GolfClubListComponent.prototype.saveGolfClub = function (golfClub) {
-        var _this = this;
-        // quick validation
-        if (golfClub.Name === undefined) {
-            console.log("form not valid");
-            this.errorMessage = "Golf Club Name is required.";
-            return;
-        }
-        // Since there's no Id on the incoming model, add.
-        if (golfClub.id === undefined) {
-            this._golfClubService.addGolfClub(golfClub)
-                .subscribe(function (gc) {
-                _this.golfclubs.push(gc);
-                _this.golfclub = {};
-                _this.golfClubFormIsVisible = false;
-                _this.shortTable = false;
-            });
-            return;
-        }
-        // Update the model
-        this._golfClubService.updateGolfClub(golfClub)
-            .subscribe(function (gc) {
-            _this.golfclub = {};
-            _this.golfClubFormIsVisible = false;
-            _this.shortTable = false;
-        });
-    };
-    ///<author>
     /// KW - Delete Golf Club
     ///</author>
     ///<summary>
@@ -252,117 +168,17 @@ var GolfClubListComponent = (function () {
         }
     };
     ///<author>
-    /// KW - Close the Golf Club
+    /// KW - onCloseManageGolfClub
     ///</author>
     ///<summary>
-    /// First remove the "required" attribute to the input field so the validation doesn't fire
-    /// when you hide the form.
+    /// This handles the click event to close the manage-golfclub directive.
     ///</summary>
-    GolfClubListComponent.prototype.closeGolfClubForm = function () {
-        var el = document.getElementById("golfClubName");
-        el.removeAttribute("required");
-        this.golfclub = {};
-        this.golfClubFormIsVisible = false;
+    GolfClubListComponent.prototype.onCloseManageGolfClub = function () {
+        this.hideAllForms();
         this.shortTable = false;
     };
     /**********************************************************************************************
     End Golf Club Methods
-    **********************************************************************************************/
-    /**********************************************************************************************
-    Begin Tee Methods
-    **********************************************************************************************/
-    ///<author>
-    /// KW - Show the manage Tee form
-    ///</author>
-    ///<summary>
-    /// This shows the form to Add a new Tee to the selected golf course.
-    ///</summary>
-    GolfClubListComponent.prototype.showTeeForm = function (golfclub, index) {
-        this.dialogTitle = "Add";
-        this.golfclub = golfclub;
-        this.golfcourse = golfclub.GolfCourses[index];
-        this.tee = { Gender: "Mens", Par: 72 }; // set some defaults for fields
-        this.index = index; // the index of the selected golf course for use when saving
-        this.teeFormIsVisible = true;
-        this.shortTable = true;
-    };
-    ///<author>
-    /// KW - Save the Tee
-    ///</author>
-    ///<summary>
-    /// This method either inserts or updates the selected tee for the golf course.
-    ///</summary>
-    GolfClubListComponent.prototype.saveTee = function (isValid, golfclub, golfcourse, tee) {
-        var _this = this;
-        if (!isValid) {
-            console.log("not valid");
-            return;
-        }
-        var idx = -1;
-        if (!golfcourse.Tees) {
-            golfcourse.Tees = [];
-        }
-        idx = golfcourse.Tees.findIndex(function (obj) {
-            return obj.TeeName == tee.TeeName;
-        });
-        if (idx === -1) {
-            // insert
-            golfcourse.Tees.push(tee);
-        }
-        else {
-            // update
-            golfcourse.Tees.splice(idx, 1, tee);
-        }
-        this._golfClubService.updateGolfClub(golfclub)
-            .subscribe(function (gc) {
-            _this.teeFormIsVisible = false;
-            _this.index = -1;
-        });
-    };
-    ///<author>
-    /// KW - Edit the selected tee.
-    ///</author>
-    ///<summary>
-    /// This method shows the edit form for the selected tee, and populates
-    /// the fields with the Tee data.
-    ///</summary>
-    GolfClubListComponent.prototype.editTee = function (golfclub, golfcourse, idx) {
-        this.dialogTitle = "Edit";
-        this.tee = golfcourse.Tees[idx];
-        this.golfclub = golfclub;
-        this.golfcourse = golfcourse;
-        this.index = idx; // the index of the selected tee for use when saving
-        this.teeFormIsVisible = true;
-        this.shortTable = true;
-    };
-    ///<author>
-    /// KW - Delete the selected tee.
-    ///</author>
-    ///<summary>
-    /// This method deletes the selected Tee from the golf course.
-    ///</summary>
-    GolfClubListComponent.prototype.deleteTee = function (golfClub, golfCourse, idx) {
-        var _this = this;
-        if (confirm("Are you sure you want to delete this tee?")) {
-            golfCourse.Tees.splice(idx, 1);
-            this._golfClubService.updateGolfClub(golfClub)
-                .subscribe(function (gc) {
-                _this.teeFormIsVisible = false;
-                _this.index = -1;
-            });
-        }
-    };
-    ///<author>
-    /// KW - Close the Tee form.
-    ///</author>
-    ///<summary>
-    /// This method hides the tee form when the Cancel button is clicked.
-    ///</summary>
-    GolfClubListComponent.prototype.cancelTeeForm = function () {
-        this.teeFormIsVisible = false;
-    };
-    /**********************************************************************************************
-    End Tee Methods
     **********************************************************************************************/
     ///<author>
     /// KW - Hide all forms.
@@ -380,9 +196,9 @@ var GolfClubListComponent = (function () {
         core_1.Component({
             selector: "golfclub-list",
             templateUrl: "app/golfclubs/golfclub-list.component.html",
-            directives: [common_1.NgClass]
+            directives: [common_1.NgClass, golfcourses_for_golfclub_component_1.GolfCoursesForGolfClubComponent, manage_course_component_1.ManageCourseComponent, manage_golfclub_component_1.ManageGolfClubComponent]
         }), 
-        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title, pubsub_service_1.PubSubService])
     ], GolfClubListComponent);
     return GolfClubListComponent;
 }());

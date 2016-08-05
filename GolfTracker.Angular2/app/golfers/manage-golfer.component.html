@@ -1,0 +1,27 @@
+        <div class="panel panel-primary" *ngIf="isVisible">
+            <div class="panel-heading">
+                {{ dialogTitle }} Golfer
+            </div>
+            <div class="panel-body">
+                <form #golferform="ngForm" novalidate (ngSubmit)="saveGolfer(golferform.valid, golfer)">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="golferName" required [(ngModel)]="golfer.Name" name="Name" />
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-9">
+                            <label>Handicap</label>
+                            <input type="number" class="form-control" [(ngModel)]="golfer.Handicap" name="handicap" />
+                        </div>
+                        <div class="checkbox col-md-3 is-plus">
+                            <label>
+                                <input type="checkbox" [(ngModel)]="golfer.IsPlus" name="isPlus"/> Is plus?
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!golferform.valid">Save</button>
+                    <a class="btn btn-default" (click)="cancelGolferForm()">Cancel</a>
+                </form>
+            </div>
+        </div>

@@ -20,6 +20,7 @@ var golfer_service_1 = require('./golfers/golfer.service');
 var handicap_calculator_service_1 = require('./golfers/handicap-calculator.service');
 var exception_service_1 = require('./services/exception.service');
 var toasts_1 = require('./toast/toasts');
+var pubsub_service_1 = require('./pubsub/pubsub.service');
 var AppComponent = (function () {
     function AppComponent() {
         this.pageTitle = "Golf Tracker - Angular 2";
@@ -30,7 +31,7 @@ var AppComponent = (function () {
             templateUrl: "app/app.component.html",
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, toasts_1.ToastComponent],
             providers: [router_deprecated_1.ROUTER_PROVIDERS, http_1.HTTP_PROVIDERS, golfclub_service_1.GolfClubService, exception_service_1.ExceptionService,
-                toasts_1.ToastService, golfer_service_1.GolferService, handicap_calculator_service_1.HandicapCalculatorService]
+                toasts_1.ToastService, golfer_service_1.GolferService, handicap_calculator_service_1.HandicapCalculatorService, pubsub_service_1.PubSubService]
         }),
         router_deprecated_1.RouteConfig([
             { path: '/', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },

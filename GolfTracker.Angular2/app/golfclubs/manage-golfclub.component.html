@@ -1,0 +1,23 @@
+        <div class="panel panel-primary" *ngIf="isVisible">
+            <div class="panel-heading">
+                {{ dialogTitle }} Golf Club
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>Golf Club</label>
+                        <input type="text" class="form-control" id="golfClubName" required [(ngModel)]="golfclub.Name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" [(ngModel)]="golfclub.Location" name="location" />
+                    </div>
+                    <a class="btn btn-primary" (click)="saveGolfClub(golfclub)">Save</a>
+                    <a class="btn btn-default" (click)="closeGolfClubForm()">Cancel</a>
+                </form>
+                <div *ngIf="errorMessage">
+                    <div class="alert alert-danger">{{ errorMessage }}</div>
+                </div>
+            </div>
+        </div>
+

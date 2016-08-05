@@ -5,6 +5,9 @@
 </p>
 
 <div class="row">
+    <!-- This ngClass directive says:   
+        -- if shortTable is true, set a CSS class of "col-md-6" to make the table half page wide, otherwise, it's full page width.
+    -->
     <div [ngClass]="{'col-md-6': shortTable, 'col-md-12': !shortTable}">
         <button class="btn btn-success" type="button" (click)="showAddGolferForm()">
             <span class="glyphicon glyphicon-plus"></span> Add Golfer
@@ -33,101 +36,27 @@
         </table>
     </div>
     <div [ngClass]="{'col-md-6':shortTable}">
+
+
         <!-- Show the form to add a golfer. -->
-        <div class="panel panel-primary" *ngIf="golferFormIsVisible">
-            <div class="panel-heading">
-                {{ dialogTitle }} Golfer
-            </div>
-            <div class="panel-body">
-                <form #golferform="ngForm" novalidate (ngSubmit)="saveGolfer(golferform.valid, golfer)">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" id="golferName" required [(ngModel)]="golfer.Name" name="Name" />
-                    </div>
+        <manage-golfer [golfer]="golfer" [dialogTitle]="dialogTitle" [isVisible]="golferFormIsVisible" (close)="onManageGolferClose()"></manage-golfer>
 
-                    <div class="row">
-                        <div class="form-group col-md-9">
-                            <label>Handicap</label>
-                            <input type="number" class="form-control" [(ngModel)]="golfer.Handicap" name="handicap" />
-                        </div>
-                        <div class="checkbox col-md-3 is-plus">
-                            <label>
-                                <input type="checkbox" [(ngModel)]="golfer.IsPlus" name="isPlus"/> Is plus?
-                            </label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" [disabled]="!golferform.valid">Save</button>
-                    <a class="btn btn-default" (click)="cancelGolferForm()">Cancel</a>
-                </form>
-            </div>
-                        <pre>{{ data }}</pre>
-        </div>
-
-        
         <!-- Show the form to add rounds of golf for the selected golfer. -->
-        <div class="panel panel-primary" *ngIf="roundFormIsVisible">
-            <div class="panel-heading">
-                Add Round for {{ golfer.Name }}
-            </div>
-            <div class="panel-body">
-                <form name="roundForm" #roundform="ngForm" novalidate (ngSubmit)="submitRoundForm(roundform.valid, round)">
-                    <div class="form-group">
-                        <label>Score</label>
-                        <input type="number" class="form-control" [(ngModel)]="round.Score" required name="score" />
-                    </div>
-                    <div class="form-group">
-                        <label>Date Played</label>
-                        <p class="input-group">
-                            <input type="date" [(ngModel)]="round.DatePlayed" class="form-control" name="DatePlayed">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <label>Golf Club</label>
-                        <select id="golfclub" class="form-control" required [(ngModel)]="round.GolfCourse.GolfClubName" (change)="getGolfCourses($event.target.value)" name="golfclub" >
-                            <option *ngFor="let gc of golfclubs" value="{{gc.Name}}">{{gc.Name}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Golf Course</label>
-                        <select id="golfcourse" class="form-control" required [(ngModel)]="round.GolfCourse.GolfCourseName" (change)="getTees($event.target.value)" [disabled]="!round.GolfCourse.GolfClubName" name="golfcourse">
-                            <option *ngFor="let c of golfcourses" value="{{c.Name}}">{{ c.Name }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tee</label>
-                        <select id="tee" class="form-control" required [(ngModel)]="round.GolfCourse.TeePlayed.TeeName" [disabled]="!round.GolfCourse.GolfCourseName" name="tee">
-                            <option *ngFor="let t of tees" value="{{t.TeeName}}">{{t.TeeName}}</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" [disabled]="!roundform.valid">Save</button>
-                    <a class="btn btn-default" (click)="cancelRoundForm()">Cancel</a>
-                </form>
-            </div>
-        </div>
+        <add-round [golfer]="golfer" [round]="round" [isVisible]="roundFormIsVisible" (close)="onCloseAddRoundForm()"></add-round>
+
 
         <!-- View the rounds of golf for the selected golfer. -->
-        <div class="panel panel-primary" *ngIf="viewRoundsIsVisible">
-            <div class="panel-heading">
-                <h3 class="panel-title">View Rounds for {{ golfer.Name }}</h3>
-                <span class="glyphicon glyphicon-remove-sign panel-close-button" (click)="closeRoundsPanel()"></span>
-            </div>
-            <div class="panel-body">
-                <div class="round-block" *ngFor="let r of golfer.Rounds; let idx = index">
-                    <p>{{ r.DatePlayed | date }}</p>
-                    <h3>{{ r.GolfCourse.GolfClubName }} - {{ r.GolfCourse.GolfCourseName }}</h3>
-                    <span class="glyphicon glyphicon-remove" (click)="deleteRound(idx)" title="Delete Round"></span>
-                    <div>
-                        {{ r.GolfCourse.TeePlayed.Gender }} {{ r.GolfCourse.TeePlayed.TeeName }} Tee - 
-                        Par: {{ r.GolfCourse.TeePlayed.Par }} - {{ r.GolfCourse.TeePlayed.Length }} yards - 
-                        Slope/Rating: {{ r.GolfCourse.TeePlayed.Slope }}/{{ r.GolfCourse.TeePlayed.Rating }}
-                    </div>
-                    <div class="score-block">
-                        Score: {{ r.Score }} - Net: {{ r.NetScore }}
-                    </div>
-                </div>
+        <!-- You can optionally pass in the event into the onClose() method.
 
-            </div>
-        </div>
+        <view-rounds [golfer]="golfer" [isVisible]="viewRoundsIsVisible" (close)="onClose($event)"></view-rounds>
+
+        The value of $event would be 'false', from the:
+             this.close.emit(false);
+        ... in the ViewRoundsComponent - closeRoundsPanel() method.
+
+        See the onClose method in this component for more info.
+        -->
+        <view-rounds [golfer]="golfer" [isVisible]="viewRoundsIsVisible" (close)="onCloseViewRounds()"></view-rounds>
 
     </div>
 </div>
