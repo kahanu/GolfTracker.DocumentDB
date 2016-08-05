@@ -35,7 +35,6 @@
         <!-- The Table showing the golf courses for the selected golf club, to add tees. -->
         <golfcourses-for-golfclub [golfclub]="golfclub" [isVisible]="golfCoursesTableIsVisible" (close)="onGolfCoursesPanelClose()"></golfcourses-for-golfclub>
 
-
         <!-- The form for managing the golf courses. -->
         <manage-course [golfclub]="golfclub" [golfcourse]="golfcourse" [isVisible]="golfCourseFormIsVisible" [dialogTitle]="dialogTitle"
             (close)="onCloseManageCourse()"></manage-course>
