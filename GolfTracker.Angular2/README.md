@@ -3,6 +3,7 @@ This is the port from the Angular 1 project currently written in Angular 2 (~~2.
 
 ## Update
 **Aug. 8, 2016**
+
 1.  **Routing Updated** - updated all the routing to replace the deprecated routing with the rc.4 routing.
 
 The following assumes you have installed [**MongoDB**](https://www.mongodb.com/download-center?jmp=nav#community) and [**NodeJS**](https://nodejs.org/en/download/) on your system.
