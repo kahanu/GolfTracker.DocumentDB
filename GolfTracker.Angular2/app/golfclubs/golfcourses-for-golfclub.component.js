@@ -125,6 +125,12 @@ var GolfCoursesForGolfClubComponent = (function () {
             });
         }
     };
+    ///<author>
+    /// KW - onCloseTee
+    ///</author>
+    ///<summary>
+    /// Close the tee form.
+    ///</summary>
     GolfCoursesForGolfClubComponent.prototype.onCloseTee = function () {
         this.teeFormIsVisible = false;
     };

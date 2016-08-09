@@ -46,6 +46,8 @@ var ManageGolfersComponent = (function () {
     ManageGolfersComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.getGolfers();
+        // The subscribe method of the _pubsub.Golfer, listens for incoming messages, in this case new golfers.
+        // When a new golfer is received, it calls the processGolferSubscription method.
         this.subscription = this._pubsub.Golfer.subscribe(function (golfer) {
             _this.processGolferSubscription(golfer);
         });
@@ -54,7 +56,7 @@ var ManageGolfersComponent = (function () {
     /// KW - processSubscription
     ///</author>
     ///<summary>
-    /// This handles the pubsub subscription from any publishers.
+    /// This handles the pubsub subscription from any publishers.  
     ///</summary>
     ManageGolfersComponent.prototype.processGolferSubscription = function (golfer) {
         this.golfers.push(golfer);
@@ -76,12 +78,24 @@ var ManageGolfersComponent = (function () {
         this._golferService.getGolfers()
             .subscribe(function (golfers) { return _this.golfers = golfers; });
     };
+    ///<author>
+    /// KW - showAddGolferForm
+    ///</author>
+    ///<summary>
+    /// Show the form to add a new golfer.
+    ///</summary>
     ManageGolfersComponent.prototype.showAddGolferForm = function () {
         this.hideAllForms();
         this.shortTable = true;
         this.golferFormIsVisible = true;
         this.golfer = {};
     };
+    ///<author>
+    /// KW - updateGolfer
+    ///</author>
+    ///<summary>
+    /// Show the form for the golfer to be edited.
+    ///</summary>
     ManageGolfersComponent.prototype.updateGolfer = function (golfer) {
         this.hideAllForms();
         this.dialogTitle = "Edit";
@@ -89,6 +103,12 @@ var ManageGolfersComponent = (function () {
         this.golfer = golfer;
         this.golferFormIsVisible = true;
     };
+    ///<author>
+    /// KW - deleteGolfer
+    ///</author>
+    ///<summary>
+    /// Delete the selected golfer.
+    ///</summary>
     ManageGolfersComponent.prototype.deleteGolfer = function (golfer, idx) {
         var _this = this;
         if (confirm("Are you sure you want to delete this golfer?")) {
@@ -98,33 +118,6 @@ var ManageGolfersComponent = (function () {
             });
         }
     };
-    // saveGolfer(isValid: boolean, golfer: IGolfer): void {
-    //     this.data = JSON.stringify(golfer, null, 2);
-    //     if (golfer.id) {
-    //         // updating
-    //         this._golferService.updateGolfer(golfer)
-    //             .subscribe(golfer => this.golfer = golfer);
-    //     } else {
-    //         // inserting
-    //         this._golferService.addGolfer(golfer)
-    //             .subscribe(golfer => {
-    //                 this.golfers.push(golfer);
-    //                 this.golfer = <IGolfer>{};
-    //             });
-    //     }
-    //     this.golferFormIsVisible = false;
-    //     this.shortTable = false;
-    // }
-    ///<author>
-    /// KW - cancelGolferForm
-    ///</author>
-    ///<summary>
-    /// This has been moved to the ManageGolferComponent.
-    ///</summary>
-    // cancelGolferForm(): void {
-    //     this.golferFormIsVisible = false;
-    //     this.shortTable = false;
-    // }
     ///<author>
     /// KW - onManageGolferClose
     ///</author>
@@ -141,6 +134,12 @@ var ManageGolfersComponent = (function () {
     /**********************************************************************************************
     Begin Round Form methods
     **********************************************************************************************/
+    ///<author>
+    /// KW - showRoundForm
+    ///</author>
+    ///<summary>
+    /// Show the form to enter a new round of golf for the selected golfer.
+    ///</summary>
     ManageGolfersComponent.prototype.showRoundForm = function (golfer, idx) {
         this.hideAllForms();
         // Set the visibility of the dialog and shorten the table
@@ -152,50 +151,19 @@ var ManageGolfersComponent = (function () {
             this.round.GolfCourse = {};
             this.round.GolfCourse.TeePlayed = {};
         }
-        // Moved to AddRoundComponent
-        // // Populate the Golf Club drop down
-        // this._golfClubService.getGolfClubs()
-        //     .subscribe(gc => this.golfclubs = gc);
     };
+    ///<author>
+    /// KW - viewRounds
+    ///</author>
+    ///<summary>
+    /// Show the panel that displays all the rounds for the golfer.
+    ///</summary>
     ManageGolfersComponent.prototype.viewRounds = function (golfer) {
         this.hideAllForms();
         this.golfer = golfer;
         this.shortTable = true;
         this.viewRoundsIsVisible = true;
     };
-    ///<author>
-    /// KW - submitRoundForm
-    ///</author>
-    ///<summary>
-    /// This was moved to the AddRoundComponent.
-    ///</summary>
-    // submitRoundForm(isValid: boolean, round: IRound) {
-    //     if (!isValid) {
-    //         return;
-    //     }
-    //     if (this.golfer.Rounds === undefined) {
-    //         this.golfer.Rounds = [];
-    //     }
-    //     // Set local variables for calculations
-    //     var grossScore = round.Score;
-    //     var hdcpIndex = this._handicapCalculatorService.fixHandicapIndex(this.golfer.Handicap, this.golfer.IsPlus);
-    //     var tee = this.tees.filter((item) => item.TeeName == round.GolfCourse.TeePlayed.TeeName)[0];
-    //     var slope = tee.Slope;
-    //     round.GolfCourse.TeePlayed = tee;
-    //     // Calculate the net score
-    //     var netScore = this._handicapCalculatorService.calculateNetScore(grossScore, hdcpIndex, slope);
-    //     // Update the round with the calculated net score.
-    //     round.NetScore = netScore;
-    //     // Add the round to the Rounds array for the golfer.
-    //     this.golfer.Rounds.push(round);
-    //     // Update the golfer 
-    //     this._golferService.updateGolfer(this.golfer)
-    //         .subscribe(g => {
-    //             this.rounds = this.golfer.Rounds;
-    //             this.shortTable = false;
-    //             this.roundFormIsVisible = false;
-    //         });
-    // }
     ///<author>
     /// KW - onCloseAddRoundForm
     ///</author>
@@ -206,50 +174,6 @@ var ManageGolfersComponent = (function () {
         this.hideAllForms();
         this.shortTable = false;
     };
-    ///<author>
-    /// KW - cancelRoundForm
-    ///</author>
-    ///<summary>
-    /// This method has moved to the AddRoundComponent.
-    ///</summary>
-    // cancelRoundForm(): void {
-    //     this.shortTable = false;
-    //     this.roundFormIsVisible = false;
-    // }
-    // // Start the cascading drop downs for clubs, courses and tees.
-    // getGolfCourses(name: string): void {
-    //     var club = this.golfclubs.filter((item) => item.Name == name)[0];
-    //     this.golfcourses = club.GolfCourses;
-    // }
-    // // Populate the Tees drop down when the courses drop down item is selected.
-    // getTees(name: string): void {
-    //     var golfcourses = this.golfcourses.filter((item) => item.Name == name)[0];
-    //     this.tees = golfcourses.Tees;
-    // }
-    ///<author>
-    /// KW - deleteRound
-    ///</author>
-    ///<summary>
-    /// This method has been moved to the ViewRoundsComponent.
-    ///</summary>
-    // deleteRound(idx: number): void {
-    //     if (confirm("Are you sure you want to delete this round?")) {
-    //         this.golfer.Rounds.splice(idx, 1);
-    //         this._golferService.updateGolfer(this.golfer)
-    //             .subscribe(g => g);
-    //     }
-    // }
-    ///<author>
-    /// KW - closeRoundsPanel
-    ///</author>
-    ///<summary>
-    /// This is no longer used now that the view rounds HTML has been extracted out to it's own component.
-    /// The onClose event handler below is now used to signal that the form should be closed.
-    ///</summary>
-    // closeRoundsPanel(): void {
-    //     this.shortTable = false;
-    //     this.viewRoundsIsVisible = false;
-    // }
     ///<author>
     /// KW - onClose
     ///</author>
@@ -272,6 +196,12 @@ var ManageGolfersComponent = (function () {
     /**********************************************************************************************
     End Round Form methods
     **********************************************************************************************/
+    ///<author>
+    /// KW - hideAllForms
+    ///</author>
+    ///<summary>
+    /// An easy way to hide all the panels if another panel has been activated.
+    ///</summary>
     ManageGolfersComponent.prototype.hideAllForms = function () {
         this.golferFormIsVisible = false;
         this.roundFormIsVisible = false;

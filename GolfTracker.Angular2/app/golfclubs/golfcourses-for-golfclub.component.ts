@@ -152,6 +152,12 @@ export class GolfCoursesForGolfClubComponent {
         }
     }
 
+    ///<author>
+    /// KW - onCloseTee
+    ///</author>
+    ///<summary>
+    /// Close the tee form.
+    ///</summary>
     onCloseTee(): void {
         this.teeFormIsVisible = false;
     }

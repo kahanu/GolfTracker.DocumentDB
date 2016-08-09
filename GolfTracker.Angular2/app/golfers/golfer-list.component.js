@@ -43,6 +43,12 @@ var GolferListComponent = (function () {
         this._golferService.getGolfers()
             .subscribe(function (golfers) { return _this.golfers = golfers; });
     };
+    ///<author>
+    /// KW - clickShowRounds
+    ///</author>
+    ///<summary>
+    /// Show the rounds for the selected golfer, for the unauthenticated user.
+    ///</summary>
     GolferListComponent.prototype.clickShowRounds = function (idx) {
         var player = this.golfers[idx];
         this.golfer = player;

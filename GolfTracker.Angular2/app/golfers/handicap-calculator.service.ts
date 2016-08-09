@@ -2,13 +2,28 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class HandicapCalculatorService {
-    // Public function
+    
+    ///<author>
+    /// KW - calculateNetScore
+    ///</author>
+    ///<summary>
+    /// This method calculates the players net score based on the 
+    /// player's gross score, his handicap index, and the slope
+    /// of the selected golf course.
+    ///</summary>
     calculateNetScore(score, hdcpIndex, slope): number {
         var hdcp = this.calculateHandicap(hdcpIndex, slope);
 
         return score + hdcp;
     };
 
+    ///<author>
+    /// KW - fixHandicapIndex
+    ///</author>
+    ///<summary>
+    /// This method normalizes the handicap index in case it's a plus handicap.
+    /// So essentially, it just returns a whole number.
+    ///</summary>
     fixHandicapIndex(hdcpIndex, isPlus):number {
         var result = hdcpIndex;
 
@@ -21,7 +36,13 @@ export class HandicapCalculatorService {
         return result;
     };
 
-    // Private function
+    ///<author>
+    /// KW - calculateHandicap
+    ///</author>
+    ///<summary>
+    /// This method returns the calulated handicap based on the incoming 
+    /// players handicap index and slope for the selected golf course.
+    ///</summary>
     private calculateHandicap(hdcpIndex, slope): number {
         var result = (hdcpIndex * slope) / 113;
 

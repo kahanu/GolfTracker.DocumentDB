@@ -46,6 +46,12 @@ export class GolferListComponent implements OnInit {
             .subscribe(golfers => this.golfers = golfers);
     }
     
+    ///<author>
+    /// KW - clickShowRounds
+    ///</author>
+    ///<summary>
+    /// Show the rounds for the selected golfer, for the unauthenticated user.
+    ///</summary>
     clickShowRounds(idx:number):void{
         var player = this.golfers[idx];
 

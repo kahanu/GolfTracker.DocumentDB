@@ -33,6 +33,12 @@ export class AddRoundComponent implements OnInit {
             .subscribe(gc => this.golfclubs = gc);
     }
 
+    ///<author>
+    /// KW - submitRoundForm
+    ///</author>
+    ///<summary>
+    /// Insert the round of golf for the selected golfer.
+    ///</summary>
     submitRoundForm(isValid: boolean, round: IRound) {
         if (!isValid) {
             return;
@@ -68,18 +74,34 @@ export class AddRoundComponent implements OnInit {
             });
     }
 
-    // Start the cascading drop downs for clubs, courses and tees.
+    ///<author>
+    /// KW - getGolfCourses
+    ///</author>
+    ///<summary>
+    /// Start the cascading drop downs for clubs, courses and tees.
+    ///</summary>
     getGolfCourses(name: string): void {
         var club = this.golfclubs.filter((item) => item.Name == name)[0];
         this.golfcourses = club.GolfCourses;
     }
 
-    // Populate the Tees drop down when the courses drop down item is selected.
+    ///<author>
+    /// KW - getTees
+    ///</author>
+    ///<summary>
+    /// Populate the Tees drop down when the courses drop down item is selected.
+    ///</summary>
     getTees(name: string): void {
         var golfcourses = this.golfcourses.filter((item) => item.Name == name)[0];
         this.tees = golfcourses.Tees;
     }
 
+    ///<author>
+    /// KW - cancelRoundForm
+    ///</author>
+    ///<summary>
+    /// Close the round entry form.
+    ///</summary>
     cancelRoundForm(): void {
         this.close.emit(false);
         this.isVisible = false;

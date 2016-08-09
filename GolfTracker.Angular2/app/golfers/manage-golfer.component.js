@@ -19,6 +19,12 @@ var ManageGolferComponent = (function () {
         this.dialogTitle = "Add";
         this.close = new core_1.EventEmitter();
     }
+    ///<author>
+    /// KW - saveGolfer
+    ///</author>
+    ///<summary>
+    /// Save or update the golfer.
+    ///</summary>
     ManageGolferComponent.prototype.saveGolfer = function (isValid, golfer) {
         var _this = this;
         if (golfer.id) {
@@ -41,8 +47,13 @@ var ManageGolferComponent = (function () {
             });
         }
         this.isVisible = false;
-        // this.shortTable = false;
     };
+    ///<author>
+    /// KW - cancelGolferForm
+    ///</author>
+    ///<summary>
+    /// Close the golfer form.
+    ///</summary>
     ManageGolferComponent.prototype.cancelGolferForm = function () {
         this.isVisible = false;
         this.close.emit(false);

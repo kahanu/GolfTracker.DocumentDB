@@ -18,6 +18,12 @@ export class ManageGolferComponent {
 
     constructor(private _golferService: GolferService, private _pubsub: PubSubService) { }
 
+    ///<author>
+    /// KW - saveGolfer
+    ///</author>
+    ///<summary>
+    /// Save or update the golfer.
+    ///</summary>
     saveGolfer(isValid: boolean, golfer: IGolfer): void {
 
         if (golfer.id) {
@@ -41,9 +47,14 @@ export class ManageGolferComponent {
         }
 
         this.isVisible = false;
-        // this.shortTable = false;
     }
 
+    ///<author>
+    /// KW - cancelGolferForm
+    ///</author>
+    ///<summary>
+    /// Close the golfer form.
+    ///</summary>
     cancelGolferForm(): void {
         this.isVisible = false;
         this.close.emit(false);

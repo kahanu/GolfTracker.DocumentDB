@@ -12,12 +12,26 @@ var core_1 = require('@angular/core');
 var HandicapCalculatorService = (function () {
     function HandicapCalculatorService() {
     }
-    // Public function
+    ///<author>
+    /// KW - calculateNetScore
+    ///</author>
+    ///<summary>
+    /// This method calculates the players net score based on the 
+    /// player's gross score, his handicap index, and the slope
+    /// of the selected golf course.
+    ///</summary>
     HandicapCalculatorService.prototype.calculateNetScore = function (score, hdcpIndex, slope) {
         var hdcp = this.calculateHandicap(hdcpIndex, slope);
         return score + hdcp;
     };
     ;
+    ///<author>
+    /// KW - fixHandicapIndex
+    ///</author>
+    ///<summary>
+    /// This method normalizes the handicap index in case it's a plus handicap.
+    /// So essentially, it just returns a whole number.
+    ///</summary>
     HandicapCalculatorService.prototype.fixHandicapIndex = function (hdcpIndex, isPlus) {
         var result = hdcpIndex;
         if (isPlus) {
@@ -29,7 +43,13 @@ var HandicapCalculatorService = (function () {
         return result;
     };
     ;
-    // Private function
+    ///<author>
+    /// KW - calculateHandicap
+    ///</author>
+    ///<summary>
+    /// This method returns the calulated handicap based on the incoming 
+    /// players handicap index and slope for the selected golf course.
+    ///</summary>
     HandicapCalculatorService.prototype.calculateHandicap = function (hdcpIndex, slope) {
         var result = (hdcpIndex * slope) / 113;
         var tempValue = 0;
