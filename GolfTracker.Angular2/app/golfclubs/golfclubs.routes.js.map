@@ -1,0 +1,1 @@
+{"version":3,"file":"golfclubs.routes.js","sourceRoot":"","sources":["golfclubs.routes.ts"],"names":[],"mappings":";AAEA,oCAAmC,uBAAuB,CAAC,CAAA;AAC3D,wCAAsC,2BAA2B,CAAC,CAAA;AAErD,uBAAe,GAAiB;IACzC;QACI,IAAI,EAAE,WAAW,EAAE,SAAS,EAAE,wCAAkB,EAAE,QAAQ,EAAE;YACxD,EAAE,IAAI,EAAE,EAAE,EAAE,SAAS,EAAE,+CAAqB,EAAE;SACjD;KACJ;CACJ,CAAC"}

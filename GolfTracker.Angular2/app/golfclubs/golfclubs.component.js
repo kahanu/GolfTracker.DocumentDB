@@ -9,19 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
-var golfclub_list_component_1 = require('./golfclub-list.component');
+var router_1 = require("@angular/router");
 var GolfClubsComponent = (function () {
     function GolfClubsComponent() {
     }
     GolfClubsComponent = __decorate([
         core_1.Component({
             selector: "golfclubs-root",
-            template: "<router-outlet></router-outlet>"
-        }),
-        router_deprecated_1.RouteConfig([
-            { path: 'golfclubs/', name: "GolfClubList", component: golfclub_list_component_1.GolfClubListComponent, useAsDefault: true }
-        ]), 
+            template: "<router-outlet></router-outlet>",
+            directives: [router_1.ROUTER_DIRECTIVES]
+        }), 
         __metadata('design:paramtypes', [])
     ], GolfClubsComponent);
     return GolfClubsComponent;

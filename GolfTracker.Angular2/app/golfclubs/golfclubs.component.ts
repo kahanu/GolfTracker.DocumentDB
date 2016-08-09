@@ -1,15 +1,10 @@
 import { Component } from "@angular/core";
-import { RouteConfig, ROUTER_DIRECTIVES } from "@angular/router-deprecated";
-
-import { GolfClubListComponent } from './golfclub-list.component';
-
+import { ROUTER_DIRECTIVES } from "@angular/router";
 
 @Component({
     selector: "golfclubs-root",
-    template: "<router-outlet></router-outlet>"
+    template: "<router-outlet></router-outlet>",
+    directives: [ROUTER_DIRECTIVES]
 })
-@RouteConfig([
-    { path: 'golfclubs/', name: "GolfClubList", component: GolfClubListComponent, useAsDefault: true}
-])
 export class GolfClubsComponent {
 }

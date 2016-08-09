@@ -9,19 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var GolfersComponent = (function () {
-    function GolfersComponent() {
+var PageNotFoundComponent = (function () {
+    function PageNotFoundComponent() {
+        this.pageTitle = "(Hand wave)";
     }
-    GolfersComponent = __decorate([
+    PageNotFoundComponent = __decorate([
         core_1.Component({
-            selector: "golfers-root",
-            template: "<router-outlet></router-outlet>",
-            directives: [router_1.ROUTER_DIRECTIVES]
+            selector: "page-not-found",
+            template: "<h1>{{ pageTitle }}</h1>\n    <p>This isn't the content you are looking for, move along.</p>\n    "
         }), 
         __metadata('design:paramtypes', [])
-    ], GolfersComponent);
-    return GolfersComponent;
+    ], PageNotFoundComponent);
+    return PageNotFoundComponent;
 }());
-exports.GolfersComponent = GolfersComponent;
-//# sourceMappingURL=golfers.component.js.map
+exports.PageNotFoundComponent = PageNotFoundComponent;
+//# sourceMappingURL=page-not-found.component.js.map

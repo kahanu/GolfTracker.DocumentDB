@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DatePipe } from '../shared/date.pipe';
-import { ROUTER_DIRECTIVES } from "@angular/router-deprecated";
+import { ROUTER_DIRECTIVES } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 
 import { GolferService, IGolfer, ITee, IGolfCourse, IRound } from './golfer.service';
