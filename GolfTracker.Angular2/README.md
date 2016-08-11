@@ -6,6 +6,10 @@ This is the port from the Angular 1 project currently written in Angular 2 (~~2.
 
 1.  **Routing Updated** - updated all the routing to replace the deprecated routing with the rc.4 routing.
 
+**Aug. 11, 2016**
+
+1.  **Upgrade to RC5** - updated the application to RC 5.
+
 The following assumes you have installed [**MongoDB**](https://www.mongodb.com/download-center?jmp=nav#community) and [**NodeJS**](https://nodejs.org/en/download/) on your system.
 
 ## Installation and Setup Instructions:
