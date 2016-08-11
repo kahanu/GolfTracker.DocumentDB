@@ -1,4 +1,4 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 import { golfersRoutes } from './golfers/golfers.routes';
 import { golfclubsRoutes } from './golfclubs/golfclubs.routes';
 
-const routes: RouterConfig = [
+const routes: Routes = [
     { path: '', component: HomeComponent },
     ...golfclubsRoutes,
     ...golfersRoutes,
@@ -14,6 +14,4 @@ const routes: RouterConfig = [
 
 ];
 
-export const appRouterProviders = [
-    provideRouter(routes)
-];
+export const appRouterProviders = RouterModule.forRoot(routes);

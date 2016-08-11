@@ -47,6 +47,7 @@ export class ManageGolferComponent {
         }
 
         this.isVisible = false;
+        this.close.emit(false);
     }
 
     ///<author>

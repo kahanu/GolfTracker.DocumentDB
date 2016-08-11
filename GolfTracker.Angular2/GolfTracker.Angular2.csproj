@@ -59,27 +59,44 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="app\app.component.css" />
     <Content Include="app\app.component.html" />
     <Content Include="app\app.component.js" />
+    <Content Include="app\app.routes.js" />
     <Content Include="app\config.js" />
     <Content Include="app\golfclubs\golfclub-list.component.html" />
     <Content Include="app\golfclubs\golfclub-list.component.js" />
     <Content Include="app\golfclubs\golfclub.component.js" />
     <Content Include="app\golfclubs\golfclub.service.js" />
     <Content Include="app\golfclubs\golfclubs.component.js" />
+    <Content Include="app\golfclubs\golfclubs.routes.js" />
     <Content Include="app\golfclubs\golfcourses-for-golfclub.component.html" />
     <Content Include="app\golfclubs\golfcourses-for-golfclub.component.js" />
+    <Content Include="app\golfclubs\manage-course.component.html" />
+    <Content Include="app\golfclubs\manage-course.component.js" />
+    <Content Include="app\golfclubs\manage-golfclub.component.html" />
+    <Content Include="app\golfclubs\manage-golfclub.component.js" />
+    <Content Include="app\golfclubs\manage-tee.component.html" />
+    <Content Include="app\golfclubs\manage-tee.component.js" />
+    <Content Include="app\golfers\add-round.component.html" />
+    <Content Include="app\golfers\add-round.component.js" />
     <Content Include="app\golfers\golfer-list.component.html" />
     <Content Include="app\golfers\golfer-list.component.js" />
     <Content Include="app\golfers\golfer.service.js" />
     <Content Include="app\golfers\golfers.component.js" />
+    <Content Include="app\golfers\golfers.routes.js" />
     <Content Include="app\golfers\handicap-calculator.service.js" />
+    <Content Include="app\golfers\manage-golfer.component.html" />
+    <Content Include="app\golfers\manage-golfer.component.js" />
     <Content Include="app\golfers\manage-golfers.component.html" />
     <Content Include="app\golfers\manage-golfers.component.js" />
+    <Content Include="app\golfers\view-rounds.component.html" />
+    <Content Include="app\golfers\view-rounds.component.js" />
     <Content Include="app\home\home.component.html" />
     <Content Include="app\home\home.component.js" />
     <Content Include="app\main.js" />
+    <Content Include="app\page-not-found.component.js" />
     <Content Include="app\services\exception.service.js" />
     <Content Include="app\shared\date.pipe.js" />
     <Content Include="app\shared\dateformat.pipe.js" />
@@ -93,6 +110,7 @@
     <Content Include="bin\GolfTracker.Angular2.dll" />
     <Content Include="bin\GolfTracker.Angular2.pdb" />
     <Content Include="favicon.ico" />
+    <Content Include="golfclubs-page-small.png" />
     <Content Include="obj\Debug\GolfTracker.Angular2.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\GolfTracker.Angular2.dll" />
     <Content Include="obj\Debug\GolfTracker.Angular2.pdb" />
@@ -127,6 +145,19 @@
     <Content Include="app\golfclubs\golfclubs.component.js.map" />
     <Content Include="app\golfclubs\golfcourses-for-golfclub.component.js.map" />
     <Content Include="README.md" />
+    <Content Include="app\pubsub\golfclub.eventemitter.js.map" />
+    <Content Include="app\pubsub\golfers.eventemitter.js.map" />
+    <Content Include="app\pubsub\pubsub.service.js.map" />
+    <Content Include="app\app.routes.js.map" />
+    <Content Include="app\page-not-found.component.js.map" />
+    <Content Include="app\golfers\add-round.component.js.map" />
+    <Content Include="app\golfers\golfers.routes.js.map" />
+    <Content Include="app\golfers\manage-golfer.component.js.map" />
+    <Content Include="app\golfers\view-rounds.component.js.map" />
+    <Content Include="app\golfclubs\golfclubs.routes.js.map" />
+    <Content Include="app\golfclubs\manage-course.component.js.map" />
+    <Content Include="app\golfclubs\manage-golfclub.component.js.map" />
+    <Content Include="app\golfclubs\manage-tee.component.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,18 +177,31 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\app.component.ts" />
+    <TypeScriptCompile Include="app\app.routes.ts" />
     <TypeScriptCompile Include="app\config.ts" />
     <TypeScriptCompile Include="app\golfclubs\golfclub-list.component.ts" />
     <TypeScriptCompile Include="app\golfclubs\golfclub.service.ts" />
     <TypeScriptCompile Include="app\golfclubs\golfclubs.component.ts" />
+    <TypeScriptCompile Include="app\golfclubs\golfclubs.routes.ts" />
     <TypeScriptCompile Include="app\golfclubs\golfcourses-for-golfclub.component.ts" />
+    <TypeScriptCompile Include="app\golfclubs\manage-course.component.ts" />
+    <TypeScriptCompile Include="app\golfclubs\manage-golfclub.component.ts" />
+    <TypeScriptCompile Include="app\golfclubs\manage-tee.component.ts" />
+    <TypeScriptCompile Include="app\golfers\add-round.component.ts" />
     <TypeScriptCompile Include="app\golfers\golfer-list.component.ts" />
     <TypeScriptCompile Include="app\golfers\golfer.service.ts" />
     <TypeScriptCompile Include="app\golfers\golfers.component.ts" />
+    <TypeScriptCompile Include="app\golfers\golfers.routes.ts" />
     <TypeScriptCompile Include="app\golfers\handicap-calculator.service.ts" />
+    <TypeScriptCompile Include="app\golfers\manage-golfer.component.ts" />
     <TypeScriptCompile Include="app\golfers\manage-golfers.component.ts" />
+    <TypeScriptCompile Include="app\golfers\view-rounds.component.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\page-not-found.component.ts" />
+    <TypeScriptCompile Include="app\pubsub\golfclub.eventemitter.ts" />
+    <TypeScriptCompile Include="app\pubsub\golfers.eventemitter.ts" />
+    <TypeScriptCompile Include="app\pubsub\pubsub.service.ts" />
     <TypeScriptCompile Include="app\services\exception.service.ts" />
     <TypeScriptCompile Include="app\shared\date.pipe.ts" />
     <TypeScriptCompile Include="app\shared\dateformat.pipe.ts" />

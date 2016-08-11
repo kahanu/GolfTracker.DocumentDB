@@ -17,7 +17,8 @@ import { PubSubService } from '../pubsub/pubsub.service';
     selector: "manage-golfers",
     templateUrl: "app/golfers/manage-golfers.component.html",
     directives: [NgClass, ViewRoundsComponent, ManageGolferComponent, AddRoundComponent],
-    pipes: [DatePipe]
+    pipes: [DatePipe],
+    providers: [Title]
 })
 export class ManageGolfersComponent implements OnInit {
     pageTitle: string = "Manage Golfers";

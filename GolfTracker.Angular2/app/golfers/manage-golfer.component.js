@@ -47,6 +47,7 @@ var ManageGolferComponent = (function () {
             });
         }
         this.isVisible = false;
+        this.close.emit(false);
     };
     ///<author>
     /// KW - cancelGolferForm

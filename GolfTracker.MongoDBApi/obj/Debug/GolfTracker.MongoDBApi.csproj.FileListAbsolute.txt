@@ -1,0 +1,6 @@
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\bin\GolfTracker.MongoDBApi.dll.config
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\bin\GolfTracker.MongoDBApi.dll
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\bin\GolfTracker.MongoDBApi.pdb
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\obj\Debug\GolfTracker.MongoDBApi.csprojResolveAssemblyReference.cache
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\obj\Debug\GolfTracker.MongoDBApi.dll
+C:\Users\King\Documents\GitHub\GolfTracker\GolfTracker.MongoDBApi\obj\Debug\GolfTracker.MongoDBApi.pdb

@@ -8,7 +8,8 @@ import { HandicapCalculatorService } from './handicap-calculator.service';
 
 @Component({
     selector: "add-round",
-    templateUrl: "app/golfers/add-round.component.html"
+    templateUrl: "app/golfers/add-round.component.html",
+    providers: [HandicapCalculatorService]
 })
 export class AddRoundComponent implements OnInit {
     pageTitle: string = "Add round";

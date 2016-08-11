@@ -113,7 +113,8 @@ var AddRoundComponent = (function () {
     AddRoundComponent = __decorate([
         core_1.Component({
             selector: "add-round",
-            templateUrl: "app/golfers/add-round.component.html"
+            templateUrl: "app/golfers/add-round.component.html",
+            providers: [handicap_calculator_service_1.HandicapCalculatorService]
         }), 
         __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, golfer_service_1.GolferService, handicap_calculator_service_1.HandicapCalculatorService])
     ], AddRoundComponent);

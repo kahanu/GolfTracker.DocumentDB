@@ -9,7 +9,5 @@ var routes = [
 ].concat(golfclubs_routes_1.golfclubsRoutes, golfers_routes_1.golfersRoutes, [
     { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
 ]);
-exports.appRouterProviders = [
-    router_1.provideRouter(routes)
-];
+exports.appRouterProviders = router_1.RouterModule.forRoot(routes);
 //# sourceMappingURL=app.routes.js.map

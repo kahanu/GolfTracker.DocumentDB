@@ -212,7 +212,8 @@ var ManageGolfersComponent = (function () {
             selector: "manage-golfers",
             templateUrl: "app/golfers/manage-golfers.component.html",
             directives: [common_1.NgClass, view_rounds_component_1.ViewRoundsComponent, manage_golfer_component_1.ManageGolferComponent, add_round_component_1.AddRoundComponent],
-            pipes: [date_pipe_1.DatePipe]
+            pipes: [date_pipe_1.DatePipe],
+            providers: [platform_browser_1.Title]
         }), 
         __metadata('design:paramtypes', [golfer_service_1.GolferService, golfclub_service_1.GolfClubService, platform_browser_1.Title, pubsub_service_1.PubSubService])
     ], ManageGolfersComponent);
