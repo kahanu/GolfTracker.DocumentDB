@@ -196,8 +196,7 @@ var GolfClubListComponent = (function () {
         core_1.Component({
             selector: "golfclub-list",
             templateUrl: "app/golfclubs/golfclub-list.component.html",
-            directives: [common_1.NgClass, golfcourses_for_golfclub_component_1.GolfCoursesForGolfClubComponent, manage_course_component_1.ManageCourseComponent, manage_golfclub_component_1.ManageGolfClubComponent],
-            providers: [platform_browser_1.Title]
+            directives: [common_1.NgClass, golfcourses_for_golfclub_component_1.GolfCoursesForGolfClubComponent, manage_course_component_1.ManageCourseComponent, manage_golfclub_component_1.ManageGolfClubComponent]
         }), 
         __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title, pubsub_service_1.PubSubService])
     ], GolfClubListComponent);

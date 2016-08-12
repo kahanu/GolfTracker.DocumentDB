@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { HttpModule } from "@angular/http";
@@ -46,7 +47,8 @@ import { appRouterProviders } from './app.routes';
         GolferService,
         ExceptionService,
         ToastService,
-        PubSubService
+        PubSubService,
+        Title
     ],
     bootstrap: [AppComponent]
 })

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var platform_browser_2 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var http_1 = require("@angular/http");
 require('rxjs/Rx');
@@ -52,7 +53,8 @@ var AppModule = (function () {
                 golfer_service_1.GolferService,
                 exception_service_1.ExceptionService,
                 toasts_1.ToastService,
-                pubsub_service_1.PubSubService
+                pubsub_service_1.PubSubService,
+                platform_browser_2.Title
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

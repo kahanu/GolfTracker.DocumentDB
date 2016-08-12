@@ -16,8 +16,7 @@ import { PubSubService } from '../pubsub/pubsub.service';
 @Component({
     selector: "golfclub-list",
     templateUrl: "app/golfclubs/golfclub-list.component.html",
-    directives: [NgClass, GolfCoursesForGolfClubComponent, ManageCourseComponent, ManageGolfClubComponent],
-    providers: [Title]
+    directives: [NgClass, GolfCoursesForGolfClubComponent, ManageCourseComponent, ManageGolfClubComponent]
 })
 export class GolfClubListComponent implements OnInit {
     pageTitle: string = "Golf Clubs";

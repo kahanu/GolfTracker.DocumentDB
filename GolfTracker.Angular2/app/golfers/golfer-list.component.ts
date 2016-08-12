@@ -9,8 +9,7 @@ import { GolferService, IGolfer, ITee, IGolfCourse, IRound } from './golfer.serv
     selector: "golfer-list",
     templateUrl: "app/golfers/golfer-list.component.html",
     pipes: [DatePipe],
-    directives: [ROUTER_DIRECTIVES],
-    providers: [Title]
+    directives: [ROUTER_DIRECTIVES]
 })
 export class GolferListComponent implements OnInit {
     pageTitle: string = "Golfer List";

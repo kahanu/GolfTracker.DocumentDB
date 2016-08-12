@@ -60,8 +60,7 @@ var GolferListComponent = (function () {
             selector: "golfer-list",
             templateUrl: "app/golfers/golfer-list.component.html",
             pipes: [date_pipe_1.DatePipe],
-            directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [platform_browser_1.Title]
+            directives: [router_1.ROUTER_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [golfer_service_1.GolferService, platform_browser_1.Title])
     ], GolferListComponent);
