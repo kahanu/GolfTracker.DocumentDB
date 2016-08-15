@@ -30,14 +30,22 @@ namespace GolfTracker.WebApi.Controllers.api
         #region Standard CRUD
 
         [AllowAnonymous]
-        public IEnumerable<T> Get()
+        public virtual IEnumerable<T> Get()
         {
             var result = _repo.Get();
 
             return result;
         }
+        
+        [AllowAnonymous]
+        public virtual async Task<IEnumerable<T>> GetAsync()
+        {
+            var result = await _repo.GetAsync();
 
-        public async Task<T> GetById(string id)
+            return result;
+        }
+
+        public virtual async Task<T> GetById(string id)
         {
             T model = await _repo.GetById(id);
             if (model == null)
@@ -47,7 +55,7 @@ namespace GolfTracker.WebApi.Controllers.api
         }
 
         //[Authorize]
-        public async Task<IHttpActionResult> Post([FromBody]T entity)
+        public virtual async Task<IHttpActionResult> Post([FromBody]T entity)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +72,7 @@ namespace GolfTracker.WebApi.Controllers.api
         }
 
         //[Authorize]
-        public async Task<IHttpActionResult> Put(string id, [FromBody]T entity)
+        public virtual async Task<IHttpActionResult> Put(string id, [FromBody]T entity)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +95,7 @@ namespace GolfTracker.WebApi.Controllers.api
         }
 
         //[Authorize]
-        public async Task<IHttpActionResult> Delete(string id)
+        public virtual async Task<IHttpActionResult> Delete(string id)
         {
             try
             {
