@@ -19,9 +19,6 @@
                     if (err) {
                         exception.handleError(res, err.message, "Failed to get Golfer.");
                     } else {
-                        docs.forEach(function (element) {
-                            element.id = element._id;
-                        });
                         res.status(200).json(docs);
                     }
                 });
@@ -39,8 +36,25 @@
                     if (err) {
                         exception.handleError(res, err.message, "Failed to create new Golfer.");
                     } else {
-                        doc.ops[0].id = doc.ops[0]._id;
-                        res.status(201).json(doc.ops[0]);
+                        // Now update the document with an id property based on the primary key.
+                        // This is only so this document can match a Azure DocumentDB document.
+                        // So it is only necessary if you plan on possibly switching between
+                        // the two NoSql databases.  Otherwise you can remove this update procedure.
+                        var id = doc.ops[0]._id; // this is an object ObjectID('some number')
+
+                        var updateDoc = doc.ops[0];
+                        updateDoc.id = id.toString();
+
+                        database.getDb(function (err, db) {
+                            db.golfers.updateOne({ _id: new ObjectID(id.toString()) }, updateDoc, function (err, doc) {
+                                if (err) {
+                                    exception.handleError(res, err.message, "Failed to update Golfer");
+                                } else {
+                                    // res.status(204).end();
+                                    res.status(201).json(updateDoc);
+                                }
+                            });
+                        });
                     }
                 });
             });

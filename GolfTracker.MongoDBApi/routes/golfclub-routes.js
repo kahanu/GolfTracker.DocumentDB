@@ -19,14 +19,6 @@
                     if (err) {
                         exception.handleError(res, err.message, "Failed to get Golf Club.");
                     } else {
-                        // Map the MongoDb _id to the document id for each document. This helps updates later
-                        // and to easily map to a common id entity property, in case
-                        // the entities are used against some other data source such as DocumentDB
-                        // which doesn't have a primary key with an underscore.
-                        docs.forEach(function (element) {
-                            element.id = element._id;
-                        });
-
                         res.status(200).json(docs);
                     }
                 });
@@ -41,9 +33,24 @@
                     if (err) {
                         exception.handleError(res, err.message, "Failed to create new golf club.");
                     } else {
-                        // Map the MongoDb _id to the document id.
-                        doc.ops[0].id = doc.ops[0]._id;
-                        res.status(201).json(doc.ops[0]);
+                        // Now update the document with an id property based on the primary key.
+                        // This is only so this document can match a Azure DocumentDB document.
+                        // So it is only necessary if you plan on possibly switching between
+                        // the two NoSql databases.  Otherwise you can remove this update procedure.
+                        var id = doc.ops[0]._id; // this is an object ObjectID('some number')
+
+                        var updateDoc = doc.ops[0];
+                        updateDoc.id = id.toString();
+
+                        database.getDb(function (err, db) {
+                            db.golfclubs.updateOne({ _id: new ObjectID(id.toString()) }, updateDoc, function (err, doc) {
+                                if (err) {
+                                    exception.handleError(res, err.message, "Failed to update golf club");
+                                } else {
+                                    res.status(201).json(updateDoc);
+                                }
+                            });
+                        });
                     }
                 });
             });
