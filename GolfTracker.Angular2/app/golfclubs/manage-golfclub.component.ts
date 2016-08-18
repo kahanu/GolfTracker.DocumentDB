@@ -41,8 +41,6 @@ export class ManageGolfClubComponent {
                     // Check golfclub-list.component.ts for consuming this subscription.
                     this._pubsub.AddGolfClub(gc);
                     this.golfclub = <GolfClub>{};
-                    this.isVisible = false;
-                    this.close.emit(false);
                 });
             return;
         }
@@ -51,9 +49,10 @@ export class ManageGolfClubComponent {
         this._golfClubService.updateGolfClub(golfClub)
             .subscribe(gc => {
                 this.golfclub = <GolfClub>{};
-                this.isVisible = false;
-                this.close.emit(false);
             });
+
+        this.isVisible = false;
+        this.close.emit(false);
     }
 
     ///<author>

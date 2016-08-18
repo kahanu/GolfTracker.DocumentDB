@@ -190,7 +190,7 @@ export class GolfClubListComponent implements OnInit {
 
         if (confirm("Are you sure you want to delete this golf club?")) {
             this._golfClubService.deleteGolfClub(golfClub)
-                .subscribe(gc => {
+                .subscribe(res => {
                     this.golfclubs.splice(idx, 1);
                     this.golfclub = <GolfClub>{};
                     this.golfClubFormIsVisible = false;

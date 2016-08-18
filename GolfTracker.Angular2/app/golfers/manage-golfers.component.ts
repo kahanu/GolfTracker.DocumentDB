@@ -131,7 +131,7 @@ export class ManageGolfersComponent implements OnInit {
     deleteGolfer(golfer: IGolfer, idx: number): void {
         if (confirm("Are you sure you want to delete this golfer?")) {
             this._golferService.deleteGolfer(golfer)
-                .subscribe(g => {
+                .subscribe(res => {
                     this.golfers.splice(idx, 1);
                 });
         }

@@ -51,10 +51,9 @@ var GolferService = (function () {
             .catch(this._exceptionService.catchBadResponse);
     };
     GolferService.prototype.deleteGolfer = function (golfer) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
         var id = golfer.id;
-        return this._http.delete(url + "/" + id, { headers: headers })
+        return this._http.delete(url + "/" + id)
+            .do(function (data) { return console.log(data); })
             .catch(this._exceptionService.catchBadResponse);
     };
     GolferService = __decorate([

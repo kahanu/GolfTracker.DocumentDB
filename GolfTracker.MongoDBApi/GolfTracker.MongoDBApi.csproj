@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\database.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <None Include="Web.Debug.config">
@@ -67,7 +68,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="routes\golfclub-routes.js" />
+    <Content Include="routes\golfer-routes.js" />
     <Content Include="server.js" />
+    <Content Include="services\exception-service.js" />
     <Content Include="util.js" />
     <Content Include="Web.config" />
   </ItemGroup>

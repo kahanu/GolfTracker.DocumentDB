@@ -27,13 +27,7 @@ var ManageGolferComponent = (function () {
     ///</summary>
     ManageGolferComponent.prototype.saveGolfer = function (isValid, golfer) {
         var _this = this;
-        if (golfer.id) {
-            // updating
-            this._golferService.updateGolfer(golfer)
-                .subscribe(function (golfer) { return _this.golfer = golfer; });
-        }
-        else {
-            // inserting
+        if (golfer.id === undefined) {
             this._golferService.addGolfer(golfer)
                 .subscribe(function (golfer) {
                 // this.golfers.push(golfer);
@@ -45,7 +39,12 @@ var ManageGolferComponent = (function () {
                 _this._pubsub.AddGolfer(golfer);
                 _this.golfer = {};
             });
+            return;
         }
+        this._golferService.updateGolfer(golfer)
+            .subscribe(function (res) {
+            _this.golfer = golfer;
+        });
         this.isVisible = false;
         this.close.emit(false);
     };

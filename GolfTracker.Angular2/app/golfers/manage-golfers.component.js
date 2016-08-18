@@ -113,7 +113,7 @@ var ManageGolfersComponent = (function () {
         var _this = this;
         if (confirm("Are you sure you want to delete this golfer?")) {
             this._golferService.deleteGolfer(golfer)
-                .subscribe(function (g) {
+                .subscribe(function (res) {
                 _this.golfers.splice(idx, 1);
             });
         }

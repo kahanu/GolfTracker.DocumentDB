@@ -159,7 +159,7 @@ var GolfClubListComponent = (function () {
         }
         if (confirm("Are you sure you want to delete this golf club?")) {
             this._golfClubService.deleteGolfClub(golfClub)
-                .subscribe(function (gc) {
+                .subscribe(function (res) {
                 _this.golfclubs.splice(idx, 1);
                 _this.golfclub = {};
                 _this.golfClubFormIsVisible = false;

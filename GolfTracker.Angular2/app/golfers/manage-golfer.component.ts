@@ -26,12 +26,7 @@ export class ManageGolferComponent {
     ///</summary>
     saveGolfer(isValid: boolean, golfer: IGolfer): void {
 
-        if (golfer.id) {
-            // updating
-            this._golferService.updateGolfer(golfer)
-                .subscribe(golfer => this.golfer = golfer);
-        } else {
-            // inserting
+        if (golfer.id === undefined) {
             this._golferService.addGolfer(golfer)
                 .subscribe(golfer => {
                     // this.golfers.push(golfer);
@@ -44,7 +39,13 @@ export class ManageGolferComponent {
                     this._pubsub.AddGolfer(golfer);
                     this.golfer = <IGolfer>{};
                 });
+            return;
         }
+
+        this._golferService.updateGolfer(golfer)
+            .subscribe(res => {
+                this.golfer = golfer;
+            });
 
         this.isVisible = false;
         this.close.emit(false);

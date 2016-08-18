@@ -87,10 +87,8 @@ var GolfClubService = (function () {
             .catch(this._exceptionService.catchBadResponse);
     };
     GolfClubService.prototype.deleteGolfClub = function (golfClub) {
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
         var id = golfClub.id;
-        return this._http.delete(url + "/" + id, { headers: headers })
+        return this._http.delete(url + "/" + id)
             .catch(this._exceptionService.catchBadResponse);
     };
     GolfClubService.prototype.handleError = function (error) {

@@ -25,7 +25,6 @@ import { PageNotFoundComponent } from './page-not-found.component';
 
 import { appRouterProviders } from './app.routes';
 
-
 @NgModule({
     imports: [BrowserModule,
         FormsModule,

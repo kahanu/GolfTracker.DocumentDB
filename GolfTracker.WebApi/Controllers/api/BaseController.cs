@@ -37,13 +37,13 @@ namespace GolfTracker.WebApi.Controllers.api
             return result;
         }
         
-        [AllowAnonymous]
-        public virtual async Task<IEnumerable<T>> GetAsync()
-        {
-            var result = await _repo.GetAsync();
+        //[AllowAnonymous]
+        //public async Task<IEnumerable<T>> GetAsync()
+        //{
+        //    var result = await _repo.GetAsync();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public virtual async Task<T> GetById(string id)
         {

@@ -39,8 +39,6 @@ var ManageGolfClubComponent = (function () {
                 // Check golfclub-list.component.ts for consuming this subscription.
                 _this._pubsub.AddGolfClub(gc);
                 _this.golfclub = {};
-                _this.isVisible = false;
-                _this.close.emit(false);
             });
             return;
         }
@@ -48,9 +46,9 @@ var ManageGolfClubComponent = (function () {
         this._golfClubService.updateGolfClub(golfClub)
             .subscribe(function (gc) {
             _this.golfclub = {};
-            _this.isVisible = false;
-            _this.close.emit(false);
         });
+        this.isVisible = false;
+        this.close.emit(false);
     };
     ///<author>
     /// KW - Close the Golf Club

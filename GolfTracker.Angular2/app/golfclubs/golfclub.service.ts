@@ -68,11 +68,8 @@ export class GolfClubService {
     }
     
     deleteGolfClub(golfClub: GolfClub){
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
         let id = golfClub.id;
-        return this._http.delete(`${url}/${id}`, { headers: headers })
+        return this._http.delete(`${url}/${id}`)
             .catch(this._exceptionService.catchBadResponse);
     }
     

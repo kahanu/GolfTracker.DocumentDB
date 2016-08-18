@@ -75,7 +75,7 @@ export class GolferService {
             .catch(this._exceptionService.catchBadResponse);
     }
 
-    updateGolfer(golfer: IGolfer):Observable<IGolfer> {
+    updateGolfer(golfer: IGolfer) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
@@ -84,12 +84,10 @@ export class GolferService {
             .catch(this._exceptionService.catchBadResponse);
     }
 
-    deleteGolfer(golfer: IGolfer):Observable<IGolfer> {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
+    deleteGolfer(golfer: IGolfer) {
         let id = golfer.id;
-        return this._http.delete(`${url}/${id}`, { headers: headers })
+        return this._http.delete(`${url}/${id}`)
+        .do(data => console.log(data))
             .catch(this._exceptionService.catchBadResponse);
     }
 
