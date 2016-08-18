@@ -8,6 +8,11 @@
 
     golfclub.init = function (app) {
 
+        // Used for Cross Origin Resource Sharing 
+        // allowing this web api to be consumed by any domain.
+        app.use(cors());
+
+
         /*  "/api/golfclub"
          *    GET: finds all golfclubs
          *    POST: creates a new golfclub
@@ -51,6 +56,7 @@
                                 }
                             });
                         });
+
                     }
                 });
             });
@@ -81,6 +87,7 @@
             // when it needs to be like:                _id: ObjectId("57904a754c900a1d544fbd16")
             // This would throw an exception in MongoDb.
             delete updateDoc._id;
+
             database.getDb(function (err, db) {
                 db.golfclubs.updateOne({ _id: new ObjectID(req.params.id) }, updateDoc, function (err, doc) {
                     if (err) {
@@ -93,6 +100,7 @@
         });
 
         app.delete("/api/golfclub/:id", function (req, res) {
+            
             database.getDb(function (err, db) {
                 db.golfclubs.deleteOne({ _id: new ObjectID(req.params.id) }, function (err, result) {
                     if (err) {

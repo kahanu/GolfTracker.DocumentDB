@@ -8,6 +8,11 @@
 
     golfer.init = function (app) {
 
+        // Used for Cross Origin Resource Sharing 
+        // allowing this web api to be consumed by any domain.
+        app.use(cors());
+
+
         /*  "/api/golfer"
          *    GET: finds all golfers
          *    POST: creates a new golfer
@@ -36,10 +41,11 @@
                     if (err) {
                         exception.handleError(res, err.message, "Failed to create new Golfer.");
                     } else {
+                        // THE FOLLOWING CODE IS OPTIONAL!!!
                         // Now update the document with an id property based on the primary key.
                         // This is only so this document can match a Azure DocumentDB document.
-                        // So it is only necessary if you plan on possibly switching between
-                        // the two NoSql databases.  Otherwise you can remove this update procedure.
+                        // So this is only necessary if you plan on possibly switching between
+                        // the two NoSql databases.  Otherwise you can remove this entire update procedure.
                         var id = doc.ops[0]._id; // this is an object ObjectID('some number')
 
                         var updateDoc = doc.ops[0];
@@ -55,6 +61,10 @@
                                 }
                             });
                         });
+                        // end OPTIONAL
+
+                        // uncomment the following line if the above is removed
+                        // res.status(201).json(doc);
                     }
                 });
             });
@@ -93,6 +103,7 @@
         });
 
         app.delete("/api/golfer/:id", cors(), function (req, res) {
+            console.log("deleting golfer...");
             database.getDb(function (err, db) {
                 db.golfers.deleteOne({ _id: new ObjectID(req.params.id) }, function (err, result) {
                     if (err) {

@@ -12,5 +12,5 @@ golfclubs.init(app);
 
 var server = app.listen(process.env.PORT || 80800, function(){
     var port = server.address().port;
-    console.log('Server running at http://localhost:', port);
+    console.log('Server running at http://localhost:',port);
 });
