@@ -103,7 +103,6 @@
         });
 
         app.delete("/api/golfer/:id", cors(), function (req, res) {
-            console.log("deleting golfer...");
             database.getDb(function (err, db) {
                 db.golfers.deleteOne({ _id: new ObjectID(req.params.id) }, function (err, result) {
                     if (err) {
