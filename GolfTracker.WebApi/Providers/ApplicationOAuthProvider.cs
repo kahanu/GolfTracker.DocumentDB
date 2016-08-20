@@ -72,7 +72,7 @@ namespace GolfTracker.WebApi.Providers
                 // if user is subject to lockouts and the credentials are invalid
                 // record the failure and check if user is lockedout and display message, otherwise, 
                 // display the number of attempts remaining before lockout
-                else if (await userManager.GetLockoutEnabledAsync(user.Id))
+                else if (await userManager.GetLockoutEnabledAsync(user.Id) && validCredentials == null)
                 {
                     // Record the failure which also may cause the user to be locked out
                     await userManager.AccessFailedAsync(user.Id);
