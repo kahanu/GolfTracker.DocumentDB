@@ -1,0 +1,1 @@
+{"version":3,"file":"golfclubs.component.js","sourceRoot":"","sources":["golfclubs.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,qBAA0B,eAAe,CAAC,CAAA;AAC1C,uBAAkC,iBAAiB,CAAC,CAAA;AAOpD;IAAA;IACA,CAAC;IAND;QAAC,gBAAS,CAAC;YACP,QAAQ,EAAE,uBAAuB;YACjC,WAAW,EAAE,+CAA+C;YAC5D,UAAU,EAAE,CAAC,0BAAiB,CAAC;SAClC,CAAC;;gCAAA;IAEF,+BAAC;AAAD,CAAC,AADD,IACC;AADY,gCAAwB,2BACpC,CAAA"}

@@ -1,0 +1,43 @@
+<h1>{{ pageTitle }}</h1>
+<p>Manage the golf clubs here.</p>
+<div class="row">
+    <div [ngClass]="{'col-md-7':shortTable, 'col-md-12':!shortTable}">
+        <button class="btn btn-success" type="button" (click)="addGolfClub()">
+            <span class="glyphicon glyphicon-plus"></span> Add Golf Club
+        </button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Golf Club</th>
+                    <th>Location</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let golfclub of golfclubs; let idx = index">
+                    <td>{{ golfclub.Name }}</td>
+                    <td>{{ golfclub.Location }}</td>
+                    <td><button class="glyphicon glyphicon-edit" (click)="editGolfClub(golfclub)" title="Edit {{ golfclub.Name }}"></button></td>
+                    <td><button class="glyphicon glyphicon-trash" (click)="deleteGolfClub(golfclub, idx)" title="Delete {{ golfclub.Name }}"></button></td>
+                    <td><button (click)="showCourseForm(golfclub)">Add Course</button></td>
+                    <td><button (click)="showGolfCoursesTable(golfclub)" *ngIf="golfclub.GolfCourses">Courses <span class="badge">{{ golfclub.GolfCourses.length }}</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [ngClass]="{'col-md-5':shortTable}">
+        <!-- Form for managing Golf Clubs -->
+        <manage-golfclub [golfclub]="golfclub" [dialogTitle]="dialogTitle" [isVisible]="golfClubFormIsVisible" (close)="onCloseManageGolfClub()"></manage-golfclub>
+
+        <!-- The Table showing the golf courses for the selected golf club, to add tees. -->
+        <portal-golfcourses-for-golfclub [golfclub]="golfclub" [isVisible]="golfCoursesTableIsVisible" (close)="onGolfCoursesPanelClose()"></portal-golfcourses-for-golfclub>
+
+        <!-- The form for managing the golf courses. -->
+        <manage-course [golfclub]="golfclub" [golfcourse]="golfcourse" [isVisible]="golfCourseFormIsVisible" [dialogTitle]="dialogTitle"
+            (close)="onCloseManageCourse()"></manage-course>
+
+    </div>
+</div>

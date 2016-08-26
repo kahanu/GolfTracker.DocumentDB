@@ -1,14 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 
-import { IGolfer, IRound } from './golfer.service';
-import { GolfClubService, GolfClub, GolfCourse, Tee } from '../golfclubs/golfclub.service';
-import { GolferService } from '../golfers/golfer.service';
+import { IGolfer, IRound, GolferService } from '../../golfers/golfer.service';
+import { GolfClubService, GolfClub, GolfCourse, Tee } from '../../golfclubs/golfclub.service';
 
 import { HandicapCalculatorService } from './handicap-calculator.service';
 
 @Component({
     selector: "add-round",
-    templateUrl: "app/golfers/add-round.component.html",
+    templateUrl: "app/portal/golfers/add-round.component.html",
     providers: [HandicapCalculatorService]
 })
 export class AddRoundComponent implements OnInit {

@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
-import { GolfClubService, GolfClub } from './golfclub.service';
-import { PubSubService } from '../pubsub/pubsub.service';
+import { GolfClubService, GolfClub } from '../../golfclubs/golfclub.service';
+import { PubSubService } from '../../pubsub/pubsub.service';
 
 @Component({
     selector: "manage-golfclub",
-    templateUrl: "app/golfclubs/manage-golfclub.component.html"
+    templateUrl: "app/portal/golfclubs/manage-golfclub.component.html"
 })
 export class ManageGolfClubComponent {
     pageTitle: string = "Manage golfclub";
@@ -42,14 +42,13 @@ export class ManageGolfClubComponent {
                     this._pubsub.AddGolfClub(gc);
                     this.golfclub = <GolfClub>{};
                 });
-            return;
+        } else {
+            // Update the model
+            this._golfClubService.updateGolfClub(golfClub)
+                .subscribe(gc => {
+                    this.golfclub = <GolfClub>{};
+                });
         }
-
-        // Update the model
-        this._golfClubService.updateGolfClub(golfClub)
-            .subscribe(gc => {
-                this.golfclub = <GolfClub>{};
-            });
 
         this.isVisible = false;
         this.close.emit(false);

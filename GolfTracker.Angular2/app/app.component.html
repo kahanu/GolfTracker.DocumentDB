@@ -1,11 +1,21 @@
 <div>
-    <nav class='navbar navbar-default'>
+    <nav class='navbar navbar-default' style="margin-bottom: 0">
         <div class='container-fluid'>
             <a class='navbar-brand'>{{ pageTitle }}</a>
             <ul class='nav navbar-nav'>
                 <li><a [routerLink]="['/']">Home</a></li>
                 <li><a [routerLink]="['/golfclubs']">Golf Clubs</a></li>
                 <li><a [routerLink]="['/golfers']">Golfers</a></li>
+                <!-- 
+                    This is another example of how to use the routerLink directive. 
+                    As long as there are no parameters, the link can be done this way,
+                    as of rc5.
+                -->
+                <li><a routerLink="/portal">Portal</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" *ngIf="_auth.isLoggedIn()">
+                <li><a href="#">Welcome {{ _auth.authentication.UserName }}</a></li>
+                <li><a href="#" (click)="logoff()">Log Off</a></li>
             </ul>
         </div>
     </nav>

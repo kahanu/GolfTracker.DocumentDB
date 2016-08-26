@@ -15,41 +15,19 @@ var platform_browser_1 = require('@angular/platform-browser');
 var golfclub_service_1 = require('./golfclub.service');
 var toast_service_1 = require('../toast/toast.service');
 var golfcourses_for_golfclub_component_1 = require('./golfcourses-for-golfclub.component');
-var manage_course_component_1 = require('./manage-course.component');
-var manage_golfclub_component_1 = require('./manage-golfclub.component');
-var pubsub_service_1 = require('../pubsub/pubsub.service');
 // Decorate the class and set the metadata.
 var GolfClubListComponent = (function () {
-    function GolfClubListComponent(_golfClubService, _toastService, _titleService, _pubsub) {
+    function GolfClubListComponent(_golfClubService, _toastService, _titleService) {
         this._golfClubService = _golfClubService;
         this._toastService = _toastService;
         this._titleService = _titleService;
-        this._pubsub = _pubsub;
         this.pageTitle = "Golf Clubs";
         this.shortTable = false;
-        this.teeFormIsVisible = false;
-        this.golfClubFormIsVisible = false;
-        this.golfCourseFormIsVisible = false;
         this.golfCoursesTableIsVisible = false;
-        this.subscription = null;
         this._titleService.setTitle("Golf Clubs - Angular 2");
     }
     GolfClubListComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.getGolfClubs();
-        this.subscription = this._pubsub.GolfClub.subscribe(function (golfclub) {
-            _this.processGolfClubSubscription(golfclub);
-        });
-    };
-    ///<author>
-    /// KW - processGolfClubSubscription
-    ///</author>
-    ///<summary>
-    /// This handles the PubSub subscription from the manage-golfclub.component.ts, to add a new golf club to the array of golf clubs.
-    ///</summary>
-    GolfClubListComponent.prototype.processGolfClubSubscription = function (golfclub) {
-        this.golfclubs.push(golfclub);
-        this.shortTable = false;
     };
     ///<author>
     /// KW - Get Golf Clubs methods
@@ -88,97 +66,8 @@ var GolfClubListComponent = (function () {
         this.hideAllForms();
         this.shortTable = false;
     };
-    ///<author>
-    /// KW - Show the Golf Course form
-    ///</author>
-    ///<summary>
-    /// This form is for editing or adding of golf courses for a golf club.
-    ///</summary>
-    GolfClubListComponent.prototype.showCourseForm = function (golfClub) {
-        this.hideAllForms();
-        this.dialogTitle = "Add";
-        this.golfclub = golfClub;
-        this.golfcourse = {};
-        this.golfCourseFormIsVisible = true;
-        this.shortTable = true;
-    };
-    ///<author>
-    /// KW - onCloseManageCourse
-    ///</author>
-    ///<summary>
-    /// This event handler is used to close the manage-course form directive.
-    ///</summary>
-    GolfClubListComponent.prototype.onCloseManageCourse = function () {
-        this.hideAllForms();
-        this.shortTable = false;
-    };
     /**********************************************************************************************
     End Golf Course Methods
-    **********************************************************************************************/
-    /**********************************************************************************************
-    Begin Golf Club Methods
-    **********************************************************************************************/
-    ///<author>
-    /// KW - Add a new Golf Club
-    ///</author>
-    ///<summary>
-    /// This will add a new golf club.  This is the top of the hierarchical tree.  A golf club can
-    /// have many golf courses, so you must create a golf club first, then you can add golf courses.
-    ///</summary>
-    GolfClubListComponent.prototype.addGolfClub = function () {
-        this.hideAllForms();
-        this.dialogTitle = "Edit";
-        this.golfclub = {};
-        this.shortTable = true;
-        this.golfClubFormIsVisible = true;
-    };
-    ///<author>
-    /// KW - Edit Golf Club
-    ///</author>
-    ///<summary>
-    /// Show the edit form for the golf clubs.
-    ///</summary>
-    GolfClubListComponent.prototype.editGolfClub = function (golfClub) {
-        this.hideAllForms();
-        this.dialogTitle = "Edit";
-        this.golfclub = golfClub;
-        this.shortTable = true;
-        this.golfClubFormIsVisible = true;
-    };
-    ///<author>
-    /// KW - Delete Golf Club
-    ///</author>
-    ///<summary>
-    /// This method will remove the golf club from the database.
-    ///</summary>
-    GolfClubListComponent.prototype.deleteGolfClub = function (golfClub, idx) {
-        var _this = this;
-        if (!golfClub) {
-            this.errorMessage = "No golf club was selected.";
-            return;
-        }
-        if (confirm("Are you sure you want to delete this golf club?")) {
-            this._golfClubService.deleteGolfClub(golfClub)
-                .subscribe(function (res) {
-                _this.golfclubs.splice(idx, 1);
-                _this.golfclub = {};
-                _this.golfClubFormIsVisible = false;
-                _this.shortTable = false;
-            });
-        }
-    };
-    ///<author>
-    /// KW - onCloseManageGolfClub
-    ///</author>
-    ///<summary>
-    /// This handles the click event to close the manage-golfclub directive.
-    ///</summary>
-    GolfClubListComponent.prototype.onCloseManageGolfClub = function () {
-        this.hideAllForms();
-        this.shortTable = false;
-    };
-    /**********************************************************************************************
-    End Golf Club Methods
     **********************************************************************************************/
     ///<author>
     /// KW - Hide all forms.
@@ -187,18 +76,15 @@ var GolfClubListComponent = (function () {
     /// This is an easy way to hide all froms is needed.
     ///</summary>
     GolfClubListComponent.prototype.hideAllForms = function () {
-        this.golfClubFormIsVisible = false;
-        this.golfCourseFormIsVisible = false;
         this.golfCoursesTableIsVisible = false;
-        this.teeFormIsVisible = false;
     };
     GolfClubListComponent = __decorate([
         core_1.Component({
             selector: "golfclub-list",
             templateUrl: "app/golfclubs/golfclub-list.component.html",
-            directives: [common_1.NgClass, golfcourses_for_golfclub_component_1.GolfCoursesForGolfClubComponent, manage_course_component_1.ManageCourseComponent, manage_golfclub_component_1.ManageGolfClubComponent]
+            directives: [common_1.NgClass, golfcourses_for_golfclub_component_1.GolfCoursesForGolfClubComponent]
         }), 
-        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title, pubsub_service_1.PubSubService])
+        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, toast_service_1.ToastService, platform_browser_1.Title])
     ], GolfClubListComponent);
     return GolfClubListComponent;
 }());

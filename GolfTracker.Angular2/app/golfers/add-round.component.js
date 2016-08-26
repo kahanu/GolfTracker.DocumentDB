@@ -116,9 +116,10 @@ var AddRoundComponent = (function () {
             templateUrl: "app/golfers/add-round.component.html",
             providers: [handicap_calculator_service_1.HandicapCalculatorService]
         }), 
-        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, golfer_service_1.GolferService, handicap_calculator_service_1.HandicapCalculatorService])
+        __metadata('design:paramtypes', [golfclub_service_1.GolfClubService, golfer_service_1.GolferService, (typeof (_a = typeof handicap_calculator_service_1.HandicapCalculatorService !== 'undefined' && handicap_calculator_service_1.HandicapCalculatorService) === 'function' && _a) || Object])
     ], AddRoundComponent);
     return AddRoundComponent;
+    var _a;
 }());
 exports.AddRoundComponent = AddRoundComponent;
 //# sourceMappingURL=add-round.component.js.map

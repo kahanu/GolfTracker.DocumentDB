@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var Observable_1 = require('rxjs/Observable');
 var config_1 = require("../config");
 var exception_service_1 = require('../services/exception.service');
 // This is an Entity for the Golf club object.
@@ -72,7 +71,7 @@ var GolfClubService = (function () {
             var golfclub = res.json();
             if (usingDocDb) {
                 // DocumentDB returns an async Task result, 
-                // so we need to get our data from the Result object.
+                // so we need to get our data from the Result property.
                 golfclub = res.json().Result;
             }
             return golfclub;
@@ -90,10 +89,6 @@ var GolfClubService = (function () {
         var id = golfClub.id;
         return this._http.delete(url + "/" + id)
             .catch(this._exceptionService.catchBadResponse);
-    };
-    GolfClubService.prototype.handleError = function (error) {
-        console.error(error);
-        return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
     GolfClubService = __decorate([
         core_1.Injectable(), 

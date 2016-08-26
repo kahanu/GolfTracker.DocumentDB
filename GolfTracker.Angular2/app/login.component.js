@@ -16,19 +16,23 @@ var LoginComponent = (function () {
         this._auth = _auth;
         this._router = _router;
         this.pageTitle = "Login ";
+        this.login = new auth_service_1.Login();
+        this.active = true;
     }
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         this._auth.login(this.login).subscribe(function (res) {
-            if (res) {
-                _this._router.navigate(['']);
+            if (_this._auth.isLoggedIn()) {
+                var redirect = _this._auth.redirectUrl ? _this._auth.redirectUrl : '/portal';
+                _this._router.navigate([redirect]);
             }
         });
     };
     LoginComponent = __decorate([
         core_1.Component({
             selector: "login",
-            templateUrl: "app/login.component.html"
+            templateUrl: "app/login.component.html",
+            styleUrls: ['app/login.component.css']
         }), 
         __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
     ], LoginComponent);

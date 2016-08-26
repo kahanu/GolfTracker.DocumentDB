@@ -1,26 +1,42 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 import { GolfClub, GolfCourse, Tee, GolfClubService } from './golfclub.service';
-import { ManageCourseComponent } from './manage-course.component';
-import { ManageTeeComponent } from './manage-tee.component';
 
 @Component({
     selector: "golfcourses-for-golfclub",
-    templateUrl: "app/golfclubs/golfcourses-for-golfclub.component.html",
-    directives: [ManageCourseComponent, ManageTeeComponent]
+    templateUrl: "app/golfclubs/golfcourses-for-golfclub.component.html"
 })
 export class GolfCoursesForGolfClubComponent {
     pageTitle: string = "Golf Courses For Golf Club";
 
+    ///<author>
+    /// KW - golfClub Input
+    ///</author>
+    ///<summary>
+    /// This is the directive input property where you can pass in the 
+    /// selected 'golfclub' to the reusable component.
+    ///</summary>
     @Input() golfclub: GolfClub;
+
+    ///<author>
+    /// KW - isVisible Input
+    ///</author>
+    ///<summary>
+    /// This is the directive input property to pass in a boolean value 
+    /// to show or hide the panel.
+    ///</summary>
     @Input() isVisible: boolean;
+
+    ///<author>
+    /// KW - close Event
+    ///</author>
+    ///<summary>
+    /// This is the close event on the directive, when the host HTML can pass in 
+    /// a local method to call when the 'close' event is called.
+    ///</summary>
     @Output() close = new EventEmitter();
 
     dialogTitle: string;
-    golfCourseFormIsVisible: boolean;
-
-    tee: Tee;
-    golfcourse: GolfCourse;
     teeFormIsVisible: boolean;
 
     constructor(private _golfClubService: GolfClubService) { }
@@ -29,42 +45,6 @@ export class GolfCoursesForGolfClubComponent {
     /**********************************************************************************************
     Begin Course Methods
     **********************************************************************************************/
-
-    ///<author>
-    /// KW - Show the course form for editing.
-    ///</author>
-    ///<summary>
-    /// This command shows the form for editing a golf course and populates the 
-    /// form with the existing golf course.
-    ///</summary>
-    editCourse(golfClub: GolfClub, golfCourse: GolfCourse, index: number): void {
-        // this.hideAllForms();
-        this.dialogTitle = "Edit";
-
-        this.golfclub = golfClub;
-        this.golfcourse = golfCourse;
-
-        this.isVisible = false;
-        this.golfCourseFormIsVisible = true;
-    }
-
-    ///<author>
-    /// KW - Delete the selected golf course
-    ///</author>
-    ///<summary>
-    /// This method deletes the selected golf course.
-    ///</summary>
-    deleteCourse(golfClub: GolfClub, golfCourse: GolfCourse, index: number): void {
-        if (confirm("Are you sure you want to delete this golf course?")) {
-            golfClub.GolfCourses.splice(index, 1);
-            this._golfClubService.updateGolfClub(golfClub)
-                .subscribe(gc => {
-                    // we don't need to do anything here, 
-                    // the deleted course will simply be removed from the
-                    // list of courses in the UI.
-                });
-        }
-    }
 
     ///<author>
     /// KW - Close the Golf Courses Table
@@ -77,94 +57,8 @@ export class GolfCoursesForGolfClubComponent {
         this.close.emit(false);
     }
 
-    ///<author>
-    /// KW - onCloseManageCourse
-    ///</author>
-    ///<summary>
-    /// Close the ManageCourseComponent directive.
-    ///</summary>
-    onCloseManageCourse(): void {
-        this.golfCourseFormIsVisible = false;
-        this.isVisible = true;
-    }
-
     /**********************************************************************************************
     End Course Methods
-    **********************************************************************************************/
-
-
-
-    /**********************************************************************************************
-    Begin Tee Methods
-    **********************************************************************************************/
-
-    ///<author>
-    /// KW - Show the manage Tee form
-    ///</author>
-    ///<summary>
-    /// This shows the form to Add a new Tee to the selected golf course.
-    ///</summary>
-    showTeeForm(golfclub: GolfClub, index: number): void {
-        this.dialogTitle = "Add";
-
-        this.golfclub = golfclub;
-        this.golfcourse = golfclub.GolfCourses[index];
-        this.tee = <Tee>{ Gender: "Mens", Par: 72 }; // set some defaults for fields
-        // this.index = index; // the index of the selected golf course for use when saving
-
-        this.teeFormIsVisible = true;
-
-    }
-
-    ///<author>
-    /// KW - Edit the selected tee.
-    ///</author>
-    ///<summary>
-    /// This method shows the edit form for the selected tee, and populates
-    /// the fields with the Tee data.
-    ///</summary>
-    editTee(golfclub: GolfClub, golfcourse: GolfCourse, idx: number): void {
-        this.dialogTitle = "Edit";
-
-        this.tee = golfcourse.Tees[idx];
-        this.golfclub = golfclub;
-        this.golfcourse = golfcourse;
-        // this.index = idx; // the index of the selected tee for use when saving
-
-        this.teeFormIsVisible = true;
-    }
-
-    ///<author>
-    /// KW - Delete the selected tee.
-    ///</author>
-    ///<summary>
-    /// This method deletes the selected Tee from the golf course.
-    ///</summary>
-    deleteTee(golfClub: GolfClub, golfCourse: GolfCourse, idx: number): void {
-        if (confirm("Are you sure you want to delete this tee?")) {
-            golfCourse.Tees.splice(idx, 1);
-
-            this._golfClubService.updateGolfClub(golfClub)
-                .subscribe(gc => {
-                    this.teeFormIsVisible = false;
-                    // this.index = -1;
-                });
-        }
-    }
-
-    ///<author>
-    /// KW - onCloseTee
-    ///</author>
-    ///<summary>
-    /// Close the tee form.
-    ///</summary>
-    onCloseTee(): void {
-        this.teeFormIsVisible = false;
-    }
-
-
-    /**********************************************************************************************
-    End Tee Methods
     **********************************************************************************************/
 
 

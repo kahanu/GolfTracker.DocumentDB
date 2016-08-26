@@ -39,12 +39,14 @@ var ManageGolferComponent = (function () {
                 _this._pubsub.AddGolfer(golfer);
                 _this.golfer = {};
             });
-            return;
         }
-        this._golferService.updateGolfer(golfer)
-            .subscribe(function (res) {
-            _this.golfer = golfer;
-        });
+        else {
+            // Updating golfer
+            this._golferService.updateGolfer(golfer)
+                .subscribe(function (res) {
+                _this.golfer = golfer;
+            });
+        }
         this.isVisible = false;
         this.close.emit(false);
     };

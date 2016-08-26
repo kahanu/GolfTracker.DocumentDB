@@ -9,16 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var auth_service_1 = require('./services/auth.service');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(_auth, _router) {
+        this._auth = _auth;
+        this._router = _router;
         this.pageTitle = "Golf Tracker - Angular 2";
     }
+    AppComponent.prototype.logoff = function () {
+        this._auth.logout();
+        this._router.navigate(['/']);
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: "golf-app",
             templateUrl: "app/app.component.html"
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

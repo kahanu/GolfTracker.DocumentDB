@@ -5,7 +5,7 @@ export let CONFIG = {
         MongoDB: "http://localhost:15264/"
     },
     authUrl : {
-        Dev: "http://localhost:3000/",
+        Dev: "http://localhost/golftracker.webapi/",  // Change this to whatever auth service you want to use
         Prod: ""
     }
 }
@@ -13,5 +13,5 @@ export let CONFIG = {
 // Set the default endpoint used by your application.
 export let ENDPOINT = CONFIG.baseUrl.MongoDB;
 
-// Set the endpoint for authenticate service.
+// Set the endpoint for authentication service.
 export let AUTH_ENDPOINT = CONFIG.authUrl.Dev;

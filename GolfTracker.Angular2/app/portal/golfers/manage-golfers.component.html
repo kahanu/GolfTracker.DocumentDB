@@ -46,15 +46,15 @@
 
 
         <!-- View the rounds of golf for the selected golfer. -->
-        <!-- You can optionally pass in the event into the onClose() method.
+        <!-- You can optionally pass in the event into the onCloseViewRounds() method.
 
-        <view-rounds [golfer]="golfer" [isVisible]="viewRoundsIsVisible" (close)="onClose($event)"></view-rounds>
+        <view-rounds [golfer]="golfer" [isVisible]="viewRoundsIsVisible" (close)="onCloseViewRounds($event)"></view-rounds>
 
         The value of $event would be 'false', from the:
              this.close.emit(false);
         ... in the ViewRoundsComponent - closeRoundsPanel() method.
 
-        See the onClose method in this component for more info.
+        See the onCloseViewRounds method in this component for more info.
         -->
         <view-rounds [golfer]="golfer" [isVisible]="viewRoundsIsVisible" (close)="onCloseViewRounds()"></view-rounds>
 

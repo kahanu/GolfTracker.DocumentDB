@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
-import { GolfClub, GolfCourse, GolfClubService } from './golfclub.service';
+import { GolfClub, GolfCourse, GolfClubService } from '../../golfclubs/golfclub.service';
 
 @Component({
     selector: "manage-course",
-    templateUrl: "app/golfclubs/manage-course.component.html"
+    templateUrl: "app/portal/golfclubs/manage-course.component.html"
 })
 export class ManageCourseComponent {
     pageTitle: string = "Manage course";

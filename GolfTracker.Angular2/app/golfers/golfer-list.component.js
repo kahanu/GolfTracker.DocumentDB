@@ -13,14 +13,17 @@ var date_pipe_1 = require('../shared/date.pipe');
 var router_1 = require("@angular/router");
 var platform_browser_1 = require('@angular/platform-browser');
 var golfer_service_1 = require('./golfer.service');
+var auth_service_1 = require('../services/auth.service');
 var GolferListComponent = (function () {
-    function GolferListComponent(_golferService, _titleService) {
+    function GolferListComponent(_golferService, _titleService, _auth) {
         this._golferService = _golferService;
         this._titleService = _titleService;
+        this._auth = _auth;
         this.pageTitle = "Golfer List";
-        this.isAuthenticated = true;
+        this.isAuthenticated = false;
         this.showRounds = false;
         this._titleService.setTitle(this.pageTitle + " - Angular 2");
+        this.isAuthenticated = _auth.isLoggedIn();
     }
     ///<author>
     /// KW - GetGolfers
@@ -62,7 +65,7 @@ var GolferListComponent = (function () {
             pipes: [date_pipe_1.DatePipe],
             directives: [router_1.ROUTER_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [golfer_service_1.GolferService, platform_browser_1.Title])
+        __metadata('design:paramtypes', [golfer_service_1.GolferService, platform_browser_1.Title, auth_service_1.AuthService])
     ], GolferListComponent);
     return GolferListComponent;
 }());

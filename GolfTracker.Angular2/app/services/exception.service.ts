@@ -15,9 +15,9 @@ export class ExceptionService {
     let emsg = err ?
       (err.error ? err.error : JSON.stringify(err)) :
       (res.statusText || 'unknown error');
-      
+      console.log("err: " + err.error);
     //this._toastService.activate(`Error - Bad Response - ${emsg}`);
-    //return Observable.throw(emsg); // TODO: We should NOT swallow error here.
-    return Observable.of();
+    return Observable.throw(emsg); // TODO: We should NOT swallow error here.
+    // return Observable.of();
   }
 }

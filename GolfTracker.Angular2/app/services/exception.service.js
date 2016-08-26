@@ -20,9 +20,10 @@ var ExceptionService = (function () {
             var emsg = err ?
                 (err.error ? err.error : JSON.stringify(err)) :
                 (res.statusText || 'unknown error');
+            console.log("err: " + err.error);
             //this._toastService.activate(`Error - Bad Response - ${emsg}`);
-            //return Observable.throw(emsg); // TODO: We should NOT swallow error here.
-            return Rx_1.Observable.of();
+            return Rx_1.Observable.throw(emsg); // TODO: We should NOT swallow error here.
+            // return Observable.of();
         };
     }
     ExceptionService = __decorate([

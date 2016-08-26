@@ -4,24 +4,27 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 
 import { GolferService, IGolfer, ITee, IGolfCourse, IRound } from './golfer.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: "golfer-list",
     templateUrl: "app/golfers/golfer-list.component.html",
     pipes: [DatePipe],
     directives: [ROUTER_DIRECTIVES]
+
 })
 export class GolferListComponent implements OnInit {
     pageTitle: string = "Golfer List";
-    isAuthenticated: boolean = true;
+    isAuthenticated: boolean = false;
     
     golfers: IGolfer[];
     golfer: IGolfer;
     rounds: IRound[];
     showRounds: boolean = false;
 
-    constructor(private _golferService: GolferService, private _titleService: Title){
+    constructor(private _golferService: GolferService, private _titleService: Title, private _auth: AuthService){
         this._titleService.setTitle(this.pageTitle + " - Angular 2");
+        this.isAuthenticated = _auth.isLoggedIn();
     }
     
     ///<author>

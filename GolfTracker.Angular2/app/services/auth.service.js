@@ -10,10 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var config_1 = require('../config');
+require('rxjs/add/observable/of');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/delay');
+var exception_service_1 = require('../services/exception.service');
+var url = config_1.AUTH_ENDPOINT;
 var AuthService = (function () {
-    function AuthService(_http) {
+    function AuthService(_http, _exceptionService) {
         this._http = _http;
+        this._exceptionService = _exceptionService;
         this.loggedIn = false;
+        this.authentication = new AuthencationData();
         this.loggedIn = !!localStorage.getItem('authorizationData');
     }
     AuthService.prototype.login = function (loginData) {
@@ -23,16 +31,20 @@ var AuthService = (function () {
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         var authData = { token: "", userName: loginData.userName, refreshToken: "", useRefreshTokens: false };
         return this._http
-            .post('/token', data, { headers: headers })
+            .post(url + 'token', data, { headers: headers })
             .map(function (res) { return res.json(); })
             .map(function (res) {
-            if (res.success) {
+            // console.log("auth response: " + JSON.stringify(res));
+            if (res.access_token) {
                 authData.token = res.access_token;
                 localStorage.setItem('authorizationData', JSON.stringify(authData));
                 _this.loggedIn = true;
+                _this.authentication.IsAuth = true;
+                _this.authentication.UserName = res.userName;
             }
-            return res.success;
-        });
+            return true;
+        })
+            .catch(this._exceptionService.catchBadResponse);
     };
     AuthService.prototype.logout = function () {
         localStorage.removeItem('authorizationData');
@@ -43,17 +55,29 @@ var AuthService = (function () {
     };
     AuthService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, exception_service_1.ExceptionService])
     ], AuthService);
     return AuthService;
 }());
 exports.AuthService = AuthService;
 var Login = (function () {
     function Login(userName, password) {
+        if (userName === void 0) { userName = ""; }
+        if (password === void 0) { password = ""; }
         this.userName = userName;
         this.password = password;
     }
     return Login;
 }());
 exports.Login = Login;
+var AuthencationData = (function () {
+    function AuthencationData(IsAuth, UserName) {
+        if (IsAuth === void 0) { IsAuth = false; }
+        if (UserName === void 0) { UserName = ""; }
+        this.IsAuth = IsAuth;
+        this.UserName = UserName;
+    }
+    return AuthencationData;
+}());
+exports.AuthencationData = AuthencationData;
 //# sourceMappingURL=auth.service.js.map

@@ -21,13 +21,20 @@ var golfclub_service_1 = require('./golfclubs/golfclub.service');
 var golfclubs_component_1 = require('./golfclubs/golfclubs.component');
 var golfers_component_1 = require('./golfers/golfers.component');
 var golfer_service_1 = require('./golfers/golfer.service');
-var manage_golfers_component_1 = require('./golfers/manage-golfers.component');
 var golfer_list_component_1 = require('./golfers/golfer-list.component');
+var manage_golfers_component_1 = require('./portal/golfers/manage-golfers.component');
+var portal_component_1 = require('./portal/portal.component');
+var golfclub_list_component_2 = require('./portal/golfclubs/golfclub-list.component');
+var golfcourses_for_golfclub_component_1 = require('./portal/golfclubs/golfcourses-for-golfclub.component');
 var exception_service_1 = require('./services/exception.service');
 var toasts_1 = require('./toast/toasts');
 var pubsub_service_1 = require('./pubsub/pubsub.service');
 var page_not_found_component_1 = require('./page-not-found.component');
+var index_component_1 = require('./portal/index.component');
+var login_component_1 = require('./login.component');
 var app_routes_1 = require('./app.routes');
+var auth_service_1 = require('./services/auth.service');
+var logged_in_guard_1 = require('./guards/logged-in.guard');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -46,7 +53,12 @@ var AppModule = (function () {
                 golfers_component_1.GolfersComponent,
                 golfer_list_component_1.GolferListComponent,
                 page_not_found_component_1.PageNotFoundComponent,
-                manage_golfers_component_1.ManageGolfersComponent
+                manage_golfers_component_1.PortalManageGolfersComponent,
+                index_component_1.IndexComponent,
+                login_component_1.LoginComponent,
+                golfclub_list_component_2.PortalGolfClubListComponent,
+                portal_component_1.PortalComponent,
+                golfcourses_for_golfclub_component_1.PortalGolfCoursesForGolfClubComponent
             ],
             providers: [
                 golfclub_service_1.GolfClubService,
@@ -54,7 +66,9 @@ var AppModule = (function () {
                 exception_service_1.ExceptionService,
                 toasts_1.ToastService,
                 pubsub_service_1.PubSubService,
-                platform_browser_2.Title
+                platform_browser_2.Title,
+                auth_service_1.AuthService,
+                logged_in_guard_1.LoggedInGuard
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

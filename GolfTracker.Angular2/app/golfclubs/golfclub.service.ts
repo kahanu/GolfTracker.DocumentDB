@@ -49,7 +49,7 @@ export class GolfClubService {
                 let golfclub = <GolfClub>res.json();
                 if (usingDocDb) {
                     // DocumentDB returns an async Task result, 
-                    // so we need to get our data from the Result object.
+                    // so we need to get our data from the Result property.
                     golfclub = <GolfClub>res.json().Result;
                 }
                 return golfclub;
@@ -73,9 +73,5 @@ export class GolfClubService {
             .catch(this._exceptionService.catchBadResponse);
     }
     
-    
-    private handleError(error: Response){
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
+  
 }

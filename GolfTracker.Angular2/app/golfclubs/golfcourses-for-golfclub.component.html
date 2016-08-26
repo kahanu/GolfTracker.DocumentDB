@@ -7,8 +7,7 @@
         <div *ngFor="let gc of golfclub.GolfCourses; let idx = index">
             <div class="row tee-row">
                 <div class="col-md-9">
-                    <h3>{{ gc.Name }} <span class="glyphicon glyphicon-pencil small" title="Edit Course" (click)="editCourse(golfclub, gc, idx)"></span>
-                        <span class="glyphicon glyphicon-remove small" title="Delete Course" (click)="deleteCourse(golfclub, gc, idx)"></span></h3>
+                    <h3>{{ gc.Name }}</h3>
                 </div>
                 <div class="col-md-3 text-right">
 
@@ -25,8 +24,6 @@
                                 <th>Length</th>
                                 <th>Slope</th>
                                 <th>Rating</th>
-                                <th></th>
-                                <th><span class="glyphicon glyphicon-plus text-success" title="Add a new tee" (click)="showTeeForm(golfclub, idx)"></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,12 +34,6 @@
                                 <td>{{ tee.Length }}</td>
                                 <td>{{ tee.Slope }}</td>
                                 <td>{{ tee.Rating }}</td>
-                                <td>
-                                    <span class="glyphicon glyphicon-edit" title="Edit Tee" (click)="editTee(golfclub, gc, i)"></span>
-                                </td>
-                                <td>
-                                    <span class="glyphicon glyphicon-trash" title="Delete Tee" (click)="deleteTee(golfclub, gc, i)"></span>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,11 +42,3 @@
         </div>
     </div>
 </div>
-
-<!-- The form for managing the golf courses. -->
-<manage-course [golfclub]="golfclub" [golfcourse]="golfcourse" [isVisible]="golfCourseFormIsVisible" [dialogTitle]="dialogTitle"
-    (close)="onCloseManageCourse()"></manage-course>
-
-<!-- The form for managing Tee for the selected golf course. -->
-<manage-tee [golfclub]="golfclub" [golfcourse]="golfcourse" [tee]="tee" [isVisible]="teeFormIsVisible" [dialogTitle]="dialogTitle"
-    (close)="onCloseTee()"></manage-tee>

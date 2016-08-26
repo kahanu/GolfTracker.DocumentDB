@@ -1,0 +1,61 @@
+<div class="panel panel-primary" *ngIf="isVisible">
+    <div class="panel-heading">
+        <h3 class="panel-title">Golf Courses for {{ golfclub.Name }}</h3>
+        <span class="glyphicon glyphicon-remove-sign panel-close-button" (click)="closeCoursesPanel()"></span>
+    </div>
+    <div class="panel-body">
+        <div *ngFor="let gc of golfclub.GolfCourses; let idx = index">
+            <div class="row tee-row">
+                <div class="col-md-9">
+                    <h3>{{ gc.Name }} <span class="glyphicon glyphicon-pencil small" title="Edit Course" (click)="editCourse(golfclub, gc, idx)"></span>
+                        <span class="glyphicon glyphicon-remove small" title="Delete Course" (click)="deleteCourse(golfclub, gc, idx)"></span></h3>
+                </div>
+                <div class="col-md-3 text-right">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Par</th>
+                                <th>Length</th>
+                                <th>Slope</th>
+                                <th>Rating</th>
+                                <th></th>
+                                <th><span class="glyphicon glyphicon-plus text-success" title="Add a new tee" (click)="showTeeForm(golfclub, idx)"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tee of gc.Tees; let i = index">
+                                <td>{{ tee.TeeName }}</td>
+                                <td>{{ tee.Gender }}</td>
+                                <td>{{ tee.Par }}</td>
+                                <td>{{ tee.Length }}</td>
+                                <td>{{ tee.Slope }}</td>
+                                <td>{{ tee.Rating }}</td>
+                                <td>
+                                    <span class="glyphicon glyphicon-edit" title="Edit Tee" (click)="editTee(golfclub, gc, i)"></span>
+                                </td>
+                                <td>
+                                    <span class="glyphicon glyphicon-trash" title="Delete Tee" (click)="deleteTee(golfclub, gc, i)"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The form for managing the golf courses. -->
+<manage-course [golfclub]="golfclub" [golfcourse]="golfcourse" [isVisible]="golfCourseFormIsVisible" [dialogTitle]="dialogTitle"
+    (close)="onCloseManageCourse()"></manage-course>
+
+<!-- The form for managing Tee for the selected golf course. -->
+<manage-tee [golfclub]="golfclub" [golfcourse]="golfcourse" [tee]="tee" [isVisible]="teeFormIsVisible" [dialogTitle]="dialogTitle"
+    (close)="onCloseTee()"></manage-tee>
