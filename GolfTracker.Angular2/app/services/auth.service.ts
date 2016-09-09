@@ -44,7 +44,7 @@ export class AuthService {
 
                     localStorage.setItem('authorizationData', JSON.stringify(authData));
                     this.loggedIn = true;
-                    
+
                     this.authentication.IsAuth = true;
                     this.authentication.UserName = res.userName;
                 }
@@ -53,6 +53,15 @@ export class AuthService {
             })
             // .do(data => console.log("do: " + data))
             .catch(this._exceptionService.catchBadResponse);
+    }
+
+    register(registration: Registration) {
+        this.logout();
+
+        return this._http.post(url + 'api/account/register', registration)
+            .map((res) => {
+                return res;
+            });
     }
 
     logout() {
@@ -69,6 +78,10 @@ export class Login {
     constructor(public userName: string = "", public password: string = "") { }
 }
 
+export class Registration {
+    constructor(public email: string = "", public password: string = "", public confirmpassword: string = "") { }
+}
+
 export class AuthencationData {
-    constructor(public IsAuth: boolean = false, public UserName: string = ""){}
+    constructor(public IsAuth: boolean = false, public UserName: string = "") { }
 }

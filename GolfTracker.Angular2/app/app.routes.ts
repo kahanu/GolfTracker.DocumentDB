@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { IndexComponent } from './portal/index.component';
 import { LoginComponent } from './login.component';
+import { RegisterComponent } from './register.component';
 
 import { golfersRoutes } from './golfers/golfers.routes';
 import { golfclubsRoutes } from './golfclubs/golfclubs.routes';
@@ -16,6 +17,7 @@ const routes: Routes = [
     ...golfersRoutes,
     ...portalRoutes,
     { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: '**', component: PageNotFoundComponent }
 
 ];

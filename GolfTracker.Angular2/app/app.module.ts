@@ -26,9 +26,11 @@ import { PortalGolfCoursesForGolfClubComponent } from './portal/golfclubs/golfco
 import { ExceptionService } from './services/exception.service';
 import { ToastComponent, ToastService } from './toast/toasts';
 import { PubSubService } from './pubsub/pubsub.service';
+import { ConfirmPasswordService } from './services/confirm-password.service';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { IndexComponent } from './portal/index.component';
 import { LoginComponent } from './login.component';
+import { RegisterComponent } from './register.component';
 
 import { appRouterProviders } from './app.routes';
 import { AuthService } from './services/auth.service';
@@ -53,7 +55,8 @@ import { LoggedInGuard } from './guards/logged-in.guard';
         LoginComponent,
         PortalGolfClubListComponent,
         PortalComponent,
-        PortalGolfCoursesForGolfClubComponent
+        PortalGolfCoursesForGolfClubComponent,
+        RegisterComponent
     ],
     providers: [
         GolfClubService,
@@ -63,7 +66,8 @@ import { LoggedInGuard } from './guards/logged-in.guard';
         PubSubService,
         Title,
         AuthService,
-        LoggedInGuard
+        LoggedInGuard,
+        ConfirmPasswordService
     ],
     bootstrap: [AppComponent]
 })

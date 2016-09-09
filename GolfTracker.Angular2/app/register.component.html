@@ -1,0 +1,23 @@
+<h1>Sign up</h1>
+<div class="row">
+    <div class="col-xs-4">
+        <form #signupForm="ngForm" novalidate (ngSubmit)="submitSignupForm(signupForm.valid)">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" required name="email" [(ngModel)]="registration.email" autofocus />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" required name="password" [(ngModel)]="registration.password" />
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" required name="confirmpassword" [(ngModel)]="registration.confirmpassword" (blur)="validatePasswords()" />
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Sign Up</button>
+            <div *ngIf="message !== ''" [ngClass]="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                {{message}}
+            </div>
+        </form>
+    </div>
+</div>

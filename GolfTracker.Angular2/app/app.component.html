@@ -17,6 +17,9 @@
                 <li><a href="#">Welcome {{ _auth.authentication.UserName }}</a></li>
                 <li><a href="#" (click)="logoff()">Log Off</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" *ngIf="!_auth.isLoggedIn()">
+                <li><a routerLink="/register">Sign Up</a></li>
+            </ul>
         </div>
     </nav>
     <div class='container'>

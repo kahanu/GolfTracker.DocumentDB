@@ -46,6 +46,13 @@ var AuthService = (function () {
         })
             .catch(this._exceptionService.catchBadResponse);
     };
+    AuthService.prototype.register = function (registration) {
+        this.logout();
+        return this._http.post(url + 'api/account/register', registration)
+            .map(function (res) {
+            return res;
+        });
+    };
     AuthService.prototype.logout = function () {
         localStorage.removeItem('authorizationData');
         this.loggedIn = false;
@@ -70,6 +77,18 @@ var Login = (function () {
     return Login;
 }());
 exports.Login = Login;
+var Registration = (function () {
+    function Registration(email, password, confirmpassword) {
+        if (email === void 0) { email = ""; }
+        if (password === void 0) { password = ""; }
+        if (confirmpassword === void 0) { confirmpassword = ""; }
+        this.email = email;
+        this.password = password;
+        this.confirmpassword = confirmpassword;
+    }
+    return Registration;
+}());
+exports.Registration = Registration;
 var AuthencationData = (function () {
     function AuthencationData(IsAuth, UserName) {
         if (IsAuth === void 0) { IsAuth = false; }

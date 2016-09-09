@@ -29,9 +29,11 @@ var golfcourses_for_golfclub_component_1 = require('./portal/golfclubs/golfcours
 var exception_service_1 = require('./services/exception.service');
 var toasts_1 = require('./toast/toasts');
 var pubsub_service_1 = require('./pubsub/pubsub.service');
+var confirm_password_service_1 = require('./services/confirm-password.service');
 var page_not_found_component_1 = require('./page-not-found.component');
 var index_component_1 = require('./portal/index.component');
 var login_component_1 = require('./login.component');
+var register_component_1 = require('./register.component');
 var app_routes_1 = require('./app.routes');
 var auth_service_1 = require('./services/auth.service');
 var logged_in_guard_1 = require('./guards/logged-in.guard');
@@ -58,7 +60,8 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 golfclub_list_component_2.PortalGolfClubListComponent,
                 portal_component_1.PortalComponent,
-                golfcourses_for_golfclub_component_1.PortalGolfCoursesForGolfClubComponent
+                golfcourses_for_golfclub_component_1.PortalGolfCoursesForGolfClubComponent,
+                register_component_1.RegisterComponent
             ],
             providers: [
                 golfclub_service_1.GolfClubService,
@@ -68,7 +71,8 @@ var AppModule = (function () {
                 pubsub_service_1.PubSubService,
                 platform_browser_2.Title,
                 auth_service_1.AuthService,
-                logged_in_guard_1.LoggedInGuard
+                logged_in_guard_1.LoggedInGuard,
+                confirm_password_service_1.ConfirmPasswordService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
