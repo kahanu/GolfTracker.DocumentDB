@@ -1,6 +1,8 @@
 # GolfTracker.Angular2
 This is the port from the Angular 1 project currently written in Angular 2 (~~2.0.0-rc.1~~ ~~2.0.0-rc.4~~ 2.0.0-rc.5).  This is to be used as a reference application on how to get started using Angular 2 in your projects.  I don't think much will change before the full version, but when it happens I'll update the code.
 
+**Note:** I hope to be updating this project to the Angular 2 version 2.0.x soon, but unfortunately I have paying jobs which take priority.
+
 ## Updates
 
 1.  **Aug. 8, 2016** - updated all the routing to replace the deprecated routing with the rc.4 routing.
