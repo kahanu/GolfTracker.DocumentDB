@@ -20,6 +20,7 @@ namespace GolfTracker.WebApi.Repositories
         #region ctors
 
         private Expression<Func<T, bool>> _typePredicate = null;
+        private string _type = "";
 
         /// <summary>
         /// All Repository classes must inherit this base class.
@@ -27,10 +28,13 @@ namespace GolfTracker.WebApi.Repositories
         /// <param name="type">The name of the entity (T), which is the same as the name passed into the model (lowercase).</param>
         /// <param name="dbName">The name of the database.</param>
         /// <param name="collectionName">The name of the collection.</param>
-        public RepositoryBase(string type, string dbName, string collectionName)
+        /// <param name="endpoint">The URI of the DocumentDB server used for this repository (https://{DATABASENAME}.documents.azure.com:443).</param>
+        /// <param name="authkey">The Auth Key for the DocumentDB server (Primary or Secondary Admin).</param>
+        public RepositoryBase(string type, string dbName, string collectionName, string endpoint = null, string authkey = null)
             : base(dbName, collectionName)
         {
             _typePredicate = v => v.docType == type;
+            _type = type;
         }
 
         #endregion
@@ -44,7 +48,7 @@ namespace GolfTracker.WebApi.Repositories
         /// <returns>An IEnumerable of T.</returns>
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate = null)
         {
-            var query = Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
+            var query = Client.CreateDocumentQuery<T>(Collection.DocumentsLink, new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(_typePredicate)
                 .AsQueryable();
             
@@ -54,17 +58,46 @@ namespace GolfTracker.WebApi.Repositories
             }
 
             return query;
-            //return await Task<IEnumerable<T>>.Run(() => query.AsEnumerable().ToList());
         }
 
         public Task<T> GetById(string id)
         {
             return Task<T>.Run(() =>
-                Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
+                Client.CreateDocumentQuery<T>(Collection.DocumentsLink, new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(_typePredicate)
                 .Where(p => p.Id == id)
                 .AsEnumerable()
                 .FirstOrDefault());
+        }
+        
+        public async Task<IEnumerable<T>> GetAsync(Expression<Func<T, bool>> predicate = null)
+        {
+
+            var query = Client.CreateDocumentQuery<T>(Collection.DocumentsLink, new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                        .Where(_typePredicate);
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            } 
+
+            try
+            {
+                var result = await QueryAsync(query.AsQueryable());
+
+                if (result == null)
+                {
+                    throw new Exception("GetAsync result was null");
+                }
+
+                return result;
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public async Task<ResourceResponse<Document>> CreateDocumentAsync(T entity)
@@ -83,17 +116,35 @@ namespace GolfTracker.WebApi.Repositories
         {
             var doc = GetDocument(id);
 
-            return await Client.DeleteDocumentAsync(doc.SelfLink);
+            return await Client.DeleteDocumentAsync(doc.SelfLink, new RequestOptions { PartitionKey = new PartitionKey(_type) });
         }
 
 
         #endregion
 
         #region Private Methods
+        public async Task<IEnumerable<T>> QueryAsync(IQueryable<T> query)
+        {
+            var documentQuery = query.AsDocumentQuery();
+            var results = new List<IEnumerable<T>>();
 
+            do
+            {
+                var result = await documentQuery.ExecuteNextAsync<T>();
+
+                results.Add(result);
+            }
+
+            while (documentQuery.HasMoreResults);
+
+            var documents = results.SelectMany(b => b);
+
+            return documents;
+        }
+        
         private Document GetDocument(string id)
         {
-            var doc = Client.CreateDocumentQuery<Document>(Collection.DocumentsLink)
+            var doc = Client.CreateDocumentQuery<Document>(Collection.DocumentsLink, new FeedOptions { EnableCrossPartitionQuery = true })
                             .Where(d => d.Id == id)
                             .AsEnumerable()
                             .FirstOrDefault();
