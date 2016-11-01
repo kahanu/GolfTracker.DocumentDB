@@ -20,12 +20,18 @@ namespace GolfTracker.WebApi.Repositories
 
         private Database _database;
 
+        private readonly string _endpoint;
+
+        private readonly string _authkey;
+
         private readonly string _dbName;
 
         private readonly string _collectionName;
 
-        public DocumentDbClient(string dbName, string collectionName)
+        public DocumentDbClient(string dbName, string collectionName, string endpoint = null, string authkey = null)
         {
+            this._endpoint = endpoint ?? AppSettingsConfig.EndPoint;
+            this._authkey = authkey ?? AppSettingsConfig.AuthKey;
             this._dbName = dbName;
             this._collectionName = collectionName;
         }
@@ -41,12 +47,16 @@ namespace GolfTracker.WebApi.Repositories
             {
                 if (_client == null)
                 {
-                    // This could be handled differently.
-                    string endpoint = AppSettingsConfig.EndPoint;
-                    string authkey = AppSettingsConfig.AuthKey;
+                    //// This could be handled differently.
+                    //string endpoint = AppSettingsConfig.EndPoint;
+                    //string authkey = AppSettingsConfig.AuthKey;
 
-                    Uri endpointUri = new Uri(endpoint);
-                    _client = new DocumentClient(endpointUri, authkey);
+                    Uri endpointUri = new Uri(_endpoint);
+                    _client = new DocumentClient(endpointUri, _authkey, new ConnectionPolicy
+                    {
+                        ConnectionMode = ConnectionMode.Direct,
+                        ConnectionProtocol = Protocol.Tcp
+                    });
                 }
                 return _client;
             }
